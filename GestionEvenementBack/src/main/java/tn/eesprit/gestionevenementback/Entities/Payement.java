@@ -18,7 +18,7 @@ public class Payement implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer PayementId;
 
-    @OneToOne(mappedBy = "payement",cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "payement")
     Facture facture;
     @OneToOne
     Logistique logistique;

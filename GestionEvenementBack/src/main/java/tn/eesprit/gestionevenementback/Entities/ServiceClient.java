@@ -22,7 +22,7 @@ public class ServiceClient implements Serializable {
 
 
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     Logistique logistique;
     @JsonIgnore
     @OneToMany(mappedBy = "serviceClient")

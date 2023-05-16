@@ -24,8 +24,8 @@ public class Reservation implements Serializable {
     Payement payement;
     @ManyToOne
     ServiceClient serviceClient;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     Event event;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     User user;
 }

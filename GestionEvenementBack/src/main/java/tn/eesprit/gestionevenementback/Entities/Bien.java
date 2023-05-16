@@ -22,7 +22,7 @@ public class Bien implements Serializable {
 
 
     @JsonIgnore
-    @ManyToMany(cascade=CascadeType.PERSIST)
+    @ManyToMany
     Set<ResourceMateriel> resources;
 
 }

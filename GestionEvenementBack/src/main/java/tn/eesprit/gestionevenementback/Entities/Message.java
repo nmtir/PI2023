@@ -19,6 +19,6 @@ public class Message implements Serializable {
     Integer MessageId;
 
 
-    @ManyToOne (cascade = CascadeType.PERSIST)
+    @ManyToOne
     Post post;
 }

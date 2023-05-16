@@ -22,11 +22,11 @@ public class Post implements Serializable {
 
 
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     Forum forum;
     @JsonIgnore
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     Set<Message> messages;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     User user;
 }

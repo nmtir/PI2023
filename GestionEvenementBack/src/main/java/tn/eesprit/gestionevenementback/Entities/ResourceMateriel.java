@@ -22,7 +22,7 @@ public class ResourceMateriel implements Serializable {
 
 
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     Logistique logistique;
     @ManyToMany(mappedBy = "resources")
     Set<Bien> biens;

@@ -18,7 +18,7 @@ public class Facture implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer FactureId;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     Payement payement;
 
 }

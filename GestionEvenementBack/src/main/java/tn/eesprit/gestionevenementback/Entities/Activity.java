@@ -18,7 +18,7 @@ public class Activity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer ActivityId;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     Event event;
 
 

@@ -19,6 +19,6 @@ public class Feedback  implements Serializable {
     Integer FeedbackId;
 
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     Event event;
 }
