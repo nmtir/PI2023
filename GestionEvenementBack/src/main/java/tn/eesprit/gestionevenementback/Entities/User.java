@@ -15,16 +15,17 @@ import java.util.Set;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Forum implements Serializable {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer ForumId;
+    Integer UserId;
+    @Enumerated(EnumType.STRING)
+    Role role;
 
-
-
-    @OneToOne (cascade = CascadeType.PERSIST)
-    Event event;
     @JsonIgnore
-    @OneToMany(mappedBy = "forum",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     Set<Post> posts;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    Set<Reservation> reservations;
 }

@@ -1,10 +1,12 @@
 package tn.eesprit.gestionevenementback.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -13,12 +15,18 @@ import java.io.Serializable;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Message implements Serializable {
+public class ServiceClient implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer MessageId;
+    Integer TransportId;
 
 
-    @ManyToOne (cascade = CascadeType.PERSIST)
-    Post post;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    Logistique logistique;
+    @JsonIgnore
+    @OneToMany(mappedBy = "serviceClient")
+    Set<Reservation> reservations;
+
+
 }
