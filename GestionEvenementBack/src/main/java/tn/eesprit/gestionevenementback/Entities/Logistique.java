@@ -1,6 +1,6 @@
 package tn.eesprit.gestionevenementback.Entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
