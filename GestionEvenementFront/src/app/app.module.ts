@@ -8,7 +8,12 @@ import { HomeComponent } from './home/home.component';
 import {NgOptimizedImage} from "@angular/common";
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AboutComponent } from './about/about.component';
+import { BlogComponent } from './blog/blog.component';
+import { BlogSingleComponent } from './blog-single/blog-single.component';
+import { ContactComponent } from './contact/contact.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { SpeakersComponent } from './speakers/speakers.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +21,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdminComponent,
     HomeComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    AboutComponent,
+    BlogComponent,
+    BlogSingleComponent,
+    ContactComponent,
+    ScheduleComponent,
+    SpeakersComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    NgOptimizedImage,
-    NgbModule
+    NgOptimizedImage
   ],
   providers: [],
   bootstrap: [AppComponent]
