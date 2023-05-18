@@ -1,21 +1,79 @@
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="#">Even<span>talk.</span></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="oi oi-menu"></span> Menu
-    </button>
-
-    <div class="collapse navbar-collapse" id="ftco-nav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item" routerLinkActive="active"><a routerLink="/home" class="nav-link">Home</a></li>
-        <li class="nav-item" routerLinkActive="active"><a routerLink="/about" class="nav-link">About</a></li>
-        <li class="nav-item" routerLinkActive="active"><a routerLink="/speakers" class="nav-link">Speakers</a></li>
-        <li class="nav-item" routerLinkActive="active"><a routerLink="/schedule" class="nav-link">Schedule</a></li>
-        <li class="nav-item" routerLinkActive="active"><a routerLink="/blog" class="nav-link">Blog</a></li>
-        <li class="nav-item" routerLinkActive="active"><a routerLink="/contact" class="nav-link">Contact</a></li>
-        <li class="nav-item cta mr-md-2"><a routerLink="/" class="nav-link">Buy ticket</a></li>
-
-      </ul>
+<div id="header1" class="container position-sticky z-index-sticky top-0">
+  <div class="row">
+    <div class="col-12">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
+        <div class="container-fluid">
+          <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " routerLink="/home">
+            EvenTalk
+          </a>
+          <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon mt-2">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </span>
+          </button>
+          <div class="collapse navbar-collapse" id="navigation">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" routerLink="/home" routerLinkActive="active">
+                  <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                  Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" routerLink="/blog" routerLinkActive="active">
+                  <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                  Blogs
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" routerLink="/speakers"routerLinkActive="active">
+                  <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                  Speakers
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" routerLink="/contact"routerLinkActive="active">
+                  <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                  Contact
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" routerLink="/about"routerLinkActive="active">
+                  <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                  About
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" routerLink="/schedule"routerLinkActive="active">
+                  <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                  Schedule
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" routerLink="/dashboard"routerLinkActive="active">
+                  <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                  Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" routerLink="/tables"routerLinkActive="active">
+                  <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                  DashboardTables
+                </a>
+              </li>
+            </ul>
+            <ul class="navbar-nav d-lg-block d-none">
+              <li class="nav-item">
+                <a routerLink="/signin" class="btn btn-sm mb-0 me-1 btn-primary">Sign In</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
     </div>
   </div>
-</nav>
+</div>

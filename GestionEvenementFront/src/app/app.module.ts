@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import {NgOptimizedImage} from "@angular/common";
 import { FooterComponent } from './footer/footer.component';
@@ -14,11 +13,15 @@ import { BlogSingleComponent } from './blog-single/blog-single.component';
 import { ContactComponent } from './contact/contact.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { SpeakersComponent } from './speakers/speakers.component';
+import { SignIn1Component } from './sign-in1/sign-in1.component';
+import { SignUp1Component } from './sign-up1/sign-up1.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminTablesComponent } from './admin-tables/admin-tables.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent,
     HomeComponent,
     FooterComponent,
     HeaderComponent,
@@ -27,7 +30,12 @@ import { SpeakersComponent } from './speakers/speakers.component';
     BlogSingleComponent,
     ContactComponent,
     ScheduleComponent,
-    SpeakersComponent
+    SpeakersComponent,
+    SignIn1Component,
+    SignUp1Component,
+    ProfileComponent,
+    AdminDashboardComponent,
+    AdminTablesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { get } from 'scriptjs';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError} from '@angular/router';
+import {timer} from "rxjs";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,7 +15,9 @@ export class AppComponent{
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         this.getJavascript();
-      }})}
+        window.scrollTo(0,0);
+      }})
+  }
 
 
   getJavascript() {
@@ -32,12 +35,11 @@ export class AppComponent{
                           get("assets/js/jquery-migrate-3.0.1.min.js", () => {
                             get("assets/js/scrollax.min.js", () => {
                               get("assets/js/main.js", () => {
-                                get("assets/js/plugins/perfect-scrollbar.min.js", () => {
-                                  get("assets/js/plugins/smooth-scrollbar.min.js", () => {
-                                    get("assets/js/plugins/chartjs.min.js", () => {
-                                      get("assets/js/github-buttons.js", () => {
+                                get("assets/js/plugins/chartjs.min.js", () => {
+                                  get("assets/js/github-buttons.js", () => {
+                                    get("assets/js/dashboard-chart.js", () => {
                                       get("assets/js/argon-dashboard.min.js", () => {
-                                        });
+
                                       });
                                     });
                                   });
