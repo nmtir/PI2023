@@ -18,6 +18,8 @@ public class ForumServiceImpl implements IForumService{
     @Override
     public Forum retrieveForum(Integer id){return ForumRepo.findById(id).orElse(null);}
     @Override
+    public Forum retrieveForumByEventId(Integer id){return ForumRepo.findByEvent_EventId(id);}
+    @Override
     public void removeForum(Integer id){ForumRepo.deleteById(id);}
 
 }

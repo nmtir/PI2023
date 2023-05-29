@@ -9,4 +9,5 @@ public interface IPostService {
     Post addOrUpdatePost(Post Post);
     Post retrievePost(Integer id);
     void removePost(Integer id);
+    public Post addAndAssignPostToForum(Post post,Integer id);
 }

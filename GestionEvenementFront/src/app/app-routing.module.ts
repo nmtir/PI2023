@@ -15,6 +15,8 @@ import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.compone
 import {AdminTablesComponent} from "./admin-tables/admin-tables.component";
 import {LogistiqueDetailsComponent} from "./logistique/logistique-details/logistique-details.component";
 import { ResourceListComponent } from './logistique/Resource-list/resource-list.component';
+import { ForumDetailsComponent } from './forum-details/forum-details.component';
+import { PostAddComponent } from './post-add/post-add.component';
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -32,6 +34,8 @@ const routes: Routes = [
   {path: "tables", component: AdminTablesComponent},
   {path: "logistique", component: LogistiqueDetailsComponent},
   {path: "resource", component: ResourceListComponent},
+  {path: "forum", component: ForumDetailsComponent},
+  {path: "addpost/:id", component: PostAddComponent},
 
 
 

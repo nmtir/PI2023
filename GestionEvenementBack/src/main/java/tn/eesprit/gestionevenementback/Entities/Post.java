@@ -17,15 +17,18 @@ import java.util.Set;
 public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer PostId;
+    Integer postId;
+    String content;
+    String Title;
 
 
-
+    @JsonIgnore
     @ManyToOne
     Forum forum;
     @JsonIgnore
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     Set<Message> messages;
+
     @ManyToOne
     User user;
 }

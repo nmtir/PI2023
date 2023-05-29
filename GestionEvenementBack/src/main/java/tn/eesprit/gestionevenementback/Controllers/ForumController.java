@@ -3,6 +3,7 @@ package tn.eesprit.gestionevenementback.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.eesprit.gestionevenementback.Entities.Forum;
+import tn.eesprit.gestionevenementback.Entities.Logistique;
 import tn.eesprit.gestionevenementback.Services.IForumService;
 
 import java.util.List;
@@ -27,6 +28,10 @@ public class ForumController {
     }
     @GetMapping("/all")
     List<Forum> getAllForums(){return forumService.retrieveAllForums();}
+    @GetMapping("/get/event/{id}")
+    Forum getForumByEventId(@PathVariable("id") Integer id){
+        return forumService.retrieveForumByEventId(id);
+    }
     @DeleteMapping("/delete/{id}")
     void deleteForum(@PathVariable("id") Integer id){
         forumService.removeForum(id);

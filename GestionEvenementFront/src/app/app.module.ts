@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -22,6 +22,11 @@ import { ResourceListComponent } from './logistique/Resource-list/resource-list.
 import { LogistiqueAddComponent } from './logistique/logistique-add/logistique-add.component';
 import { LogistiqueDetailsComponent } from './logistique/logistique-details/logistique-details.component';
 import {HttpClientModule} from "@angular/common/http";
+import { ForumDetailsComponent } from './forum-details/forum-details.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { MessageListComponent } from './message-list/message-list.component';
+import { PostAddComponent } from './post-add/post-add.component';
+import { MessageAddComponent } from './message-add/message-add.component';
 
 @NgModule({
   declarations: [
@@ -42,14 +47,21 @@ import {HttpClientModule} from "@angular/common/http";
     AdminTablesComponent,
     ResourceListComponent,
     LogistiqueAddComponent,
-    LogistiqueDetailsComponent
+    LogistiqueDetailsComponent,
+    ForumDetailsComponent,
+    PostListComponent,
+    MessageListComponent,
+    PostAddComponent,
+    MessageAddComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    NgOptimizedImage
+    NgOptimizedImage,
   ],
   providers: [],
   bootstrap: [AppComponent]
