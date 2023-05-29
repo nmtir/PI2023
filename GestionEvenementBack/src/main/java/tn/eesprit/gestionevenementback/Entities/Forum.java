@@ -20,7 +20,7 @@ public class Forum implements Serializable {
     Integer ForumId;
 
 
-
+    @JsonIgnore
     @OneToOne (cascade = CascadeType.PERSIST)
     Event event;
     @JsonIgnore

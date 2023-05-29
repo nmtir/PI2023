@@ -1,6 +1,8 @@
 package tn.eesprit.gestionevenementback.Entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,8 +21,10 @@ public class Payement implements Serializable {
 
     @OneToOne(mappedBy = "payement")
     Facture facture;
+    @JsonIgnore
     @OneToOne
     Logistique logistique;
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.PERSIST)
     Reservation reservation;
 

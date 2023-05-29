@@ -17,7 +17,7 @@ import java.util.Set;
 public class Event implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer EventId;
+    Integer eventId;
     @Enumerated(EnumType.STRING)
     EventType eventType;
 
@@ -29,7 +29,7 @@ public class Event implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "event",cascade = CascadeType.REMOVE)
     Set<Feedback> feedbacks;
-
+    @JsonIgnore
     @OneToOne (mappedBy = "event",cascade = CascadeType.REMOVE)
     Logistique logistique;
     @OneToOne (mappedBy = "event",cascade = CascadeType.REMOVE)

@@ -18,6 +18,10 @@ import { SignUp1Component } from './sign-up1/sign-up1.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminTablesComponent } from './admin-tables/admin-tables.component';
+import { ResourceListComponent } from './logistique/Resource-list/resource-list.component';
+import { LogistiqueAddComponent } from './logistique/logistique-add/logistique-add.component';
+import { LogistiqueDetailsComponent } from './logistique/logistique-details/logistique-details.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -35,10 +39,14 @@ import { AdminTablesComponent } from './admin-tables/admin-tables.component';
     SignUp1Component,
     ProfileComponent,
     AdminDashboardComponent,
-    AdminTablesComponent
+    AdminTablesComponent,
+    ResourceListComponent,
+    LogistiqueAddComponent,
+    LogistiqueDetailsComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     AppRoutingModule,
     NgOptimizedImage

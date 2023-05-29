@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -17,15 +18,17 @@ import java.util.Set;
 public class ServiceClient implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer TransportId;
-
-
-
-    @OneToOne
+    Integer ServiceClientId;
+    Date DateLimiteHousing;
+    Date DateLimitTransport;
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
     Logistique logistique;
     @JsonIgnore
+    @OneToMany(mappedBy = "serviceC")
+    Set<Housing> housings;
+    @JsonIgnore
     @OneToMany(mappedBy = "serviceClient")
-    Set<Reservation> reservations;
-
+    Set<Transport> transports;
 
 }
