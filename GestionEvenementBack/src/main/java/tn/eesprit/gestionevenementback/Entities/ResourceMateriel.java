@@ -1,10 +1,13 @@
 package tn.eesprit.gestionevenementback.Entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -17,13 +20,15 @@ public class ResourceMateriel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer ResourceId;
+    Date dateLimitCommande;
 
 
 
 
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
     Logistique logistique;
     @ManyToMany(mappedBy = "resources")
-    Set<Bien> biens;
+    Set<Goods> goods;
 
 }

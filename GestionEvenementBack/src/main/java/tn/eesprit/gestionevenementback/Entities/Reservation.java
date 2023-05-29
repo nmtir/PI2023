@@ -3,6 +3,7 @@ package tn.eesprit.gestionevenementback.Entities;
 import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.java.Log;
 
 import java.io.Serializable;
 
@@ -18,11 +19,8 @@ public class Reservation implements Serializable {
     Integer ReservationId;
 
 
-
     @OneToOne(mappedBy = "reservation",cascade = CascadeType.REMOVE)
     Payement payement;
-    @ManyToOne
-    ServiceClient serviceClient;
     @ManyToOne
     Event event;
     @ManyToOne

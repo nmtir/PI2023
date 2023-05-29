@@ -13,6 +13,8 @@ import {SignUp1Component} from "./sign-up1/sign-up1.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
 import {AdminTablesComponent} from "./admin-tables/admin-tables.component";
+import {LogistiqueDetailsComponent} from "./logistique/logistique-details/logistique-details.component";
+import { ResourceListComponent } from './logistique/Resource-list/resource-list.component';
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -28,6 +30,10 @@ const routes: Routes = [
   {path: "profile", component: ProfileComponent},
   {path: "dashboard", component: AdminDashboardComponent},
   {path: "tables", component: AdminTablesComponent},
+  {path: "logistique", component: LogistiqueDetailsComponent},
+  {path: "resource", component: ResourceListComponent},
+
+
 
 
 

@@ -1,6 +1,8 @@
 package tn.eesprit.gestionevenementback.Entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,7 +18,7 @@ public class Facture implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer FactureId;
-
+    @JsonIgnore
     @OneToOne
     Payement payement;
 

@@ -17,6 +17,7 @@ public class LogistiqueServiceImpl implements ILogistiqueService{
     public Logistique addOrUpdateLogistique(Logistique logistique){return LogistiqueRepo.save(logistique);}
     @Override
     public Logistique retrieveLogistique(Integer id){return LogistiqueRepo.findById(id).orElse(null);}
+    public Logistique retrieveLogistiqueByEventId(Integer id){return LogistiqueRepo.findByEvent_EventId(id);}
     @Override
     public void removeLogistique(Integer id){LogistiqueRepo.deleteById(id);}
 

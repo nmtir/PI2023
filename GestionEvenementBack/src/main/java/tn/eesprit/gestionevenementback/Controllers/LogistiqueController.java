@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/Logistique")
+@RequestMapping("/logistique")
 public class LogistiqueController {
     private final ILogistiqueService logistiqueService;
     @PostMapping("/add")
@@ -24,6 +24,10 @@ public class LogistiqueController {
     @GetMapping("/get/{id}")
     Logistique getLogistique(@PathVariable("id") Integer id){
         return logistiqueService.retrieveLogistique(id);
+    }
+    @GetMapping("/get/event/{id}")
+    Logistique getLogistiqueByEventId(@PathVariable("id") Integer id){
+        return logistiqueService.retrieveLogistiqueByEventId(id);
     }
     @GetMapping("/all")
     List<Logistique> getAllLogistiques(){return logistiqueService.retrieveAllLogistiques();}
