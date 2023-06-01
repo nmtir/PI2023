@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Feedback  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer FeedbackId;
+    Integer feedbackId;
 
 
     @ManyToOne

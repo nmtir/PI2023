@@ -19,7 +19,7 @@ public class Post implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer postId;
     String content;
-    String Title;
+    String title;
 
 
     @JsonIgnore

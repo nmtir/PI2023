@@ -18,6 +18,7 @@ import { ResourceListComponent } from './logistique/Resource-list/resource-list.
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostAddComponent } from './post-add/post-add.component';
 
+
 const routes: Routes = [
   {path: "home", component: HomeComponent},
   {path: "", component: HomeComponent},
@@ -36,6 +37,8 @@ const routes: Routes = [
   {path: "resource", component: ResourceListComponent},
   {path: "forum", component: ForumDetailsComponent},
   {path: "addpost/:id", component: PostAddComponent},
+  {path: "resource/:id", component: ResourceListComponent}
+
 
 
 

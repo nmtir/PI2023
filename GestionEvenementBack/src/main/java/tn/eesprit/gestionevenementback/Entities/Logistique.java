@@ -7,6 +7,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -18,16 +19,17 @@ import java.util.Set;
 public class Logistique implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer LogistiqueId;
+    Integer logistiqueId;
+    Float depenses;
+
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     Event event;
+
     @OneToOne(mappedBy = "logistique",cascade = CascadeType.REMOVE)
     Payement payement;
-    @OneToOne (mappedBy = "logistique",cascade = CascadeType.REMOVE)
-    ResourceMateriel resource;
-    @OneToOne (mappedBy = "logistique",cascade = CascadeType.REMOVE)
-    ServiceClient serviceClient;
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "logistique")
+    Set<Ordre> ordres;
 }

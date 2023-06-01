@@ -18,16 +18,17 @@ import { SignUp1Component } from './sign-up1/sign-up1.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminTablesComponent } from './admin-tables/admin-tables.component';
-import { ResourceListComponent } from './logistique/Resource-list/resource-list.component';
-import { LogistiqueAddComponent } from './logistique/logistique-add/logistique-add.component';
-import { LogistiqueDetailsComponent } from './logistique/logistique-details/logistique-details.component';
+import { ResourceListComponent } from './Resource-list/resource-list.component';
+import { LogistiqueDetailsComponent } from './logistique-details/logistique-details.component';
 import {HttpClientModule} from "@angular/common/http";
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { MessageListComponent } from './message-list/message-list.component';
 import { PostAddComponent } from './post-add/post-add.component';
 import { MessageAddComponent } from './message-add/message-add.component';
-
+import {CommonModule} from "@angular/common";
+import {DragDropModule,CdkDrag,CdkDropList,CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CurrentUserComponent } from './current-user/current-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { MessageAddComponent } from './message-add/message-add.component';
     AdminDashboardComponent,
     AdminTablesComponent,
     ResourceListComponent,
+
     LogistiqueAddComponent,
     LogistiqueDetailsComponent,
     ForumDetailsComponent,
@@ -57,12 +59,17 @@ import { MessageAddComponent } from './message-add/message-add.component';
   imports: [
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
+    DragDropModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
     NgOptimizedImage,
+    LogistiqueDetailsComponent,
+    CurrentUserComponent
   ],
+  
   providers: [],
   bootstrap: [AppComponent]
 })

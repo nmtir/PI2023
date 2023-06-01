@@ -18,8 +18,6 @@ public class Forum implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer forumId;
 
-
-
     @OneToOne (cascade = CascadeType.PERSIST)
     Event event;
 

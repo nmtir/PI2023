@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -17,14 +18,14 @@ import java.util.Set;
 public class Transport implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer TransportId;
-    String FromAdress;
-    Float Price;
-    Integer Capacity;
+    Integer transportId;
+    String fromAdress;
+    Float price;
+    Integer capacity;
     @Enumerated(EnumType.STRING)
     TransportType transportType;
-
-    @ManyToOne
-    ServiceClient serviceClient;
+    @JsonIgnore
+    @OneToMany(mappedBy = "transport")
+    Set<Ordre> ordre;
 
 }
