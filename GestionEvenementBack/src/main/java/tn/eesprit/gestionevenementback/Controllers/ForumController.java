@@ -3,7 +3,6 @@ package tn.eesprit.gestionevenementback.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.eesprit.gestionevenementback.Entities.Forum;
-import tn.eesprit.gestionevenementback.Entities.Logistique;
 import tn.eesprit.gestionevenementback.Services.IForumService;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package tn.eesprit.gestionevenementback.Entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

@@ -1,7 +1,6 @@
 package tn.eesprit.gestionevenementback.Services;
 
 import tn.eesprit.gestionevenementback.Entities.Forum;
-import tn.eesprit.gestionevenementback.Entities.Logistique;
 
 import java.util.List;
 
