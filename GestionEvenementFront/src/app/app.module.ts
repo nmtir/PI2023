@@ -18,11 +18,12 @@ import { SignUp1Component } from './sign-up1/sign-up1.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminTablesComponent } from './admin-tables/admin-tables.component';
-import { ResourceListComponent } from './logistique/Resource-list/resource-list.component';
-import { LogistiqueAddComponent } from './logistique/logistique-add/logistique-add.component';
-import { LogistiqueDetailsComponent } from './logistique/logistique-details/logistique-details.component';
+import { ResourceListComponent } from './Resource-list/resource-list.component';
+import { LogistiqueDetailsComponent } from './logistique-details/logistique-details.component';
 import {HttpClientModule} from "@angular/common/http";
-
+import {CommonModule} from "@angular/common";
+import {DragDropModule,CdkDrag,CdkDropList,CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CurrentUserComponent } from './current-user/current-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,10 +42,12 @@ import {HttpClientModule} from "@angular/common/http";
     AdminDashboardComponent,
     AdminTablesComponent,
     ResourceListComponent,
-    LogistiqueAddComponent,
-    LogistiqueDetailsComponent
+    LogistiqueDetailsComponent,
+    CurrentUserComponent
   ],
   imports: [
+    CommonModule,
+    DragDropModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,

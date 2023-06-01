@@ -1,11 +1,10 @@
-import {ServiceClient} from "./ServiceClient";
-import {ResourceMateriel} from "./ResourceMateriel";
+import {Ordre} from "./Ordre";
 import {Payement} from "./Payement";
 import {Event} from "./Event";
 
 export class Logistique {
   logistiqueId:string;
+  depenses:number;
   payement:Payement ;
-  resource:ResourceMateriel ;
-  serviceClient:ServiceClient ;
+  ordres:Ordre[] ;
 }

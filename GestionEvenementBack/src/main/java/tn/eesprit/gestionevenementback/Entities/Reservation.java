@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer ReservationId;
+    Integer reservationId;
 
 
     @OneToOne(mappedBy = "reservation",cascade = CascadeType.REMOVE)

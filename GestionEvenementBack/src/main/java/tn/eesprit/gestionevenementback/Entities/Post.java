@@ -17,7 +17,7 @@ import java.util.Set;
 public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer PostId;
+    Integer postId;
 
 
 
