@@ -18,14 +18,17 @@ public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer postId;
+    String content;
+    String title;
 
 
-
+    @JsonIgnore
     @ManyToOne
     Forum forum;
     @JsonIgnore
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     Set<Message> messages;
+
     @ManyToOne
     User user;
 }

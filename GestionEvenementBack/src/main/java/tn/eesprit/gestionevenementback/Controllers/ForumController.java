@@ -27,6 +27,10 @@ public class ForumController {
     }
     @GetMapping("/all")
     List<Forum> getAllForums(){return forumService.retrieveAllForums();}
+    @GetMapping("/get/event/{id}")
+    Forum getForumByEventId(@PathVariable("id") Integer id){
+        return forumService.retrieveForumByEventId(id);
+    }
     @DeleteMapping("/delete/{id}")
     void deleteForum(@PathVariable("id") Integer id){
         forumService.removeForum(id);

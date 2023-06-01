@@ -1,10 +1,9 @@
 package tn.eesprit.gestionevenementback.Entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -19,11 +18,9 @@ public class Forum implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer forumId;
 
-
-    @JsonIgnore
     @OneToOne (cascade = CascadeType.PERSIST)
     Event event;
-    @JsonIgnore
+
     @OneToMany(mappedBy = "forum",cascade = CascadeType.REMOVE)
     Set<Post> posts;
 }

@@ -1,3 +1,8 @@
+import {Post} from "./Post";
+import {Event} from "./Event";
+
 export class Forum {
-  _id: string;
+  forumId: string;
+  event:Event;
+  posts:Post[];
 }

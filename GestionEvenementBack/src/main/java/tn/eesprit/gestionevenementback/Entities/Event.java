@@ -32,6 +32,7 @@ public class Event implements Serializable {
     @JsonIgnore
     @OneToOne (mappedBy = "event",cascade = CascadeType.REMOVE)
     Logistique logistique;
+    @JsonIgnore
     @OneToOne (mappedBy = "event",cascade = CascadeType.REMOVE)
     Forum forum;
     @JsonIgnore

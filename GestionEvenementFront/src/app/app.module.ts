@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -21,6 +21,11 @@ import { AdminTablesComponent } from './admin-tables/admin-tables.component';
 import { ResourceListComponent } from './Resource-list/resource-list.component';
 import { LogistiqueDetailsComponent } from './logistique-details/logistique-details.component';
 import {HttpClientModule} from "@angular/common/http";
+import { ForumDetailsComponent } from './forum-details/forum-details.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { MessageListComponent } from './message-list/message-list.component';
+import { PostAddComponent } from './post-add/post-add.component';
+import { MessageAddComponent } from './message-add/message-add.component';
 import {CommonModule} from "@angular/common";
 import {DragDropModule,CdkDrag,CdkDropList,CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { CurrentUserComponent } from './current-user/current-user.component';
@@ -42,18 +47,29 @@ import { CurrentUserComponent } from './current-user/current-user.component';
     AdminDashboardComponent,
     AdminTablesComponent,
     ResourceListComponent,
+
+    LogistiqueAddComponent,
     LogistiqueDetailsComponent,
-    CurrentUserComponent
+    ForumDetailsComponent,
+    PostListComponent,
+    MessageListComponent,
+    PostAddComponent,
+    MessageAddComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     DragDropModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    LogistiqueDetailsComponent,
+    CurrentUserComponent
   ],
+  
   providers: [],
   bootstrap: [AppComponent]
 })

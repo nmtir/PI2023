@@ -17,6 +17,11 @@ public class PostController {
     {
         return postService.addOrUpdatePost(post);
     }
+    @PostMapping("/add/{id}")
+    Post addPostToForum(@RequestBody Post post,@PathVariable("id") Integer id)
+    {
+        return postService.addAndAssignPostToForum(post,id);
+    }
     @PutMapping("/update")
     Post updatePost(@RequestBody Post post){
         return postService.addOrUpdatePost(post);
