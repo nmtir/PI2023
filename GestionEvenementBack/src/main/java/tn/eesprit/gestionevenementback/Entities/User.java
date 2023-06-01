@@ -17,7 +17,7 @@ import java.util.Set;
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer UserId;
+    Integer userId;
     @Enumerated(EnumType.STRING)
     Role role;
 

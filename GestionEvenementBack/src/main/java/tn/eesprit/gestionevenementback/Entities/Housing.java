@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -17,10 +18,10 @@ import java.util.Set;
 public class Housing implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer HousingId;
+    Integer housingId;
     String adresse;
-    Float UnitPrice;
+    Float unitPrice;
     @JsonIgnore
-    @ManyToOne
-    ServiceClient serviceC;
+    @OneToMany(mappedBy = "housing")
+    Set<Ordre> ordres;
 }

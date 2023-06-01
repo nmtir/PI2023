@@ -1,5 +1,5 @@
-import {ServiceClient} from "./ServiceClient";
 import {TransportType} from "./TransportType";
+import {Ordre} from "./Ordre";
 
 export class Transport {
   transportId:string;
@@ -7,5 +7,5 @@ export class Transport {
   price:string ;
   capacity:string ;
   transportType:TransportType ;
-  serviceClient:ServiceClient;
+  Ordres:Ordre[];
 }

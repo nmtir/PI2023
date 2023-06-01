@@ -9,5 +9,6 @@ public interface ILogistiqueService {
     Logistique addOrUpdateLogistique(Logistique Logistique);
     Logistique retrieveLogistique(Integer id);
     Logistique retrieveLogistiqueByEventId(Integer id);
+    public Logistique calculDepencesMaterielLogistique(Logistique logistique);
     void removeLogistique(Integer id);
 }

@@ -17,7 +17,7 @@ import java.util.Set;
 public class Forum implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer ForumId;
+    Integer forumId;
 
 
     @JsonIgnore
