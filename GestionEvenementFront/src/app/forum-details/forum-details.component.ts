@@ -5,6 +5,7 @@ import {Post} from "../_Models/Post";
 import {LogistiqueService} from "../_Services/logistique.service";
 import {ForumService} from "../_Services/forum.service";
 import {first} from "rxjs";
+import {DataService} from "../data.service";
 
 @Component({
   selector: 'app-forum-details',
@@ -15,7 +16,7 @@ export class ForumDetailsComponent implements OnInit{
   eventId:number;
   forum:Forum;
   constructor(
-    private forumService: ForumService
+    private forumService: ForumService,private dataService: DataService
   ){}
   ngOnInit() {
     this.eventId=1;
@@ -30,6 +31,10 @@ export class ForumDetailsComponent implements OnInit{
 
     return;
 
+  }
+  sendData() {
+    const data =this.forum;
+    this.dataService.setData(data);
   }
 
 }

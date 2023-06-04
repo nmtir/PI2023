@@ -32,7 +32,7 @@ export class LogistiqueDetailsComponent implements OnInit {
         const newObj: any = res;
         this.logistique = newObj;
         this.depenses=this.logistique.depenses;
-        console.log(newObj.depenses);
+        console.log(newObj);
       });
 
 

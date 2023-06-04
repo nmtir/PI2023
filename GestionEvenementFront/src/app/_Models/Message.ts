@@ -1,6 +1,14 @@
 import {Post} from "./Post";
+import {User} from "./User";
 
 export class Message {
-  _id: string;
+  messageId: string;
   post:Post;
+  datePub:Date;
+  contenu:string;
+  isBlocked:number;
+  message:Message;
+  messages:Message[];
+  user:User;
+  signalUsers:User[];
 }

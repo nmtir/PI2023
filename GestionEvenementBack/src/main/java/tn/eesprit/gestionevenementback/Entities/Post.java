@@ -25,7 +25,6 @@ public class Post implements Serializable {
     @JsonIgnore
     @ManyToOne
     Forum forum;
-    @JsonIgnore
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     Set<Message> messages;
 

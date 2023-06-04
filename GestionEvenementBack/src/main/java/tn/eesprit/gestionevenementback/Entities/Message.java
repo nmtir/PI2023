@@ -1,10 +1,14 @@
 package tn.eesprit.gestionevenementback.Entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,8 +20,21 @@ public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer messageId;
+    Date datePub;
+    String contenu;
+    Integer isBlocked;
+    @JsonIgnore
+    @ManyToMany
+    Set<User> signalUsers;
+    @JsonIgnore
+    @ManyToOne
+    Message message;
 
-
+    @OneToMany(mappedBy = "message")
+    Set<Message> messages;
+    @JsonIgnore
     @ManyToOne
     Post post;
+    @ManyToOne
+    User user;
 }

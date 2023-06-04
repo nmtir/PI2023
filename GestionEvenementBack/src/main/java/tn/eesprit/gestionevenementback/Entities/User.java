@@ -20,6 +20,7 @@ public class User implements Serializable {
     Integer userId;
     @Enumerated(EnumType.STRING)
     Role role;
+    String name;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
@@ -27,4 +28,10 @@ public class User implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     Set<Reservation> reservations;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    Set<Message> messages;
+
+    @ManyToMany
+    Set<Message> signaledMessages;
 }

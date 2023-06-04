@@ -43,7 +43,7 @@
     </div>
   </div>
 </div>
-<div class="container-fluid py-4">
+<div *ngIf="forum" class="container-fluid py-4">
   <div class="row">
     <div class="col-md-111">
       <div class="card">
@@ -68,8 +68,8 @@
                           <th></th>
                         </tr>
                         </thead>
-                        <tbody *ngFor="let p of forum.posts">
-                          <tr>
+                        <tbody *ngFor="let p of forum.posts" >
+                          <tr [routerLink]="['/post',{ data: p.postId}]" routerLinkActive="active" >
                             <td>
                               <div class="d-flex px-2">
                                 <div class="my-auto">
@@ -110,7 +110,7 @@
           <div class="row">
             <div class="d-flex align-items-center">
               <p class="mb-0"></p>
-              <button [routerLink]="['/addpost',forum.forumId]"  class="btn btn-primary btn-sm ms-auto">Add Your Post</button>
+              <button [routerLink]="['/addpost',{ data: forum.forumId}]"  class="btn btn-primary btn-sm ms-auto">Add Your Post</button>
             </div>
           </div>
         </div>

@@ -13,10 +13,11 @@ import {SignUp1Component} from "./sign-up1/sign-up1.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
 import {AdminTablesComponent} from "./admin-tables/admin-tables.component";
-import {LogistiqueDetailsComponent} from "./logistique/logistique-details/logistique-details.component";
-import { ResourceListComponent } from './logistique/Resource-list/resource-list.component';
+import {LogistiqueDetailsComponent} from "./logistique-details/logistique-details.component";
+import { ResourceListComponent } from './Resource-list/resource-list.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostAddComponent } from './post-add/post-add.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
 
 
 const routes: Routes = [
@@ -36,8 +37,9 @@ const routes: Routes = [
   {path: "logistique", component: LogistiqueDetailsComponent},
   {path: "resource", component: ResourceListComponent},
   {path: "forum", component: ForumDetailsComponent},
-  {path: "addpost/:id", component: PostAddComponent},
-  {path: "resource/:id", component: ResourceListComponent}
+  {path: "post", component: PostDetailsComponent},
+
+
 
 
 

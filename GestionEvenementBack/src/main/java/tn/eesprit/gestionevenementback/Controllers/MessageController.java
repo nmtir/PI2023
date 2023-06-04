@@ -3,6 +3,7 @@ package tn.eesprit.gestionevenementback.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.eesprit.gestionevenementback.Entities.Message;
+import tn.eesprit.gestionevenementback.Entities.Post;
 import tn.eesprit.gestionevenementback.Services.IMessageService;
 
 import java.util.List;
@@ -17,9 +18,18 @@ public class MessageController {
     {
         return messageService.addOrUpdateMessage(message);
     }
+    @PostMapping("/add/{id}/{idUser}")
+    Message addMessageToPost(@RequestBody Message message, @PathVariable("id") Integer id,@PathVariable("idUser") Integer idUser)
+    {
+        return messageService.addAndAssignMessageToForum(message,id,idUser);
+    }
     @PutMapping("/update")
     Message updateMessage(@RequestBody Message message){
         return messageService.addOrUpdateMessage(message);
+    }
+    @PutMapping("/update/signal/{id}")
+    Message updateMessageSignal(@RequestBody Message message,@PathVariable("id") Integer id){
+        return messageService.UpdateSignal(message,id);
     }
     @GetMapping("/get/{id}")
     Message getMessage(@PathVariable("id") Integer id){

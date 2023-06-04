@@ -32,14 +32,13 @@ export class PostAddComponent implements OnInit{
   }
 
   public getId() {
-  this.route.paramMap.subscribe(params => {
-  this.id = params.get('id');
-});
+  this.id  = this.route.snapshot.paramMap.get('data');
+
   }
   public SubmitForm() {
   this.postService.addAndAssign(this.postForm.value,this.id).pipe(first()).subscribe(data=>{
-    this.router.navigate(['forum']);
-  })
+    window.location.reload()
+  });
     console.log(this.postForm.value);
   }
 

@@ -43,9 +43,7 @@ export class ResourceListComponent implements OnInit{
 
   private loadResource() {
 
-      this.route.paramMap.subscribe(params => {
-        this.id = params.get('id');
-      });
+    this.id = this.route.snapshot.paramMap.get('data');
     this.logistiqueService.getById(this.id).pipe(first()).subscribe(res=>{
       const newObj:any=res;
       this.logistique=newObj;
@@ -92,7 +90,7 @@ export class ResourceListComponent implements OnInit{
     }
   this.added=[];
 
-    this.logistiqueService.updateDepences(this.logistique).pipe().subscribe();
+    this.logistiqueService.updateDepenses(this.logistique).pipe().subscribe();
 
   }
   drop(event: CdkDragDrop<Product[]>) {

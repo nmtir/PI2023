@@ -1,6 +1,10 @@
 import { Role } from './Role';
+import {Message} from "./Message";
 
 export class User {
-  _id: string;
+  idUser: string;
+  name:string;
   role: Role;
+  messages:Message[];
+  signaledMessages:Message[];
 }

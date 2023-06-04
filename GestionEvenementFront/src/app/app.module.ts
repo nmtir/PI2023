@@ -29,6 +29,10 @@ import { MessageAddComponent } from './message-add/message-add.component';
 import {CommonModule} from "@angular/common";
 import {DragDropModule,CdkDrag,CdkDropList,CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { CurrentUserComponent } from './current-user/current-user.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,29 +51,31 @@ import { CurrentUserComponent } from './current-user/current-user.component';
     AdminDashboardComponent,
     AdminTablesComponent,
     ResourceListComponent,
-
-    LogistiqueAddComponent,
     LogistiqueDetailsComponent,
     ForumDetailsComponent,
     PostListComponent,
     MessageListComponent,
     PostAddComponent,
-    MessageAddComponent
-  ],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    DragDropModule,
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
-    NgOptimizedImage,
+    MessageAddComponent,
     LogistiqueDetailsComponent,
-    CurrentUserComponent
+    CurrentUserComponent,
+    PostDetailsComponent
   ],
-  
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        DragDropModule,
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        AppRoutingModule,
+        NgOptimizedImage,
+        MatIconModule,
+        MatDividerModule,
+        MatButtonModule
+    ],
+
   providers: [],
   bootstrap: [AppComponent]
 })

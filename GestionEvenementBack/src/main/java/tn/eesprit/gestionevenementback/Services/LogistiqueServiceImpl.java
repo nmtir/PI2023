@@ -20,11 +20,13 @@ public class LogistiqueServiceImpl implements ILogistiqueService{
     public Logistique addOrUpdateLogistique(Logistique logistique){return logistiqueRepo.save(logistique);}
 
     @Override
-    public Logistique calculDepencesMaterielLogistique(Logistique logistique){
+    public Logistique calculDepensesMaterielLogistique(Logistique logistique){
+               Logistique logistique1 =logistiqueRepo.findById(logistique.getLogistiqueId()).orElse(null);
                 List<Ordre> ordres=ordreRepo.findByLogistiqueLogistiqueId(logistique.getLogistiqueId());
                 Float D = (float) 0;
                 for (Ordre i:ordres) {
                     D=D+(i.getProduct().getPrice()*i.getQuantity());}
+                logistique=logistique1;
                 logistique.setDepenses(D);
         return logistiqueRepo.save(logistique);
     }
