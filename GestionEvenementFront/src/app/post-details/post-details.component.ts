@@ -7,17 +7,37 @@ import {Post} from "../_Models/Post";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MessageService} from "../_Services/message.service";
 import {Message} from "../_Models/Message";
+import {MatExpansionModule} from '@angular/material/expansion';
+import {animate, animateChild, group, query, stagger, style, transition, trigger} from "@angular/animations";
 import {User} from "../_Models/User";
-
 
 
 
 @Component({
   selector: 'app-post-details',
   templateUrl: './post-details.component.html',
-  styleUrls: ['./post-details.component.css']
+  styleUrls: ['./post-details.component.css'],
+  animations: [
+    trigger('enterExitUp', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        animate(
+          '500ms ease-in',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '500ms ease-in',
+          style({ opacity: 0, transform: 'translateY(-10px)' })
+        ),
+      ]),
+    ])
+  ]
+
 })
 export class PostDetailsComponent implements OnInit{
+  panelOpenState = false;
   visible = false;
   currentUser:string;
   userId:string;
@@ -25,6 +45,11 @@ export class PostDetailsComponent implements OnInit{
   post:Post;
   messageForm:FormGroup;
   public selectedMessageId: string = null;
+
+  constructor(private route: ActivatedRoute,private postService:PostService,private messageService:MessageService,private formBuilder:FormBuilder) {
+  }
+
+  ngOnInit() {
   public selectedEditMessageId: string = null;
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +68,7 @@ export class PostDetailsComponent implements OnInit{
   }
   ngOnInit() {
   }
+
   private loadPost(){
     this.postService.getById(this.data).pipe(first()).subscribe(res=>{
       const newObj: any = res;
@@ -160,3 +186,4 @@ export class PostDetailsComponent implements OnInit{
 
   }
 }
+

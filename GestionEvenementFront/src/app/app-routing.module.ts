@@ -18,7 +18,7 @@ import { ResourceListComponent } from './Resource-list/resource-list.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostAddComponent } from './post-add/post-add.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
-
+import {MessageListComponent} from './message-list/message-list.component'
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -38,6 +38,7 @@ const routes: Routes = [
   {path: "resource", component: ResourceListComponent},
   {path: "forum", component: ForumDetailsComponent},
   {path: "post", component: PostDetailsComponent},
+  {path: "msg", component: MessageListComponent},
 
 
 

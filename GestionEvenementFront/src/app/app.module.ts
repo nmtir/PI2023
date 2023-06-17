@@ -33,7 +33,11 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import {MatExpansionModule} from "@angular/material/expansion";
+import { DateAgoPipe } from './_pipes/date-ago.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from "@angular/material/input";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +64,8 @@ import {MatInputModule} from "@angular/material/input";
     MessageAddComponent,
     LogistiqueDetailsComponent,
     CurrentUserComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
+    DateAgoPipe
   ],
     imports: [
         FormsModule,
@@ -75,6 +80,8 @@ import {MatInputModule} from "@angular/material/input";
         MatIconModule,
         MatDividerModule,
         MatButtonModule,
+        MatExpansionModule,
+        BrowserAnimationsModule,
         MatInputModule
     ],
 

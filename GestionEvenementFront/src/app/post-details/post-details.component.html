@@ -1,4 +1,5 @@
 <app-current-user></app-current-user>
+
 <section *ngIf="post" class="ftco-section ftco-degree-bg">
   <div class="container">
     <div class="row">
@@ -35,17 +36,39 @@
 
         <div class="pt-5 mt-5">
           <h3 class="mb-5">Messsages</h3>
-          <ul class="comment-list" *ngFor="let m of post.messages ">
 
+          <ul class="comment-list" *ngFor="let m of post.messages ">
             <li  *ngIf="m.isBlocked==0||m.isBlocked==null" class="comment">
               <div class="vcard bio">
-                <img src="assets/images/person_1.jpg" alt="Image placeholder">
+                <img src="assets/images/user.png" alt="Image placeholder">
               </div>
-              <div class="comment-body">
-                <h3>{{m.user.name}}</h3>
-                <div class="meta">{{m.datePub}}</div>
+              <div class="comment-body" >
+                <h6 style="display: inline">{{m.user.name}}</h6>
+                <div style="margin-left:0.5rem;  display:inline" class="meta">{{m.datePub | dateAgo}}</div>
+                <a style="margin-left:2rem;display:inline;horiz-align: right;" href="#" class="link-warning"><img src="assets/images/alert%20(1).png" height="13rem"width="auto"></a>
                 <p>{{m.contenu}}</p>
                 <p>
+                  <a *ngIf="(m.messages.length==0 && selectedMessageId!=m.messageId)"  (click)="selectMessage(m.messageId)" class="reply">Reply</a>
+                  <a *ngIf="m.messages.length>0" (click)="selectMessage(m.messageId)" class="reply">Show Replies</a>
+                </p>
+                <p></p>
+              </div>
+              <div @enterExitUp *ngIf="(selectedMessageId===m.messageId)">
+              <div *ngFor="let r of m.messages" class="children">
+
+                <div *ngIf="(m.isBlocked==0||m.isBlocked==null)&&(selectedMessageId===m.messageId)" class="comment-body">
+                    <h6 style="display:inline">{{r.user.name}}</h6>
+                    <div style="margin-left:0.5rem;  display:inline;" class="meta">{{r.datePub| dateAgo}}</div>
+                    <a style="margin-left:2rem;display:inline;horiz-align: right;" href="#" class="link-warning"><img src="assets/images/alert%20(1).png" height="13rem"width="auto"></a>
+                    <p>{{r.contenu}}</p>
+                  </div>
+              </div>
+              </div>
+              <div @enterExitUp *ngIf="selectedMessageId === m.messageId" class="comment-body parent" >
+                <div >
+                <input type="text" name="" id="replyContent" cols="30" rows="5" class="child" style="width: 40rem;">
+                <a class="link-warning" href="#"><img src="assets/images/sent.png" height="32rem"width="auto"></a>
+                </div>
                   <a *ngIf="m.messages.length==0" (click)="selectMessage(m.messageId)" style="margin-right:10px;cursor:pointer;" >Reply</a>
                   <a *ngIf="m.messages.length>0" (click)="selectMessage(m.messageId)" style="margin-right:10px;cursor:pointer;">Show Replies</a>
                   <a *ngIf="checkEdit(m)" (click)="selectEditMessage(m.messageId)" style="margin-right:10px;cursor:pointer;">Edit</a>
@@ -109,8 +132,8 @@
           </ul>
           <div class="comment-form-wrap pt-5">
             <h3 class="mb-5">Leave a comment</h3>
-            <form [formGroup]="messageForm" (ngSubmit)="SubmitForm()"  class="p-5 bg-light">
-              <div class="form-group">
+            <form [formGroup]="messageForm" (ngSubmit)="SubmitForm()"  style="border-radius: 25px;" class="p-5 bg-light">
+              <div class="form-group" >
                 <label for="message">Message</label>
                 <textarea  formControlName="contenu" name="" id="message" cols="30" rows="3" class="form-control"></textarea>
               </div>
@@ -227,3 +250,4 @@
     </div>
   </div>
 </section>
+
