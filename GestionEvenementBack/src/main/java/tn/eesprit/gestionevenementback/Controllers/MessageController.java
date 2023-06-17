@@ -31,6 +31,14 @@ public class MessageController {
     Message updateMessageSignal(@RequestBody Message message,@PathVariable("id") Integer id){
         return messageService.UpdateSignal(message,id);
     }
+    @PutMapping("/likes/update/{id}")
+    Message checkLikesAndUpdateMessage(@RequestBody Message message,@PathVariable("id") Integer id){
+        return messageService.checkLikeAndUpdateMessage(message,id);
+    }
+    @PutMapping("/likes/remove/{id}")
+    Message removeLike(@RequestBody Message message,@PathVariable("id") Integer id){
+        return messageService.removeLike(message,id);
+    }
     @GetMapping("/get/{id}")
     Message getMessage(@PathVariable("id") Integer id){
         return messageService.retrieveMessage(id);

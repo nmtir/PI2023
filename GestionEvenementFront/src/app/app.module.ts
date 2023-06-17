@@ -33,6 +33,7 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from "@angular/material/input";
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +74,8 @@ import {MatButtonModule} from '@angular/material/button';
         NgOptimizedImage,
         MatIconModule,
         MatDividerModule,
-        MatButtonModule
+        MatButtonModule,
+        MatInputModule
     ],
 
   providers: [],

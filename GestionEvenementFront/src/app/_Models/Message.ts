@@ -11,4 +11,5 @@ export class Message {
   messages:Message[];
   user:User;
   signalUsers:User[];
+  likes:User[];
 }

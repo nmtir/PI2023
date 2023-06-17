@@ -21,6 +21,16 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     Role role;
     String name;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "views")
+    Set<Post> viewedPosts;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "likes")
+    Set<Post> likedPosts;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "likes")
+    Set<Message> likedMessages;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
@@ -31,7 +41,7 @@ public class User implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     Set<Message> messages;
-
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(mappedBy = "signalUsers")
     Set<Message> signaledMessages;
 }

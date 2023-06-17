@@ -20,12 +20,17 @@ public class Post implements Serializable {
     Integer postId;
     String content;
     String title;
+    @ManyToMany
+    Set<User> likes;
+    @ManyToMany
+    Set<User> views;
 
 
     @JsonIgnore
     @ManyToOne
     Forum forum;
-    @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
+
+    @OneToMany(mappedBy = "post")
     Set<Message> messages;
 
     @ManyToOne

@@ -36,6 +36,36 @@ public class MessageServiceImpl implements IMessageService{
         return MessageRepo.save(message);
     }
     @Override
+    public Message checkLikeAndUpdateMessage(Message message,Integer id){
+        Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
+        User user=userRepo.findById(id).orElse(null);
+        for (User u:m.getLikes())
+        {
+            if (u==user)
+            {
+                return m;
+            }
+        }
+        m.getLikes().add(user);
+        return MessageRepo.save(m);
+
+    }
+    @Override
+    public Message removeLike(Message message,Integer id){
+        Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
+        User user=userRepo.findById(id).orElse(null);
+        for (User u:m.getLikes())
+        {
+            if (u==user)
+            {
+                m.getLikes().remove(u);
+                return MessageRepo.save(m);
+            }
+        }
+        return m;
+
+    }
+    @Override
     public Message addAndAssignMessageToForum(Message message, Integer id, Integer UserId){
         Post post=postRepo.findById(id).orElse(null);
         User user=userRepo.findById(UserId).orElse(null);
