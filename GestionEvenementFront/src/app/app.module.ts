@@ -33,6 +33,9 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import {MatExpansionModule} from "@angular/material/expansion";
+import { DateAgoPipe } from './_pipes/date-ago.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +62,8 @@ import {MatButtonModule} from '@angular/material/button';
     MessageAddComponent,
     LogistiqueDetailsComponent,
     CurrentUserComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
+    DateAgoPipe
   ],
     imports: [
         FormsModule,
@@ -73,7 +77,9 @@ import {MatButtonModule} from '@angular/material/button';
         NgOptimizedImage,
         MatIconModule,
         MatDividerModule,
-        MatButtonModule
+        MatButtonModule,
+        MatExpansionModule,
+        BrowserAnimationsModule
     ],
 
   providers: [],

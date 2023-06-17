@@ -23,7 +23,8 @@ export class AppComponent{
   getJavascript() {
     get("assets/js/jquery.min.js", () => {
       get("assets/js/aos.js", () => {
-        get("assets/js/bootstrap.min.js", () => {
+        get("assets/css/bootstrap/bootstrap.js", () => {
+          get("assets/css/bootstrap/popper.js", () => {
           get("assets/js/bootstrap-datepicker.js", () => {
             get("assets/js/jquery.animateNumber.min.js", () => {
               get("assets/js/jquery.easing.1.3.js", () => {
@@ -40,6 +41,9 @@ export class AppComponent{
                                     get("assets/js/dashboard-chart.js", () => {
                                       get("assets/js/argon-dashboard.min.js", () => {
 
+
+
+                                        });
                                       });
                                     });
                                   });

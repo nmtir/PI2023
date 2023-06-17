@@ -1,0 +1,15 @@
+.parent {
+  border-radius: 25px;
+  background-color: rgba(230,235,255,0.53);
+  margin: 1rem;
+  padding: 2rem 2rem;
+  text-align: left;
+}
+.child {
+  margin-right: 1rem;
+  display: inline-block;
+  padding: 1rem 1rem;
+  vertical-align: middle;
+}
+
+
