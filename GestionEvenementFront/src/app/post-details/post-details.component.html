@@ -9,6 +9,10 @@
         <p>
           <img src="" alt="" class="img-fluid">
         </p>
+        <p>
+          <a *ngIf="checkPostLike(post)" (click)="addPostLike(post);" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/heart.png" height="15rem"width="auto"></a>
+          <a *ngIf="!checkPostLike(post)" (click)="removePostLike(post);" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/heart%20(1).png" height="15rem"width="auto"></a>
+        </p>
         <div class="tag-widget post-tag-container mb-5 mt-5">
           <div class="tagcloud">
             <a href="#" class="tag-cloud-link">Life</a>
@@ -65,7 +69,65 @@
                 <input type="text" name="" id="replyContent" cols="30" rows="5" class="child" style="width: 40rem;">
                 <a class="link-warning" href="#"><img src="assets/images/sent.png" height="32rem"width="auto"></a>
                 </div>
+                  <a *ngIf="m.messages.length==0" (click)="selectMessage(m.messageId)" style="margin-right:10px;cursor:pointer;" >Reply</a>
+                  <a *ngIf="m.messages.length>0" (click)="selectMessage(m.messageId)" style="margin-right:10px;cursor:pointer;">Show Replies</a>
+                  <a *ngIf="checkEdit(m)" (click)="selectEditMessage(m.messageId)" style="margin-right:10px;cursor:pointer;">Edit</a>
+                  <a *ngIf="checkMessageLike(m)" (click)="addMessageLike(m)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/heart.png" height="15rem"width="auto"></a>
+                  <a *ngIf="!checkMessageLike(m)" (click)="removeMessageLike(m)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/heart%20(1).png" height="15rem"width="auto"></a>
+                  <a style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/danger-sign.png" height="20rem"width="auto"></a>
+                </p>
+                <p></p>
               </div>
+              <form [formGroup]="messageForm" (ngSubmit)="updateMessage(m)">
+              <div *ngIf="selectedEditMessageId === m.messageId" class="input-group mb-3">
+                <textarea formControlName="contenu"  value="{{m.contenu}}" class="form-control"  rows="1" aria-describedby="button-addon2"></textarea>
+                <button class="btn btn-outline-secondary"  type="submit" id="button-addon2">Edit</button>
+              </div>
+              </form>
+              <div *ngIf="(selectedMessageId === m.messageId)&&m.messages.length>0" class="reply-box">
+              <ul style="background-color: rgba(216,204,255,0.55)" *ngFor="let r of m.messages" class="children">
+                <li *ngIf="(m.isBlocked==0||m.isBlocked==null)&&(selectedMessageId===m.messageId)"  class="comment">
+                  <div class="vcard bio">
+                    <img src="assets/images/person_1.jpg" alt="Image placeholder">
+                  </div>
+                  <div class="comment-body">
+                    <h3>{{r.user.name}}</h3>
+                    <div class="meta">{{r.datePub}}</div>
+                    <p>{{r.contenu}}</p>
+
+                    <p>
+                      <a *ngIf="checkEdit(r)" (click)="selectEditMessage(r.messageId)" style="margin-right:10px;cursor:pointer;">Edit</a>
+                      <a *ngIf="checkMessageLike(r)" (click)="addMessageLike(r)" style="margin-left:2rem;cursor:pointer;"  class="link-warning"><img src="assets/images/heart.png" height="15rem"width="auto"></a>
+                      <a *ngIf="!checkMessageLike(r)" (click)="removeMessageLike(r)" style="margin-left:2rem;cursor:pointer;"  class="link-warning"><img src="assets/images/heart%20(1).png" height="15rem"width="auto"></a>
+                      <a style="margin-left:2rem;cursor:pointer;"  class="link-warning"><img src="assets/images/danger-sign.png" height="20rem"width="auto"></a>
+                    </p>
+                    <p></p>
+                  </div>
+                </li>
+                <form>
+                <div *ngIf="selectedEditMessageId === r.messageId" class="input-group mb-3">
+                  <textarea value="{{r.contenu}}" class="form-control"  rows="1" aria-describedby="button-addon0"></textarea>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon0">Edit</button>
+                </div>
+                </form>
+              </ul>
+                <form>
+                <div *ngIf="(selectedMessageId === m.messageId)&&(m.messages.length>0)" class="input-group mb-3">
+
+                  <textarea class="form-control"  rows="1" aria-describedby="button-addonx"></textarea>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addonx">Reply</button>
+
+                </div>
+                </form>
+              </div>
+              <form>
+              <div *ngIf="(selectedMessageId === m.messageId)&&(m.messages.length==0)" class="input-group mb-3">
+
+                <textarea class="form-control"  rows="1" aria-describedby="button-addon"></textarea>
+                <button class="btn btn-outline-secondary" type="button" id="button-addon">Reply</button>
+
+              </div>
+              </form>
             </li>
           </ul>
           <div class="comment-form-wrap pt-5">
@@ -73,7 +135,7 @@
             <form [formGroup]="messageForm" (ngSubmit)="SubmitForm()"  style="border-radius: 25px;" class="p-5 bg-light">
               <div class="form-group" >
                 <label for="message">Message</label>
-                <textarea  formControlName="contenu" name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+                <textarea  formControlName="contenu" name="" id="message" cols="30" rows="3" class="form-control"></textarea>
               </div>
               <div class="form-group">
                 <input type="submit" value="Post Messsage" class="btn py-3 px-4 btn-primary">

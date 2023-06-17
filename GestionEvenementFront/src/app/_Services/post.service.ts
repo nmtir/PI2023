@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Post} from "../_Models/Post";
 import {environment} from "../../envirenments/envirenment";
+import {Ordre} from "../_Models/Ordre";
+import {Message} from "../_Models/Message";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,18 @@ export class PostService {
   update(post: Post) {
     console.log(post);
     return this.http.put(`${environment.apiUrl}/post/update`, post);
+  }
+  checkViewThenUpdate(post: Post,id:string) {
+    console.log(post);
+    return this.http.put<Post>(`${environment.apiUrl}/post/views/update/${id}`, post);
+  }
+  checkLikesThenUpdate(post: Post,id:string) {
+    console.log(post);
+    return this.http.put<Post>(`${environment.apiUrl}/post/likes/update/${id}`, post);
+  }
+  removeLike(post: Post,id:string) {
+    console.log(post);
+    return this.http.put<Post>(`${environment.apiUrl}/post/likes/remove/${id}`, post);
   }
   delete(id: string) {
     return this.http.delete(`${environment.apiUrl}/post/delete/${id}`);

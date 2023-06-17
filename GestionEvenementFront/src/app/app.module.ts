@@ -36,6 +36,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from "@angular/material/expansion";
 import { DateAgoPipe } from './_pipes/date-ago.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatInputModule} from "@angular/material/input";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +81,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MatDividerModule,
         MatButtonModule,
         MatExpansionModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MatInputModule
     ],
 
   providers: [],

@@ -9,6 +9,7 @@ import {MessageService} from "../_Services/message.service";
 import {Message} from "../_Models/Message";
 import {MatExpansionModule} from '@angular/material/expansion';
 import {animate, animateChild, group, query, stagger, style, transition, trigger} from "@angular/animations";
+import {User} from "../_Models/User";
 
 
 
@@ -38,40 +39,58 @@ import {animate, animateChild, group, query, stagger, style, transition, trigger
 export class PostDetailsComponent implements OnInit{
   panelOpenState = false;
   visible = false;
-  currentUser:number;
+  currentUser:string;
   userId:string;
   data: any;
   post:Post;
   messageForm:FormGroup;
   public selectedMessageId: string = null;
+
   constructor(private route: ActivatedRoute,private postService:PostService,private messageService:MessageService,private formBuilder:FormBuilder) {
   }
 
   ngOnInit() {
-
+  public selectedEditMessageId: string = null;
+  constructor(
+    private route: ActivatedRoute,
+    private postService:PostService,
+    private messageService:MessageService,
+    private formBuilder:FormBuilder,
+   ) {
     this.userId="1";
-    this.currentUser=1;
+    this.currentUser="2";
     this.data = this.route.snapshot.paramMap.get('data');
-    console.log(this.data);
     this.loadPost();
     this.messageForm=this.formBuilder.group({
 
       contenu:['']
-    })
+    });
+  }
+  ngOnInit() {
   }
 
   private loadPost(){
     this.postService.getById(this.data).pipe(first()).subscribe(res=>{
       const newObj: any = res;
-      this.post = newObj;
-      console.log(newObj);
+      this.postService.checkViewThenUpdate(newObj,this.currentUser).pipe(first()).subscribe(res=>{
+        const newObj: any = res;
+        this.post = newObj;
+        this.post.messages.sort((a, b) => {
+          const dateA = new Date(a.datePub);
+          const dateB = new Date(b.datePub);
+          return dateA.getTime()  - dateB.getTime();
+        });
+      });
     })
   }
   public SubmitForm() {
-    this.messageService.addAndAssign(this.messageForm.value,this.data,this.userId).pipe(first()).subscribe(data=>{
-      window.location.reload()
-    });
-    console.log(this.messageForm.value);
+    this.messageService.addAndAssign(this.messageForm.value,this.data,this.currentUser).pipe(first()).subscribe();
+    this.loadPost();
+  }
+  public updateMessage(message:Message) {
+    message.contenu=this.messageForm.value.contenu;
+    this.messageService.update(message).pipe(first()).subscribe();
+    this.loadPost();
   }
   public SubmitSignal(message:Message,id:number){
     this.messageService.updateSignal(message,id).pipe(first()).subscribe();
@@ -80,8 +99,91 @@ export class PostDetailsComponent implements OnInit{
     this.visible[id] = !this.visible[id];
   }
   public selectMessage(messageId: string): void {
-    console.log(this.selectedMessageId);
-    this.selectedMessageId = messageId;
+    if (this.selectedMessageId === messageId) {
+      // If the clicked message is the same as the currently selected message,
+      // close the input box by setting the selectedMessageId to null
+      this.selectedMessageId = null;
+    } else {
+      // If a different message is clicked, update the selectedMessageId
+      this.selectedMessageId = messageId;
+    }
+  }
+
+
+  addMessageLike(m: Message) {
+    this.messageService.checkLikesThenUpdate(m,this.currentUser).pipe(first()).subscribe();
+    this.loadPost();
+  }
+
+  checkMessageLike(m: Message):boolean {
+    for (let u of m.likes){
+      if (u.userId==this.currentUser)
+      {
+        return false;
+      }
+
+    }
+    return true;
+  }
+
+  removeMessageLike(m: Message) {
+    this.messageService.removeLike(m,this.currentUser).pipe(first()).subscribe();
+    this.loadPost();
+
+  }
+
+  addPostLike(post: Post) {
+    this.postService.checkLikesThenUpdate(post,this.currentUser).pipe(first()).subscribe(
+      res=>{
+        const newObj: any = res;
+        this.post = newObj;
+      }
+    );
+
+  }
+
+  checkPostLike(post: Post):boolean {
+
+    for (let u of post.likes){
+      if (u.userId==this.currentUser)
+      {
+        return false;
+      }
+
+    }
+    return true;
+
+  }
+
+
+
+  removePostLike(post: Post) {
+    this.postService.removeLike(post,this.currentUser).pipe(first()).subscribe(
+      res=>{
+        const newObj: any = res;
+        this.post = newObj;
+      }
+    );
+
+  }
+
+  selectEditMessage(messageId: string) {
+    if (this.selectedEditMessageId === messageId) {
+      // If the clicked message is the same as the currently selected message,
+      // close the input box by setting the selectedMessageId to null
+      this.selectedEditMessageId = null;
+    } else {
+      // If a different message is clicked, update the selectedMessageId
+      this.selectedEditMessageId = messageId;
+    }
+
+  }
+
+  checkEdit(m: Message):boolean {
+    if (m.user.userId==this.currentUser)
+      return true;
+    else return false
+
   }
 }
 
