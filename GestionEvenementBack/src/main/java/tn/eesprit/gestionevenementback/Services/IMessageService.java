@@ -10,9 +10,11 @@ public interface IMessageService {
     Message addOrUpdateMessage(Message Message);
     Message retrieveMessage(Integer id);
     void removeMessage(Integer id);
-    Message addAndAssignMessageToForum(Message message, Integer id,Integer userId);
+    Message addAndAssignMessage(Message message, Integer id, Integer UserId,Integer Target);
     Message UpdateSignal(Message message,Integer id);
     Message checkLikeAndUpdateMessage(Message message,Integer id);
     Message removeLike(Message message,Integer id);
+    Message removeSignal(Message message,Integer id);
+    Message checkSignalAndUpdateMessage(Message message,Integer id);
 }
 

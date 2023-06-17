@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Message} from "../_Models/Message";
 import {environment} from "../../envirenments/envirenment";
 import {Post} from "../_Models/Post";
+import {first} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,9 @@ export class MessageService {
   getById(id: string) {
     return this.http.get<Message>(`${environment.apiUrl}/message/get/${id}`);
   }
-  addAndAssign(message: Message,id:string,idUser:string) {
+  addAndAssign(message: Message,id:string,idUser:string,Target:string) {
     console.log(message);
-    return this.http.post(`${environment.apiUrl}/message/add/${id}/${idUser}`, message);
+    return this.http.post(`${environment.apiUrl}/message/add/${id}/${idUser}/${Target}`, message);
   }
 
   add(message: Message) {
@@ -29,6 +30,15 @@ export class MessageService {
   checkLikesThenUpdate(message: Message,id:string) {
     console.log(message);
     return this.http.put<Message>(`${environment.apiUrl}/message/likes/update/${id}`, message);
+  }
+  checkSginalsThenUpdate(message:Message,id:string){
+    console.log(message);
+    return this.http.put<Message>(`${environment.apiUrl}/message/signal/update/${id}`, message);
+  }
+  removeSignal(message:Message,id:string){
+    console.log(message);
+    return this.http.put<Message>(`${environment.apiUrl}/message/signal/remove/${id}`, message);
+
   }
   removeLike(message: Message,id:string) {
     console.log(message);

@@ -14,8 +14,8 @@ export class PostService {
   getById(id: string) {
     return this.http.get<Post>(`${environment.apiUrl}/post/get/${id}`);
   }
-  addAndAssign(post: Post,id:string) {
-    return this.http.post(`${environment.apiUrl}/post/add/${id}`, post);
+  addAndAssign(post: Post,id:string,user:string) {
+    return this.http.post(`${environment.apiUrl}/post/add/${id}/${user}`, post);
   }
 
   add(post: Post) {

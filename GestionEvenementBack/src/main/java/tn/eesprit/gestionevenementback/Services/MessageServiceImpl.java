@@ -23,7 +23,11 @@ public class MessageServiceImpl implements IMessageService{
     @Override
     public List<Message> retrieveAllMessages(){return MessageRepo.findAll();}
     @Override
-    public Message addOrUpdateMessage(Message message){return MessageRepo.save(message);}
+    public Message addOrUpdateMessage(Message message){
+        Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
+        m.setContenu(message.getContenu());
+        return MessageRepo.save(m);
+    }
     @Override
     public Message UpdateSignal(Message message,Integer id){
        /* User user=userRepo.findById(id).orElse(null);
@@ -65,15 +69,59 @@ public class MessageServiceImpl implements IMessageService{
         return m;
 
     }
+
+
     @Override
-    public Message addAndAssignMessageToForum(Message message, Integer id, Integer UserId){
-        Post post=postRepo.findById(id).orElse(null);
+    public Message checkSignalAndUpdateMessage(Message message,Integer id){
+        Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
+        User user=userRepo.findById(id).orElse(null);
+        for (User u:m.getSignalUsers())
+        {
+            if (u==user)
+            {
+                return m;
+            }
+        }
+        m.getSignalUsers().add(user);
+        if (m.getSignalUsers().size()>10)
+            m.setIsBlocked(1);
+        else m.setIsBlocked(0);
+        return MessageRepo.save(m);
+
+    }
+    @Override
+    public Message removeSignal(Message message,Integer id){
+        Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
+        User user=userRepo.findById(id).orElse(null);
+        for (User u:m.getSignalUsers())
+        {
+            if (u==user)
+            {
+                m.getSignalUsers().remove(u);
+                if (m.getSignalUsers().size()>10)
+                    m.setIsBlocked(1);
+                else m.setIsBlocked(0);
+                return MessageRepo.save(m);
+            }
+        }
+        return m;
+
+    }
+    @Override
+    public Message addAndAssignMessage(Message message, Integer id, Integer UserId,Integer Target){
         User user=userRepo.findById(UserId).orElse(null);
         message.setUser(user);
         Date date = new Date();
         message.setIsBlocked(0);
         message.setDatePub(date);
-        message.setPost(post);
+        if (Target==1){
+            Message m=MessageRepo.findById(id).orElse(null);
+            message.setMessage(m);
+        }
+        else{
+            Post post=postRepo.findById(id).orElse(null);
+            message.setPost(post);
+        }
         return MessageRepo.save(message);
     }
     @Override

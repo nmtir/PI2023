@@ -32,11 +32,26 @@ import {User} from "../_Models/User";
           style({ opacity: 0, transform: 'translateY(-10px)' })
         ),
       ]),
+    ]),
+    trigger('enterExitCenter', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'transform(-10px)' }),
+        animate(
+          '500ms ease-in',
+          style({ opacity: 1, transform: 'transform(0)' })
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '500ms ease-in',
+          style({ opacity: 0, transform: 'transform(-10px)' })
+        ),
+      ]),
     ])
   ]
 
 })
-export class PostDetailsComponent implements OnInit{
+export class PostDetailsComponent {
   panelOpenState = false;
   visible = false;
   currentUser:string;
@@ -46,16 +61,14 @@ export class PostDetailsComponent implements OnInit{
   messageForm:FormGroup;
   public selectedMessageId: string = null;
 
-  constructor(private route: ActivatedRoute,private postService:PostService,private messageService:MessageService,private formBuilder:FormBuilder) {
-  }
 
-  ngOnInit() {
+
   public selectedEditMessageId: string = null;
   constructor(
     private route: ActivatedRoute,
     private postService:PostService,
     private messageService:MessageService,
-    private formBuilder:FormBuilder,
+    private formBuilder:FormBuilder
    ) {
     this.userId="1";
     this.currentUser="2";
@@ -65,8 +78,6 @@ export class PostDetailsComponent implements OnInit{
 
       contenu:['']
     });
-  }
-  ngOnInit() {
   }
 
   private loadPost(){
@@ -83,17 +94,29 @@ export class PostDetailsComponent implements OnInit{
       });
     })
   }
-  public SubmitForm() {
-    this.messageService.addAndAssign(this.messageForm.value,this.data,this.currentUser).pipe(first()).subscribe();
+  public SubmitForm( parentId:any) {
+    if (parentId!=null){
+      this.messageService.addAndAssign(this.messageForm.value,parentId,this.currentUser,"1").pipe(first()).subscribe();
+      this.loadPost();
+    }
+      else {
+    this.messageService.addAndAssign(this.messageForm.value,this.data,this.currentUser,"2").pipe(first()).subscribe();
     this.loadPost();
+      }
+
   }
   public updateMessage(message:Message) {
     message.contenu=this.messageForm.value.contenu;
     this.messageService.update(message).pipe(first()).subscribe();
     this.loadPost();
   }
-  public SubmitSignal(message:Message,id:number){
-    this.messageService.updateSignal(message,id).pipe(first()).subscribe();
+  public addMessageSignal(message:Message){
+    this.messageService.checkSginalsThenUpdate(message,this.currentUser).pipe(first()).subscribe();
+    this.loadPost();
+  }
+  public removeMessageSignal(message:Message){
+    this.messageService.removeSignal(message,this.currentUser).pipe(first()).subscribe();
+    this.loadPost();
   }
   toggleCollapse(id: number): void {
     this.visible[id] = !this.visible[id];
@@ -117,6 +140,16 @@ export class PostDetailsComponent implements OnInit{
 
   checkMessageLike(m: Message):boolean {
     for (let u of m.likes){
+      if (u.userId==this.currentUser)
+      {
+        return false;
+      }
+
+    }
+    return true;
+  }
+  checkMessageSignal(m: Message):boolean {
+    for (let u of m.signalUsers){
       if (u.userId==this.currentUser)
       {
         return false;
@@ -184,6 +217,11 @@ export class PostDetailsComponent implements OnInit{
       return true;
     else return false
 
+  }
+
+  deleteMessage(m: Message) {
+    this.messageService.delete(m.messageId).pipe(first()).subscribe();
+    this.loadPost();
   }
 }
 

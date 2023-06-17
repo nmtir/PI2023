@@ -38,6 +38,7 @@ const routes: Routes = [
   {path: "resource", component: ResourceListComponent},
   {path: "forum", component: ForumDetailsComponent},
   {path: "post", component: PostDetailsComponent},
+  {path: "addpost", component: PostAddComponent},
   {path: "msg", component: MessageListComponent},
 
 

@@ -5,6 +5,7 @@ import {PostService} from "../_Services/post.service";
 import {first} from "rxjs";
 import {ForumService} from "../_Services/forum.service";
 import {Forum} from "../_Models/Forum";
+import {User} from "../_Models/User";
 
 @Component({
   selector: 'app-post-add',
@@ -14,6 +15,7 @@ import {Forum} from "../_Models/Forum";
 export class PostAddComponent implements OnInit{
   id:string;
   postForm:FormGroup;
+  currentUser:string;
 
   forum:string;
   constructor(
@@ -24,6 +26,7 @@ export class PostAddComponent implements OnInit{
     ) {
   }
   ngOnInit() {
+    this.currentUser="1"
     this.getId();
     this.postForm=this.formBuilder.group({
       title:[''],
@@ -36,8 +39,8 @@ export class PostAddComponent implements OnInit{
 
   }
   public SubmitForm() {
-  this.postService.addAndAssign(this.postForm.value,this.id).pipe(first()).subscribe(data=>{
-    window.location.reload()
+  this.postService.addAndAssign(this.postForm.value,this.id,this.currentUser).pipe(first()).subscribe(data=>{
+    this.router.navigate(['/forum']);
   });
     console.log(this.postForm.value);
   }

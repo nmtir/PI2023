@@ -1,5 +1,6 @@
 package tn.eesprit.gestionevenementback.Services;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import tn.eesprit.gestionevenementback.Repository.ForumRepository;
 import tn.eesprit.gestionevenementback.Repository.PostRepository;
 import tn.eesprit.gestionevenementback.Repository.UserRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,9 +42,13 @@ public class PostServiceImpl implements IPostService{
 
     }
     @Override
-    public Post addAndAssignPostToForum(Post post,Integer id){
+    public Post addAndAssignPostToForum(Post post,Integer id,Integer idUser){
         Forum forum=forumRepo.findById(id).orElse(null);
         post.setForum(forum);
+        Date d=new Date();
+        post.setDatePub(d);
+        User user=userRepository.findById(idUser).orElse(null);
+        post.setUser(user);
         return PostRepo.save(post);
     }
 

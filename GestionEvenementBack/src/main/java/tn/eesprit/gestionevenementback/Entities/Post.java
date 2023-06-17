@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -20,6 +21,7 @@ public class Post implements Serializable {
     Integer postId;
     String content;
     String title;
+    Date datePub;
     @ManyToMany
     Set<User> likes;
     @ManyToMany

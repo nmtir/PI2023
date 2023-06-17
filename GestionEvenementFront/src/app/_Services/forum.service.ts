@@ -12,8 +12,8 @@ export class ForumService {
   getById(id: string) {
     return this.http.get<Forum>(`${environment.apiUrl}/forum/get/${id}`);
   }
-  getByEventId(id: number) {
-    return this.http.get<Forum>(`${environment.apiUrl}/forum/get/event/${id}`);
+  getByEventId(id: number,sortingType:string) {
+    return this.http.get<Forum>(`${environment.apiUrl}/forum/get/event/${id}/${sortingType}`);
   }
 
   add(forum: Forum) {

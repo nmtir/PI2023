@@ -1,3 +1,4 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "assets/css/gApi.css";
 @import "assets/css/bootstrap.min.css";
 @import "assets/css/bootstrap-datepicker.css";

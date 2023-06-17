@@ -18,10 +18,10 @@ public class MessageController {
     {
         return messageService.addOrUpdateMessage(message);
     }
-    @PostMapping("/add/{id}/{idUser}")
-    Message addMessageToPost(@RequestBody Message message, @PathVariable("id") Integer id,@PathVariable("idUser") Integer idUser)
+    @PostMapping("/add/{id}/{idUser}/{Target}")
+    Message addMessageToPost(@RequestBody Message message, @PathVariable("id") Integer id,@PathVariable("idUser") Integer idUser,@PathVariable("Target") Integer Targer)
     {
-        return messageService.addAndAssignMessageToForum(message,id,idUser);
+        return messageService.addAndAssignMessage(message,id,idUser,Targer);
     }
     @PutMapping("/update")
     Message updateMessage(@RequestBody Message message){
@@ -38,6 +38,14 @@ public class MessageController {
     @PutMapping("/likes/remove/{id}")
     Message removeLike(@RequestBody Message message,@PathVariable("id") Integer id){
         return messageService.removeLike(message,id);
+    }
+    @PutMapping("/signal/update/{id}")
+    Message checkSignalAndUpdateMessage(@RequestBody Message message,@PathVariable("id") Integer id){
+        return messageService.checkSignalAndUpdateMessage(message,id);
+    }
+    @PutMapping("/signal/remove/{id}")
+    Message removesignal(@RequestBody Message message,@PathVariable("id") Integer id){
+        return messageService.removeSignal(message,id);
     }
     @GetMapping("/get/{id}")
     Message getMessage(@PathVariable("id") Integer id){

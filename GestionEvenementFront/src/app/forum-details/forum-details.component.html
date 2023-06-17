@@ -1,133 +1,129 @@
-<div class="card shadow-lg mx-4 card-profile-bottom">
-  <div class="card-body p-3">
-    <div class="row gx-4">
-      <div class="col-auto">
-        <div class="avatar avatar-xl position-relative">
-          <img src="assets/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-        </div>
-      </div>
-      <div class="col-auto my-auto">
-        <div class="h-100">
-          <h5 class="mb-1">
-            Sayo Kravits
-          </h5>
-          <p class="mb-0 font-weight-bold text-sm">
-            Public Relations
-          </p>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-        <div class="nav-wrapper position-relative end-0">
-          <ul class="nav nav-pills nav-fill p-1" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link mb-0 px-0 py-1 active d-flex align-items-center justify-content-center " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                <i class="ni ni-app"></i>
-                <span class="ms-2">App</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-                <i class="ni ni-email-83"></i>
-                <span class="ms-2">Messages</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-                <i class="ni ni-settings-gear-65"></i>
-                <span class="ms-2">Settings</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+<app-current-user></app-current-user>
+<div  style=" display: flex; justify-content: flex-end; margin-top: 10px; margin-right: 100px;">
+  <mat-form-field>
+    <mat-label>Sort By</mat-label>
+    <mat-select [(value)]="selected" (selectionChange)="loadForum(selected)">
+      <mat-option value="mostRecent">Most Recent</mat-option>
+      <mat-option value="maxVues">Trending</mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
-<div *ngIf="forum" class="container-fluid py-4">
-  <div class="row">
-    <div class="col-md-111">
-      <div class="card">
+<section  *ngIf="forum"  class="ftco-section">
+  <div class="container">
+    <div  *ngFor="let row of page" class="row d-flex">
 
-        <div class="card-body">
-          <div class="container-fluid py-4">
-            <div class="row">
-              <div class="col-12">
-                <div class="card mb-4">
-                  <div class="card-header pb-0">
-                    <h6>{{forum.event.eventId}}</h6>
-                  </div>
-                  <div class="card-body px-0 pt-0 pb-2">
-                    <div class="table-responsive p-0">
-                      <table class="table align-items-center justify-content-center mb-0">
-                        <thead>
-                        <tr>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PostId</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Postname</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Date de Publication</th>
-                          <th></th>
-                        </tr>
-                        </thead>
-                        <tbody *ngFor="let p of forum.posts" >
-                          <tr [routerLink]="['/post',{ data: p.postId}]" routerLinkActive="active" >
-                            <td>
-                              <div class="d-flex px-2">
-                                <div class="my-auto">
-                                  <h6 class="mb-0 text-sm">{{p.postId}}</h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <p class="text-sm font-weight-bold mb-0">{{p.title}}</p>
-                            </td>
-                            <td>
-                              <span class="text-xs font-weight-bold">{{p.content}}</span>
-                            </td>
-                            <td class="align-middle text-center">
-                              <div class="d-flex align-items-center justify-content-center">
-                                <span class="me-2 text-xs font-weight-bold">60%</span>
-                                <div>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="align-middle">
-                              <button class="btn btn-link text-secondary mb-0">
-                                <i class="fa fa-ellipsis-v text-xs"></i>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
+      <div @enterExitDown [routerLink]="['/post',{ data: row[0].postId}]" routerLinkActive="active" class="col-md-4 d-flex">
+        <div class="blog-entry justify-content-end">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg')">
+          </a>
+          <div class="text p-4 float-right d-block">
+            <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[0].views.length}}</span>
+            <div class="d-flex align-items-center pt-2 mb-4">
+              <div class="one">
+                <span class="day">{{getPostDay(row[0])}}</span>
+              </div>
+              <div class="two">
+                <span class="yr">{{getPostMonth(row[0])}}</span>
+                <span class="mos">{{getPostFullYear(row[0])}}</span>
               </div>
             </div>
+            <h3 class="heading mt-2"><a href="#">{{row[0].title}}</a></h3>
+            <div class="content-wrapper">
+              <p>{{row[0].content}}</p>
+            </div>
           </div>
-          <div class="row">
-            <div class="d-flex align-items-center">
-              <p class="mb-0"></p>
-              <button [routerLink]="['/addpost',{ data: forum.forumId}]"  class="btn btn-primary btn-sm ms-auto">Add Your Post</button>
+        </div>
+      </div>
+      <div @enterExitDown [routerLink]="['/post',{ data: row[1].postId}]" routerLinkActive="active" *ngIf="row[1]" class="col-md-4 d-flex">
+        <div class="blog-entry justify-content-end">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');">
+          </a>
+          <div class="text p-4 float-right d-block">
+            <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[1].views.length}}</span>
+            <div class="d-flex align-items-center pt-2 mb-4">
+              <div class="one">
+                <span class="day">{{getPostDay(row[1])}}</span>
+              </div>
+              <div class="two">
+                <span class="yr">{{getPostMonth(row[1])}}</span>
+                <span class="mos">{{getPostFullYear(row[1])}}</span>
+              </div>
+            </div>
+            <h3 class="heading mt-2"><a href="#">{{row[1].title}}</a></h3>
+            <div class="content-wrapper">
+              <p>{{row[1].content}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div @enterExitDown [routerLink]="['/post',{ data: row[2].postId}]" routerLinkActive="active" *ngIf="row[2]" class="col-md-4 d-flex">
+        <div class="blog-entry justify-content-end">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');">
+          </a>
+          <div class="text p-4 float-right d-block">
+            <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[2].views.length}}</span>
+            <div class="d-flex align-items-center pt-2 mb-4">
+              <div class="one">
+                <span class="day">{{getPostDay(row[2])}}</span>
+              </div>
+              <div class="two">
+                <span class="yr">{{getPostMonth(row[2])}}</span>
+                <span class="mos">{{getPostFullYear(row[2])}}</span>
+              </div>
+            </div>
+            <h3 class="heading mt-2"><a href="#">{{row[2].title}}</a></h3>
+            <div class="content-wrapper">
+            <p>{{row[2].content}}</p>
+            </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="d-flex align-items-center">
+        <p class="mb-0"></p>
+        <button [routerLink]="['/addpost',{ data: forum.forumId}]"  class="btn btn-primary btn-sm ms-auto">Add Your Post</button>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col text-center">
+        <div class="block-27">
+          <ul>
+            <li><a href="#">&lt;</a></li>
+            <li class="active"><span>1</span></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&gt;</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section-parallax">
+  <div class="parallax-img d-flex align-items-center">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+          <h2>Subcribe to our Newsletter</h2>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+          <div class="row d-flex justify-content-center mt-4 mb-4">
+            <div class="col-md-8">
+              <form action="#" class="subscribe-form">
+                <div class="form-group d-flex">
+                  <input type="text" class="form-control" placeholder="Enter email address">
+                  <input type="submit" value="Subscribe" class="submit px-3">
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <footer class="footer pt-3  ">
-    <div class="container-fluid">
-      <div class="row align-items-center justify-content-lg-between">
-        <div class="col-lg-6 mb-lg-0 mb-4">
+</section>
 
-        </div>
-        <div class="col-lg-6">
-          <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
-</div>

@@ -7,6 +7,7 @@ export class Post {
   title:string;
   content:string;
   forum:Forum ;
+  datePub:Date;
   messages:Message[];
   user:User;
   views:User[];

@@ -18,10 +18,10 @@ public class PostController {
     {
         return postService.addOrUpdatePost(post);
     }
-    @PostMapping("/add/{id}")
-    Post addPostToForum(@RequestBody Post post,@PathVariable("id") Integer id)
+    @PostMapping("/add/{id}/{user}")
+    Post addPostToForum(@RequestBody Post post,@PathVariable("id") Integer id,@PathVariable("user") Integer idUser)
     {
-        return postService.addAndAssignPostToForum(post,id);
+        return postService.addAndAssignPostToForum(post,id,idUser);
     }
     @PutMapping("/update")
     Post updatePost(@RequestBody Post post){
