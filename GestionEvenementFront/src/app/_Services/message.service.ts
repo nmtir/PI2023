@@ -26,6 +26,14 @@ export class MessageService {
   getAll() {
     return this.http.get<Message[]>(`${environment.apiUrl}/message/all`);
   }
+  checkLikesThenUpdate(message: Message,id:string) {
+    console.log(message);
+    return this.http.put<Message>(`${environment.apiUrl}/message/likes/update/${id}`, message);
+  }
+  removeLike(message: Message,id:string) {
+    console.log(message);
+    return this.http.put<Message>(`${environment.apiUrl}/message/likes/remove/${id}`, message);
+  }
   update(message: Message) {
     console.log(message);
     return this.http.put(`${environment.apiUrl}/message/update`, message);

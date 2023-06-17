@@ -2,7 +2,7 @@ import { Role } from './Role';
 import {Message} from "./Message";
 
 export class User {
-  idUser: string;
+  userId: string;
   name:string;
   role: Role;
   messages:Message[];

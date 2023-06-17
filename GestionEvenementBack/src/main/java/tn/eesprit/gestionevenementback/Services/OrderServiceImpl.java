@@ -41,6 +41,7 @@ public class OrderServiceImpl implements IOrderService{
     }
     @Override
     public Ordre retrieveOrder(Integer id){return orderRepo.findById(id).orElse(null);}
+    @Override
     public List<Ordre> retrieveProductOrdersReservedForEvent(Integer id)
     {
         List<Ordre> ordres = orderRepo.findByLogistiqueLogistiqueId(id);

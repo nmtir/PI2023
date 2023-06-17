@@ -12,5 +12,7 @@ public interface IMessageService {
     void removeMessage(Integer id);
     Message addAndAssignMessageToForum(Message message, Integer id,Integer userId);
     Message UpdateSignal(Message message,Integer id);
+    Message checkLikeAndUpdateMessage(Message message,Integer id);
+    Message removeLike(Message message,Integer id);
 }
 
