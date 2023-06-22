@@ -1,5 +1,6 @@
 package tn.eesprit.gestionevenementback.Controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +21,13 @@ import tn.eesprit.gestionevenementback.Services.EmailService;
 import tn.eesprit.gestionevenementback.Services.IUserService;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Tag(name = "User", description = "User management APIs")
 public class UserController {
     private final IUserService userService;
     private final PasswordEncoder encoder;
@@ -65,7 +64,7 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("Not found user with id = " + id));
         user.setActive(true);
         userRepository.save(user);
-      String status=  this.emailService.sendSimpleMail(user.getEmail());
+      String status=  emailService.sendSimpleMail(user.getEmail());
       System.out.println(status);
         return new ResponseEntity<>(user, HttpStatus.OK);
 
@@ -183,7 +182,56 @@ public class UserController {
             userRepository.save(_user);
         }
     }
+
+    @PutMapping("/forgetPassword/{email}")
+    public ResponseEntity<?> forgetPassword(@PathVariable("email") String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (!user.isPresent()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: User not foudn !!"));
+        }else {
+            String token = UUID.randomUUID().toString();
+            System.out.println(token);
+            emailService.sendMailReset(user.get().getEmail(),token);
+            User _user=user.get();
+            _user.setToken(token);
+            userRepository.save(_user);
+            return ResponseEntity
+                    .ok()
+                    .body(_user);
+
+
+        }
+    }
+    @PutMapping("/resetPassword/{token}")
+    public ResponseEntity<?> resetPassword(@PathVariable("token") String token,@RequestBody String newPassword) {
+        System.out.println(token);
+        System.out.println(newPassword);
+        Optional<User> user = userRepository.findByToken(token);
+        if (!user.isPresent()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: User not foudn !!"));
+        }else {
+
+            // emailService.sendMailReset(user.get().getEmail(),token);
+            User _user=user.get();
+            System.out.println(_user.toString());
+            _user.setToken("");
+            System.out.println(newPassword);
+            _user.setPassword(encoder.encode(newPassword));
+            System.out.println(_user.toString());
+            userRepository.save(_user);
+            return ResponseEntity
+                    .ok()
+                    .body(_user);
+
+
+        }
+    }
 }
+
 
 
 

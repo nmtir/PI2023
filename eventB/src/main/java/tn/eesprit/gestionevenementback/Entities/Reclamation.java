@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -16,13 +18,16 @@ public class Reclamation {
     private String subject;
     private String content;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    Date date;
+
+    Date dateReclamation;
 
     public Reclamation(String subject,String content){
 
         this.subject=subject;
         this.content=content;
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date dateReclamation = new Date(System.currentTimeMillis());
+        this.dateReclamation= dateReclamation;
     }
 
 

@@ -30,9 +30,11 @@ public class ReclamationServiceImpl implements IReclamationService {
     }
     @Override
     public Reclamation affecteReclamatioToUser(Reclamation reclamation, Long id) {
+        Reclamation reclamation1=new Reclamation(reclamation.getSubject(),reclamation.getContent());
+
         Reclamation _reclamation = userRepository.findById(id).map((User user) -> {
-            user.getReclamations().add(reclamation);
-            return reclamationRepository.save(reclamation);
+            user.getReclamations().add(reclamation1);
+            return reclamationRepository.save(reclamation1);
         }).orElseThrow(() -> new ResourceNotFoundException("Not found User with id = " + id));
         return _reclamation;
     }
