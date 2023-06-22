@@ -39,6 +39,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { TransportComponent } from './transport/transport.component';
+import { HousingComponent } from './housing/housing.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +68,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     LogistiqueDetailsComponent,
     CurrentUserComponent,
     PostDetailsComponent,
-    DateAgoPipe
+    DateAgoPipe,
+    TransportComponent,
+    HousingComponent
   ],
     imports: [
         FormsModule,

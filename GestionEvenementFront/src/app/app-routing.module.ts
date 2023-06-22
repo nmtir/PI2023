@@ -19,6 +19,8 @@ import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostAddComponent } from './post-add/post-add.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import {MessageListComponent} from './message-list/message-list.component'
+import {TransportComponent} from './transport/transport.component'
+import {HousingComponent} from './housing/housing.component'
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -40,6 +42,8 @@ const routes: Routes = [
   {path: "post", component: PostDetailsComponent},
   {path: "addpost", component: PostAddComponent},
   {path: "msg", component: MessageListComponent},
+  {path: "transport", component: TransportComponent},
+  {path: "housing", component: HousingComponent},
 
 
 

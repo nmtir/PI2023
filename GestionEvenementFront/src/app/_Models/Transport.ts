@@ -3,7 +3,7 @@ import {Ordre} from "./Ordre";
 
 export class Transport {
   transportId:string;
-  fromAdress:string ;
+  startAdress:string ;
   price:string ;
   capacity:string ;
   transportType:TransportType ;
