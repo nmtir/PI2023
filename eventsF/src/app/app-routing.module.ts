@@ -24,7 +24,9 @@ import { UpdateUserComponent } from './dashboard/update-user/update-user.compone
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { ListeReclamationComponent } from './dashboard/liste-reclamation/liste-reclamation.component';
 import { ActivityComponent } from './dashboard/activity/activity.component';
-  
+import {ForgetPasswordComponent} from "./forget-password/forget-password.component";
+import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+
 const routes: Routes = [
   {path: "home", component: HomeComponent},
   {path: "", component: HomeComponent},
@@ -40,18 +42,21 @@ const routes: Routes = [
   {path: "dashboard", component: AdminDashboardComponent},
   {path: "tables", component: AdminTablesComponent},
   {path: "tables", component: AdminTablesComponent},
-  {path: "new-event", component: NewEventComponent}, 
-  {path: "list-event", component: ListEventComponent}, 
-  {path: "events", component: EventsComponent}, 
-  {path: "profil", component: ProfilComponent}, 
-  {path: "list-membre", component: ListMembreComponent}, 
-  {path: "list-membre", component: ListMembreComponent}, 
-  {path: "facture", component: FactureComponent}, 
-  {path: "new-user", component: NewUserComponent}, 
-  {path: "update-user/:id", component: UpdateUserComponent}, 
-  {path: "reclamation", component: ReclamationComponent}, 
+  {path: "new-event", component: NewEventComponent},
+  {path: "list-event", component: ListEventComponent},
+  {path: "events", component: EventsComponent},
+  {path: "profil", component: ProfilComponent},
+  {path: "list-membre", component: ListMembreComponent},
+  {path: "list-membre", component: ListMembreComponent},
+  {path: "facture", component: FactureComponent},
+  {path: "new-user", component: NewUserComponent},
+  {path: "update-user/:id", component: UpdateUserComponent},
+  {path: "reclamation", component: ReclamationComponent},
   {path: "reclamations/:id", component: ListeReclamationComponent},
   {path: "activity/:id", component: ActivityComponent},
+  ,
+  { path: "forget-password", component: ForgetPasswordComponent },
+  { path: "reset-password", component: ResetPasswordComponent },
 
 
 

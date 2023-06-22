@@ -8,6 +8,13 @@ export class UserService {
   private url="http://localhost:8089/api/user";
   constructor(private http:HttpClient) { }
 
+  forgetPassword(email:any){
+    return this.http.put<any>(this.url+'/forgetPassword/'+email,{})
+  }
+
+  resetPassword(token:any,newPassword){
+    return this.http.put<any>(this.url+'/resetPassword/'+token,newPassword)
+  }
   getUser(id:any){
     return this.http.get<any>(this.url+'/get-user/'+id)
   }

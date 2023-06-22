@@ -35,6 +35,8 @@ import { ListeReclamationComponent } from './dashboard/liste-reclamation/liste-r
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { ActivityComponent } from './dashboard/activity/activity.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UpdateUserComponent,
     ReclamationComponent,
     ListeReclamationComponent,
-    ActivityComponent
+    ActivityComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [CommonModule,
     BrowserModule,
