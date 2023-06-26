@@ -20,7 +20,6 @@ public class User implements Serializable {
     Integer UserId;
     @Enumerated(EnumType.STRING)
     Role role;
-
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     Set<Post> posts;
