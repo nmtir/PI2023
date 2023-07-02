@@ -1,35 +1,47 @@
 package tn.eesprit.gestionevenementback.Controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.eesprit.gestionevenementback.Entities.Facture;
+import tn.eesprit.gestionevenementback.Entities.User;
+import tn.eesprit.gestionevenementback.Exception.ResourceNotFoundException;
+import tn.eesprit.gestionevenementback.Repository.FactureRepository;
+import tn.eesprit.gestionevenementback.Repository.UserRepository;
 import tn.eesprit.gestionevenementback.Services.IFactureService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/facture")
+@RequestMapping("/api/facture")
+@CrossOrigin(origins = "*", maxAge = 3600)
+
 public class FactureController {
     private final IFactureService factureService;
-    @PostMapping("/add")
-    Facture addFacture(@RequestBody Facture facture)
-    {
-        return factureService.addOrUpdateFacture(facture);
+    private final UserRepository userRepository;
+    private final FactureRepository factureRepository;
+    @GetMapping("/users/{id}/factures")
+    public ResponseEntity<List<Facture>> getAllFactureByUserid(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found user with id = " + id));
+
+        List<Facture> factures = new ArrayList<Facture>();
+        factures.addAll(user.getFactures());
+
+        return new ResponseEntity<>(factures, HttpStatus.OK);
     }
-    @PutMapping("/update")
-    Facture updateFacture(@RequestBody Facture facture){
-        return factureService.addOrUpdateFacture(facture);
-    }
-    @GetMapping("/get/{id}")
-    Facture getFacture(@PathVariable("id") Integer id){
-        return factureService.retrieveFacture(id);
-    }
-    @GetMapping("/all")
-    List<Facture> getAllFactures(){return factureService.retrieveAllFactures();}
-    @DeleteMapping("/delete/{id}")
-    void deleteFacture(@PathVariable("id") Integer id){
-        factureService.removeFacture(id);
+    @PostMapping("/users/{id}/facture")
+    public ResponseEntity<Facture> creatReclamation(@PathVariable(value = "id") Long id,
+                                                        @RequestBody Facture facture) throws ResourceNotFoundException {
+        Facture _facture = userRepository.findById(id).map((User user) -> {
+            user.getFactures().add(facture);
+            return factureRepository.save(facture);
+        }).orElseThrow(() -> new ResourceNotFoundException("Not found User with id = " + id));
+
+        return new ResponseEntity<>(_facture, HttpStatus.CREATED);
     }
 
 }

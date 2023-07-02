@@ -19,7 +19,7 @@ public class PostController {
         return postService.addOrUpdatePost(post);
     }
     @PostMapping("/add/{id}/{user}")
-    Post addPostToForum(@RequestBody Post post,@PathVariable("id") Integer id,@PathVariable("user") Integer idUser)
+    Post addPostToForum(@RequestBody Post post,@PathVariable("id") Integer id,@PathVariable("user") Long idUser)
     {
         return postService.addAndAssignPostToForum(post,id,idUser);
     }
@@ -28,16 +28,16 @@ public class PostController {
         return postService.addOrUpdatePost(post);
     }
     @PutMapping("/views/update/{id}")
-    Post checkViewsAndUpdatePost(@RequestBody Post post,@PathVariable("id") Integer id){
+    Post checkViewsAndUpdatePost(@RequestBody Post post,@PathVariable("id") Long id){
         return postService.checkViewAndUpdatePost(post,id);
     }
 
     @PutMapping("/likes/update/{id}")
-    Post checkLikesAndUpdatePost(@RequestBody Post post, @PathVariable("id") Integer id){
+    Post checkLikesAndUpdatePost(@RequestBody Post post, @PathVariable("id") Long id){
         return postService.checkLikeAndUpdatePost(post,id);
     }
     @PutMapping("/likes/remove/{id}")
-    Post removeLike(@RequestBody Post post,@PathVariable("id") Integer id){
+    Post removeLike(@RequestBody Post post,@PathVariable("id") Long id){
         return postService.removeLike(post,id);
     }
 

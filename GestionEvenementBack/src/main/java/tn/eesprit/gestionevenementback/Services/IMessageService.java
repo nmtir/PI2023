@@ -10,11 +10,11 @@ public interface IMessageService {
     Message addOrUpdateMessage(Message Message);
     Message retrieveMessage(Integer id);
     void removeMessage(Integer id);
-    Message addAndAssignMessage(Message message, Integer id, Integer UserId,Integer Target);
+    Message addAndAssignMessage(Message message, Integer id, Long UserId,Integer Target);
     Message UpdateSignal(Message message,Integer id);
-    Message checkLikeAndUpdateMessage(Message message,Integer id);
-    Message removeLike(Message message,Integer id);
-    Message removeSignal(Message message,Integer id);
-    Message checkSignalAndUpdateMessage(Message message,Integer id);
+    Message checkLikeAndUpdateMessage(Message message,Long id);
+    Message removeLike(Message message,Long id);
+    Message removeSignal(Message message,Long id);
+    Message checkSignalAndUpdateMessage(Message message,Long id);
 }
 

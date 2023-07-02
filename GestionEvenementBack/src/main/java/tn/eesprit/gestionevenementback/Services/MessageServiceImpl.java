@@ -40,7 +40,7 @@ public class MessageServiceImpl implements IMessageService{
         return MessageRepo.save(message);
     }
     @Override
-    public Message checkLikeAndUpdateMessage(Message message,Integer id){
+    public Message checkLikeAndUpdateMessage(Message message,Long id){
         Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
         User user=userRepo.findById(id).orElse(null);
         for (User u:m.getLikes())
@@ -55,7 +55,7 @@ public class MessageServiceImpl implements IMessageService{
 
     }
     @Override
-    public Message removeLike(Message message,Integer id){
+    public Message removeLike(Message message,Long id){
         Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
         User user=userRepo.findById(id).orElse(null);
         for (User u:m.getLikes())
@@ -72,7 +72,7 @@ public class MessageServiceImpl implements IMessageService{
 
 
     @Override
-    public Message checkSignalAndUpdateMessage(Message message,Integer id){
+    public Message checkSignalAndUpdateMessage(Message message,Long id){
         Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
         User user=userRepo.findById(id).orElse(null);
         for (User u:m.getSignalUsers())
@@ -90,7 +90,7 @@ public class MessageServiceImpl implements IMessageService{
 
     }
     @Override
-    public Message removeSignal(Message message,Integer id){
+    public Message removeSignal(Message message,Long id){
         Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
         User user=userRepo.findById(id).orElse(null);
         for (User u:m.getSignalUsers())
@@ -108,7 +108,7 @@ public class MessageServiceImpl implements IMessageService{
 
     }
     @Override
-    public Message addAndAssignMessage(Message message, Integer id, Integer UserId,Integer Target){
+    public Message addAndAssignMessage(Message message, Integer id, Long UserId,Integer Target){
         User user=userRepo.findById(UserId).orElse(null);
         message.setUser(user);
         Date date = new Date();

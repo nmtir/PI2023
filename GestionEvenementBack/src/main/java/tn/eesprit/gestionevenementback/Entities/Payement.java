@@ -17,9 +17,9 @@ import java.io.Serializable;
 public class Payement implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer PayementId;
+    Integer payementId;
 
-    @OneToOne(mappedBy = "payement")
+    @OneToOne(mappedBy = "payementId")
     Facture facture;
     @JsonIgnore
     @OneToOne

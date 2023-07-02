@@ -35,7 +35,7 @@ public class LogistiqueServiceImpl implements ILogistiqueService{
     @Override
     public Logistique retrieveLogistique(Integer id){return logistiqueRepo.findById(id).orElse(null);}
     @Override
-    public Logistique retrieveLogistiqueByEventId(Integer id){return logistiqueRepo.findByEventEventId(id);}
+    public Logistique retrieveLogistiqueByEventId(Integer id){return logistiqueRepo.findByEventId(id);}
 
 
     @Override

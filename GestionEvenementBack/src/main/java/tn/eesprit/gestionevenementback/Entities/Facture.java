@@ -7,6 +7,9 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,9 +20,20 @@ import java.io.Serializable;
 public class Facture implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer factureId;
+    Long factureId;
+
+    Epayement payement;
+    @Temporal(TemporalType.TIME)
+    Date  dateFacture;
+    private double sum;
+
+    public Facture(Epayement epayement,double sum){
+        this.payement=epayement;
+        this.sum=sum;
+    }
     @JsonIgnore
     @OneToOne
-    Payement payement;
+    Payement payementId;
+
 
 }

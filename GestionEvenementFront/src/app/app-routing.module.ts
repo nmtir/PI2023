@@ -18,6 +18,20 @@ import { ResourceListComponent } from './Resource-list/resource-list.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostAddComponent } from './post-add/post-add.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import {MessageListComponent} from './message-list/message-list.component';
+import { NewEventComponent } from './dashboard/new-event/new-event.component';
+import { ListEventComponent } from './dashboard/list-event/list-event.component';
+import { EventsComponent } from './events/events.component';
+import { ProfilComponent } from './dashboard/profil/profil.component';
+import { ListMembreComponent } from './dashboard/list-membre/list-membre.component';
+import { FactureComponent } from './dashboard/facture/facture.component';
+import { NewUserComponent } from './dashboard/new-user/new-user.component';
+import { UpdateUserComponent } from './dashboard/update-user/update-user.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
+import { ListeReclamationComponent } from './dashboard/liste-reclamation/liste-reclamation.component';
+import { ActivityComponent } from './dashboard/activity/activity.component';
+import {ForgetPasswordComponent} from "./forget-password/forget-password.component";
+import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 import {MessageListComponent} from './message-list/message-list.component'
 import {TransportComponent} from './transport/transport.component'
 import {HousingComponent} from './housing/housing.component'
@@ -42,6 +56,34 @@ const routes: Routes = [
   {path: "post", component: PostDetailsComponent},
   {path: "addpost", component: PostAddComponent},
   {path: "msg", component: MessageListComponent},
+  {path: "home", component: HomeComponent},
+  {path: "", component: HomeComponent},
+  {path: "about", component: AboutComponent},
+  {path: "blog", component: BlogComponent},
+  {path: "blog1", component: BlogSingleComponent},
+  {path: "contact", component: ContactComponent},
+  {path: "schedule", component: ScheduleComponent},
+  {path: "speakers", component: SpeakersComponent},
+  {path: "login", component: SignIn1Component},
+  {path: "register", component: SignUp1Component},
+  {path: "profile", component: ProfileComponent},
+  {path: "dashboard", component: AdminDashboardComponent},
+  {path: "tables", component: AdminTablesComponent},
+  {path: "tables", component: AdminTablesComponent},
+  {path: "new-event", component: NewEventComponent},
+  {path: "list-event", component: ListEventComponent},
+  {path: "events", component: EventsComponent},
+  {path: "profil", component: ProfilComponent},
+  {path: "list-membre", component: ListMembreComponent},
+  {path: "list-membre", component: ListMembreComponent},
+  {path: "facture", component: FactureComponent},
+  {path: "new-user", component: NewUserComponent},
+  {path: "update-user/:id", component: UpdateUserComponent},
+  {path: "reclamation", component: ReclamationComponent},
+  {path: "reclamations/:id", component: ListeReclamationComponent},
+  {path: "activity/:id", component: ActivityComponent},
+  {path: "forget-password", component: ForgetPasswordComponent},
+  {path: "reset-password", component: ResetPasswordComponent},
   {path: "transport", component: TransportComponent},
   {path: "housing", component: HousingComponent},
 

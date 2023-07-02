@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IEventService {
     List<Event> retrieveAllEvents();
-    Event addOrUpdateEvent(Event Event);
-    Event retrieveEvent(Integer id);
-    void removeEvent(Integer id);
+    Event addEvent(Event event);
+
+    public void  deleteEvent (Long id);
 }
