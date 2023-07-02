@@ -32,6 +32,9 @@ import { ListeReclamationComponent } from './dashboard/liste-reclamation/liste-r
 import { ActivityComponent } from './dashboard/activity/activity.component';
 import {ForgetPasswordComponent} from "./forget-password/forget-password.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {MessageListComponent} from './message-list/message-list.component'
+import {TransportComponent} from './transport/transport.component'
+import {HousingComponent} from './housing/housing.component'
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -79,9 +82,10 @@ const routes: Routes = [
   {path: "reclamation", component: ReclamationComponent},
   {path: "reclamations/:id", component: ListeReclamationComponent},
   {path: "activity/:id", component: ActivityComponent},
-  ,
-  { path: "forget-password", component: ForgetPasswordComponent },
-  { path: "reset-password", component: ResetPasswordComponent },
+  {path: "forget-password", component: ForgetPasswordComponent},
+  {path: "reset-password", component: ResetPasswordComponent},
+  {path: "transport", component: TransportComponent},
+  {path: "housing", component: HousingComponent},
 
 
 

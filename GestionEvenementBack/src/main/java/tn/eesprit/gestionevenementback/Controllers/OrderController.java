@@ -23,9 +23,9 @@ public class OrderController {
     {
         return orderService.addOrderAndAssignProduct(product,qty,id);
     }
-    @PutMapping("/update")
-    Ordre updateOrder(@RequestBody Ordre order){
-        return orderService.addOrUpdateOrder(order);
+    @PutMapping("/update/{qty}")
+    Ordre updateOrder(@PathVariable  Integer qty,@RequestBody Ordre order){
+        return orderService.UpdateOrder(qty,order);
     }
     @GetMapping("/get/{id}")
     Ordre getOrder(@PathVariable("id") Integer id){

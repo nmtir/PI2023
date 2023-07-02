@@ -19,7 +19,7 @@ public class Transport implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer transportId;
-    String fromAdress;
+    String startAdress;
     Float price;
     Integer capacity;
     @Enumerated(EnumType.STRING)

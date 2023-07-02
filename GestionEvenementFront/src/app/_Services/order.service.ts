@@ -29,9 +29,9 @@ export class OrderService {
   getAllProductOrdersByEvent(id:string) {
     return this.http.get<Ordre[]>(`${environment.apiUrl}/ordre/all/logistique/${id}`);
   }
-  update(o: Ordre) {
+  update(o: Ordre,qty:number) {
     console.log(o);
-    return this.http.put<Ordre>(`${environment.apiUrl}/ordre/update`, o);
+    return this.http.put<Ordre>(`${environment.apiUrl}/ordre/update/${qty}`, o);
   }
   updateQuantity(qty: string,id:string,o:Ordre) {
     return this.http.put(`${environment.apiUrl}/ordre/update/${id}/${qty}`,o);

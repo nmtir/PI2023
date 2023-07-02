@@ -1,103 +1,76 @@
 <app-current-user></app-current-user>
-<!--<div class="container-fluid py-4">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header pb-0">
-          <div class="d-flex align-items-center">
-            <p class="mb-0">Edit Profile</p>
-          </div>
-        </div>
-            <div class="row">
-              <div class="col-md-111">
-                      <div class="row">
-                        <div class="col-12">
-                                <div cdkDropList (cdkDropListDropped)="drop($event)" class="example-list" >
-                                  <div class="example-box table-responsive p-0" *ngFor="let r of resource.products" cdkDrag>
-                                    <div>{{r.nameProducts}}</div>
-                                    <div>{{r.unitPrice}}</div>
-                                    <div><input type="number" id="quantity" name="quantity" value="{{r.quantity}}"></div>
-                                  </div>
-                                </div>
-                        </div>
-                      </div>
-                    <div class="row">
-                      <div class="d-flex align-items-center">
-                        <p class="mb-0"></p>
-                        <button [routerLink]="['/resource/add',resource.resourceId]" class="btn btn-primary btn-sm ms-auto">Add</button>
-                      </div>
-                    </div>
-              </div>
-            </div>
-      </div>
-    </div>
-  </div>
-  <footer class="footer pt-3  ">
-    <div class="container-fluid">
-      <div class="row align-items-center justify-content-lg-between">
-        <div class="col-lg-6 mb-lg-0 mb-4">
-
-        </div>
-        <div class="col-lg-6">
-          <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
-</div>
--->
-<main class="main-content position-relative border-radius-lg ">
+<main *ngIf="stock&&logistique&&products" class="main-content position-relative border-radius-lg ">
   <div class="container-fluid py-4">
     <div class="row mt-4">
-      <div class="col-lg-7 mb-lg-0 mb-4">
-        <div class="card ">
+      <div  class="col-lg-7 mb-lg-0 mb-4">
+
           <div class="card-header pb-0 p-3">
-            <div class="d-flex justify-content-between">
+            <div style="display: flex;justify-content: space-between;"class="d-flex justify-content-between">
               <h6 class="mb-2">Event Inventory</h6>
+              <h6 class="mb-2">Total: {{logistique.depenses}} tnd</h6>
             </div>
           </div>
-          <div class="table-responsive">
-            <table class="table align-items-center example-list"cdkDropList
+            <div
+              style="align-items: center"
+                   cdkDropList
                    #eventProducts="cdkDropList"
                    [cdkDropListData]=products
                    [cdkDropListConnectedTo]="[stockList]"
                    (cdkDropListDropped)="drop($event)"
                    [cdkDropListEnterPredicate]="alreadyPredicate">
-              <tbody class="example-box" *ngFor="let r of products" cdkDrag [cdkDragData]="r">
-              <tr>
-                <td>
-                  <div class="text-center">
-                    <p class="text-xs font-weight-bold mb-0">Name :</p>
-                    <h6 class="text-sm mb-0">{{r.nameProduct}}</h6>
-                  </div>
-                </td>
-                <td>
-                  <div class="text-center">
-                    <p class="text-xs font-weight-bold mb-0">Unit Price:</p>
-                    <h6 class="text-sm mb-0">{{r.price}}&nbsp;tnd</h6>
-                  </div>
-                </td>
-                <td class="align-middle text-sm">
-                  <div class="col text-left">
-                          <div class="form-outline" style="width: 5rem;">
-                            <label for="typeNumber" class="form-label">Quantity:</label>
-                            <input [(ngModel)]="r.quantity"  value="{{r.quantity}}" type="number" id="typeNumber" class="form-control" />
-                          </div>
-                  </div>
-                </td>
-              </tr>
-              </tbody>
+              <ul class="center">
+                <li class="d-flex ">
 
-            </table>
+                    <span class="span-wrapper-head border rounded-pill ">
+                      <h6>Name</h6>
+                    </span>
+                  <span class="span-wrapper-head border rounded-pill ">
+                      <h6>Unit Price</h6>
+                    </span>
+                  <span class="span-wrapper-head border rounded-pill">
+                    <h6>Quantity</h6>
+                    </span>
+                  <span  class="span-wrapper-head border  rounded-pill">
+                    <h6>Total</h6>
+                    </span>
+                  <span  class="span-wrapper-head border  rounded-pill">
+                    <h6>Remove</h6>
+                    </span>
+                </li>
+              </ul>
+              <ul class="example-box rounded center" *ngFor="let r of products" cdkDrag [cdkDragData]="r">
+                <div></div>
+                <li class="d-flex ">
+
+                    <span class="span-wrapper center  border  rounded-pill">
+                      <h6>{{r.nameProduct}}</h6>
+                    </span>
+                    <span class="span-wrapper center border  rounded-pill">
+                      <h6>{{r.price}}&nbsp;tnd</h6>
+                    </span>
+                    <span class="span-wrapper border  rounded-pill">
+                    <input [(ngModel)]="r.quantity"  value="{{r.quantity}}" type="number" style="text-align: center;width: 100px;border-radius: 0;border: none;font-size: 20px" class=" center form-control" />
+                    </span>
+                    <span class="span-wrapper center  border  rounded-pill">
+                      <h6>{{r.quantity*r.price}}&nbsp;tnd</h6>
+                    </span>
+                  <span style="cursor: pointer; " class="span-wrapper center  border  rounded-pill">
+                      <img (click)="remove(r)"  width="20px" height="auto" src="assets/images/delete.png">
+                  </span>
+                </li>
+              </ul>
+
+            </div>
+        <br>
+        <br>
+          <div class="row">
+            <div class="d-flex align-items-center">
+              <p class="mb-0"></p>
+              <button class="btn btn-primary btn-sm ms-auto" (click)="SaveOrders();">Save</button>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="d-flex align-items-center">
-            <p class="mb-0"></p>
-            <button class="btn btn-primary btn-sm ms-auto" (click)="SaveOrders();">Save</button>
-          </div>
-        </div>
+
+
       </div>
 
       <div class="col-lg-5">
@@ -113,18 +86,13 @@
                [cdkDropListEnterPredicate]="noReturnPredicate"
                class="card-body p-3">
             <ul class="example-box" *ngFor="let r of stock" cdkDrag [cdkDragData]="r" class="list-group">
+
               <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                 <div class="d-flex align-items-center">
-                  <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                    <i class="ni ni-mobile-button text-white opacity-10"></i>
-                  </div>
                   <div class="d-flex flex-column">
                     <h6 class="mb-1 text-dark text-sm">{{r.nameProduct}}</h6>
-                    <span class="text-xs">{{r.stock}} in stock, <span class="font-weight-bold">{{r.stock}} sold</span></span>
+                    <span class="text-xs">{{r.stock}} in stock</span>
                   </div>
-                </div>
-                <div class="d-flex">
-                  <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" ></i></button>
                 </div>
               </li>
             </ul>

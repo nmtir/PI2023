@@ -7,9 +7,10 @@ import {first} from "rxjs";
 import {CdkDrag, CdkDragDrop,copyArrayItem, moveItemInArray, CdkDropList} from '@angular/cdk/drag-drop';
 import {OrderService} from "../_Services/order.service";
 import {Ordre} from "../_Models/Ordre";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router,NavigationEnd } from "@angular/router";
 import {ProductService} from "../_Services/product.service";
 import {Product} from "../_Models/Product";
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-logistique-list',
@@ -18,17 +19,21 @@ import {Product} from "../_Models/Product";
 })
 export class ResourceListComponent implements OnInit{
   id : string;
+  product:Product;
   stock:Product[];
   reserved:Ordre[];
   added:Product[];
   products:Product[];
   logistique:Logistique;
+  currentRoute: string;
   constructor(
     private route: ActivatedRoute,
+    private router:Router,
     private orderService: OrderService,
     private productService:ProductService,
     private logistiqueService:LogistiqueService,
-  ){}
+  ){
+  }
   ngOnInit() {
     this.products=[];
     this.id="";
@@ -36,47 +41,86 @@ export class ResourceListComponent implements OnInit{
     this.added=[];
     this.stock =[];
     this.logistique=null;
-    this.loadResource();
+    this.loadLogistique();
+    this.loadOrders();
+    this.loadStock();
   }
 
 
 
-  private loadResource() {
+  private async loadLogistique() {
 
     this.id = this.route.snapshot.paramMap.get('data');
-    this.logistiqueService.getById(this.id).pipe(first()).subscribe(res=>{
-      const newObj:any=res;
-      this.logistique=newObj;
+    await this.logistiqueService.getById(this.id).pipe(first()).subscribe(res => {
+      this.logistique=null;
+      const newObj: any = res;
+      this.logistique = newObj;
+      console.log(this.logistique);
     });
-    this.orderService.getAllProductOrdersByEvent(this.id).pipe(first()).subscribe(res=>{
-      const newObj:any=res;
-      this.reserved=newObj;
-      console.log(this.reserved);
-      for(let i of this.reserved){
-        i.product.quantity=i.quantity;
+  }
+  private loadOrders() {
+    this.orderService.getAllProductOrdersByEvent(this.id).pipe(first()).subscribe(res => {
+      const newObj: any = res;
+      this.products=[];
+      this.reserved = newObj;
+      for (let i of this.reserved) {
+        i.product.quantity =i.quantity;
         this.products.push(i.product);
-        console.log(this.products);
       }
 
+
+
     });
+  }
+  private loadStock() {
     this.productService.getAll().pipe(first()).subscribe(res=>{
+      this.stock=null;
       const newObj:any=res;
       this.stock=newObj;
     });
     return;
 
   }
-
-
-
-
-  public SaveOrders() {
-    for(let o of this.reserved){
-      for(let p of this.products){
+  public async remove(p:Product){
+    for (let o of this.reserved) {
         if(p.productId==o.product.productId)
         {
-          o.quantity=p.quantity;
-          this.orderService.update(o).pipe(first()).subscribe();
+            console.log("o.orderId===");
+            console.log(o.orderId);
+            await this.orderService.delete(o.orderId).pipe(first()).subscribe();
+            this.products = this.products.filter(item => item !== p);
+            console.log(this.products);
+
+        }
+        else {
+          this.products = this.products.filter(item => item !== p);
+          console.log(this.products);
+
+        }
+
+        }
+    this.SaveOrders();
+
+  }
+
+
+
+
+
+  public async SaveOrders() {
+    for (let o of this.reserved) {
+      for (let p of this.products) {
+        if(p.productId==o.product.productId)
+        {
+          if (p.quantity==0){
+            console.log("o.orderId===");
+            console.log(o.orderId);
+            await this.orderService.delete(o.orderId).pipe(first()).subscribe();
+
+          }
+          else
+            await this.orderService.update(o,p.quantity).pipe(first()).subscribe();
+
         }
       }
     }
@@ -84,14 +128,27 @@ export class ResourceListComponent implements OnInit{
       for(let p of this.products){
         if(p.productId==o.productId)
         {
-          this.orderService.addAndAssignProduct(p,p.quantity,this.id).pipe(first()).subscribe();
+          await this.orderService.addAndAssignProduct(p,p.quantity,this.id).pipe(first()).subscribe();
         }
       }
     }
-  this.added=[];
-
-    this.logistiqueService.updateDepenses(this.logistique).pipe().subscribe();
-
+    this.added=[];
+    await this.logistiqueService.updateDepenses(this.logistique).pipe(first()).subscribe();
+    await this.logistiqueService.updateDepenses(this.logistique).pipe(first()).subscribe();
+    await this.logistiqueService.updateDepenses(this.logistique).pipe(first()).subscribe();
+    await this.logistiqueService.updateDepenses(this.logistique).pipe(first()).subscribe();
+    await this.loadLogistique();
+    await this.loadLogistique();
+    await this.loadLogistique();
+    await this.loadLogistique();
+    await this.loadOrders();
+    await this.loadOrders();
+    await this.loadOrders();
+    await this.loadOrders();
+    await this.loadStock();
+    await this.loadStock();
+    await this.loadStock();
+    await this.loadStock();
   }
   drop(event: CdkDragDrop<Product[]>) {
     if (event.previousContainer === event.container) {

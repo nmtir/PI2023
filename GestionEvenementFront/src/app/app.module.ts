@@ -57,6 +57,8 @@ import { ActivityComponent } from './dashboard/activity/activity.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { TransportComponent } from './transport/transport.component';
+import { HousingComponent } from './housing/housing.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -113,7 +115,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ListeReclamationComponent,
     ActivityComponent,
     ForgetPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    TransportComponent,
+    HousingComponent
   ],
     imports: [
         FormsModule,
@@ -133,15 +137,15 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
         MatInputModule,
         MatFormFieldModule,
         MatSelectModule,
-      CommonModule,
-      BrowserModule,
-      ReactiveFormsModule,
-      FormsModule,
-      AppRoutingModule,
-      NgOptimizedImage,
-      HttpClientModule,
-      HotToastModule.forRoot(),
-      NgxPaginationModule
+        CommonModule,
+        BrowserModule,
+        ReactiveFormsModule,
+        FormsModule,
+        AppRoutingModule,
+        NgOptimizedImage,
+        HttpClientModule,
+        HotToastModule.forRoot(),
+        NgxPaginationModule
     ],
 
   providers: [],
