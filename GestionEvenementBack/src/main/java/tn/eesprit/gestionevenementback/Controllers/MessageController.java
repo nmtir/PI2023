@@ -19,7 +19,7 @@ public class MessageController {
         return messageService.addOrUpdateMessage(message);
     }
     @PostMapping("/add/{id}/{idUser}/{Target}")
-    Message addMessageToPost(@RequestBody Message message, @PathVariable("id") Integer id,@PathVariable("idUser") Integer idUser,@PathVariable("Target") Integer Targer)
+    Message addMessageToPost(@RequestBody Message message, @PathVariable("id") Integer id,@PathVariable("idUser") Long idUser,@PathVariable("Target") Integer Targer)
     {
         return messageService.addAndAssignMessage(message,id,idUser,Targer);
     }
@@ -32,19 +32,19 @@ public class MessageController {
         return messageService.UpdateSignal(message,id);
     }
     @PutMapping("/likes/update/{id}")
-    Message checkLikesAndUpdateMessage(@RequestBody Message message,@PathVariable("id") Integer id){
+    Message checkLikesAndUpdateMessage(@RequestBody Message message,@PathVariable("id") Long id){
         return messageService.checkLikeAndUpdateMessage(message,id);
     }
     @PutMapping("/likes/remove/{id}")
-    Message removeLike(@RequestBody Message message,@PathVariable("id") Integer id){
+    Message removeLike(@RequestBody Message message,@PathVariable("id") Long id){
         return messageService.removeLike(message,id);
     }
     @PutMapping("/signal/update/{id}")
-    Message checkSignalAndUpdateMessage(@RequestBody Message message,@PathVariable("id") Integer id){
+    Message checkSignalAndUpdateMessage(@RequestBody Message message,@PathVariable("id") Long id){
         return messageService.checkSignalAndUpdateMessage(message,id);
     }
     @PutMapping("/signal/remove/{id}")
-    Message removesignal(@RequestBody Message message,@PathVariable("id") Integer id){
+    Message removesignal(@RequestBody Message message,@PathVariable("id") Long id){
         return messageService.removeSignal(message,id);
     }
     @GetMapping("/get/{id}")

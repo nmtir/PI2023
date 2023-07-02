@@ -27,7 +27,7 @@ public class PostServiceImpl implements IPostService{
     @Override
     public Post addOrUpdatePost(Post post){return PostRepo.save(post);}
     @Override
-    public Post checkViewAndUpdatePost(Post post,Integer id){
+    public Post checkViewAndUpdatePost(Post post,Long id){
         User user=userRepository.findById(id).orElse(null);
         Post p=PostRepo.findById(post.getPostId()).orElse(null);
         for (User u:p.getViews())
@@ -42,7 +42,7 @@ public class PostServiceImpl implements IPostService{
 
     }
     @Override
-    public Post addAndAssignPostToForum(Post post,Integer id,Integer idUser){
+    public Post addAndAssignPostToForum(Post post,Integer id,Long idUser){
         Forum forum=forumRepo.findById(id).orElse(null);
         post.setForum(forum);
         Date d=new Date();
@@ -54,7 +54,7 @@ public class PostServiceImpl implements IPostService{
 
 
     @Override
-    public Post checkLikeAndUpdatePost(Post post, Integer id){
+    public Post checkLikeAndUpdatePost(Post post, Long id){
         Post p=PostRepo.findById(post.getPostId()).orElse(null);
         User user=userRepository.findById(id).orElse(null);
         for (User u:p.getLikes())
@@ -69,7 +69,7 @@ public class PostServiceImpl implements IPostService{
 
     }
     @Override
-    public Post removeLike(Post post,Integer id){
+    public Post removeLike(Post post,Long id){
         Post p=PostRepo.findById(post.getPostId()).orElse(null);
         User user=userRepository.findById(id).orElse(null);
         for (User u:p.getLikes())

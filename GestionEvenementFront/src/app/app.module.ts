@@ -20,7 +20,6 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AdminTablesComponent } from './admin-tables/admin-tables.component';
 import { ResourceListComponent } from './Resource-list/resource-list.component';
 import { LogistiqueDetailsComponent } from './logistique-details/logistique-details.component';
-import {HttpClientModule} from "@angular/common/http";
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { MessageListComponent } from './message-list/message-list.component';
@@ -39,6 +38,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { NewEventComponent } from './dashboard/new-event/new-event.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ListEventComponent } from './dashboard/list-event/list-event.component';
+import { ListMembreComponent } from './dashboard/list-membre/list-membre.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HotToastModule } from '@ngneat/hot-toast';
+import { EventsComponent } from './events/events.component';
+import { ProfilComponent } from './dashboard/profil/profil.component';
+import { FactureComponent } from './dashboard/facture/facture.component';
+import { FactureService } from './services/facture.service';
+import { NewUserComponent } from './dashboard/new-user/new-user.component';
+import { UpdateUserComponent } from './dashboard/update-user/update-user.component';
+import { ReclamationService } from './services/reclamation.service';
+import { ListeReclamationComponent } from './dashboard/liste-reclamation/liste-reclamation.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
+import { ActivityComponent } from './dashboard/activity/activity.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +84,36 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     LogistiqueDetailsComponent,
     CurrentUserComponent,
     PostDetailsComponent,
-    DateAgoPipe
+    DateAgoPipe,
+    AppComponent,
+    HomeComponent,
+    FooterComponent,
+    HeaderComponent,
+    AboutComponent,
+    BlogComponent,
+    BlogSingleComponent,
+    ContactComponent,
+    ScheduleComponent,
+    SpeakersComponent,
+    SignIn1Component,
+    SignUp1Component,
+    ProfileComponent,
+    AdminDashboardComponent,
+    AdminTablesComponent,
+    NewEventComponent,
+    SidebarComponent,
+    ListEventComponent,
+    ListMembreComponent,
+    EventsComponent,
+    ProfilComponent,
+    FactureComponent,
+    NewUserComponent,
+    UpdateUserComponent,
+    ReclamationComponent,
+    ListeReclamationComponent,
+    ActivityComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent
   ],
     imports: [
         FormsModule,
@@ -85,7 +132,16 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         BrowserAnimationsModule,
         MatInputModule,
         MatFormFieldModule,
-        MatSelectModule
+        MatSelectModule,
+      CommonModule,
+      BrowserModule,
+      ReactiveFormsModule,
+      FormsModule,
+      AppRoutingModule,
+      NgOptimizedImage,
+      HttpClientModule,
+      HotToastModule.forRoot(),
+      NgxPaginationModule
     ],
 
   providers: [],

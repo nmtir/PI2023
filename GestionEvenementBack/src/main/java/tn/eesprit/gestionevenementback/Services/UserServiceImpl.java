@@ -16,9 +16,9 @@ public class UserServiceImpl implements IUserService{
     @Override
     public User addOrUpdateUser(User user){return UserRepo.save(user);}
     @Override
-    public User retrieveUser(Integer id){return UserRepo.findById(id).orElse(null);}
+    public User retrieveUser(Long id){return UserRepo.findById(id).orElse(null);}
     @Override
-    public void removeUser(Integer id){UserRepo.deleteById(id);}
+    public void removeUser(Long id){UserRepo.deleteById(id);}
 
 }
 

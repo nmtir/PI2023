@@ -5,5 +5,5 @@ import tn.eesprit.gestionevenementback.Entities.Forum;
 
 public interface ForumRepository extends JpaRepository<Forum, Integer> {
 
-    Forum findByEvent_EventId(Integer id);
+    Forum findByEvent_Id(Integer id);
 }

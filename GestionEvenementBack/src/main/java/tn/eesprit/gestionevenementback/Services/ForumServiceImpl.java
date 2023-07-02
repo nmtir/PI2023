@@ -23,7 +23,7 @@ public class ForumServiceImpl implements IForumService{
     @Override
     public Forum retrieveForumByEventId(Integer id, String sortingType) {
         if (sortingType.equals("maxVues")) {
-            Forum f = ForumRepo.findByEvent_EventId(id);
+            Forum f = ForumRepo.findByEvent_Id(id);
             Set<Post> posts = f.getPosts();
             List<Post> sortedPosts = posts.stream()
                     .sorted(Comparator.comparingInt(post -> post.getViews().size()))
@@ -33,7 +33,7 @@ public class ForumServiceImpl implements IForumService{
             System.out.println(""+f.getPosts());
             return f;
         } else if (sortingType.equals("mostRecent")) {
-            Forum f = ForumRepo.findByEvent_EventId(id);
+            Forum f = ForumRepo.findByEvent_Id(id);
             Set<Post> posts = f.getPosts();
             List<Post> sortedPosts = posts.stream()
                     .sorted(Comparator.comparing(Post::getDatePub).reversed())
@@ -41,7 +41,7 @@ public class ForumServiceImpl implements IForumService{
             f.setPosts(new LinkedHashSet<>(sortedPosts));
             return f;
         } else {
-            return ForumRepo.findByEvent_EventId(id);
+            return ForumRepo.findByEvent_Id(id);
         }
     }
     @Override
