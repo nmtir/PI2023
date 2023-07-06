@@ -2,10 +2,6 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {LogistiqueService} from "../_Services/logistique.service";
 import {first} from "rxjs";
 import {Logistique} from "../_Models/Logistique";
-import * as events from "events";
-import * as $ from 'jquery';
-import {get} from "scriptjs";
-
 @Component({
   selector: 'app-logistique-details',
   templateUrl: './logistique-details.component.html',

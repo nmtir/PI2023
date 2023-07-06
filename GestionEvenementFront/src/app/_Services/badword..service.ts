@@ -17,9 +17,13 @@ export class BadwordService {
     console.log(badword);
     return this.http.post(`${environment.apiUrl}/api/badwords/add`, badword);
   }
+  addbadWords(badwords: string) {
+    console.log(badwords);
+    return this.http.post(`${environment.apiUrl}/api/badword/add/badwords`, badwords);
+  }
 
   getAll() {
-    return this.http.get<Badword[]>(`${environment.apiUrl}/api/badwords/all`);
+    return this.http.get<Badword[]>(`${environment.apiUrl}/api/badword/all`);
   }
   update(badword: Badword) {
     console.log(badword);

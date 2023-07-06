@@ -9,4 +9,5 @@ public interface IBadwordService {
     Badword addOrUpdateBadword(Badword badword);
     Badword retrieveBadword(Integer id);
     void removeBadword(Integer id);
+    public List<Badword> addOrUpdateBadwords(String badword);
 }

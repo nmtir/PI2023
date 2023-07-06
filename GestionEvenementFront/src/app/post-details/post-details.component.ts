@@ -35,18 +35,12 @@ import {User} from "../_Models/User";
     ]),
     trigger('enterExitCenter', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'transform(-10px)' }),
-        animate(
-          '500ms ease-in',
-          style({ opacity: 1, transform: 'transform(0)' })
-        ),
+        style({ opacity: 0, transform: 'scale(0.02)', transformOrigin: 'top left' }),
+        animate('500ms ease-in', style({ opacity: 1, transform: 'scale(1)' , transformOrigin: 'top left'}))
       ]),
       transition(':leave', [
-        animate(
-          '500ms ease-in',
-          style({ opacity: 0, transform: 'transform(-10px)' })
-        ),
-      ]),
+        animate('500ms ease-in', style({ opacity: 0, transform: 'scale(0.02)', transformOrigin: 'top left' }))
+      ])
     ])
   ]
 
@@ -70,23 +64,26 @@ export class PostDetailsComponent {
     private route: ActivatedRoute,
     private postService:PostService,
     private messageService:MessageService,
-    private formBuilder:FormBuilder
+    private formBuilder1:FormBuilder,
+    private formBuilder2:FormBuilder,
+    private formBuilder3:FormBuilder
+
    ) {
     this.userId="1";
     this.currentUser="2";
     this.data = this.route.snapshot.paramMap.get('data');
     this.loadPost();
-    this.messageFormEdit=this.formBuilder.group({
+    this.messageFormEdit=this.formBuilder1.group({
 
-      contenuEdit:['']
+      contenu:['']
     });
-    this.messageFormPost=this.formBuilder.group({
+    this.messageFormPost=this.formBuilder2.group({
 
-      contenuPost:['']
+      contenu:['']
     });
-    this.messageFormReply=this.formBuilder.group({
+    this.messageFormReply=this.formBuilder3.group({
 
-      contenuReply:['']
+      contenu:['']
     });
   }
 
@@ -107,19 +104,22 @@ export class PostDetailsComponent {
   }
   public SubmitForm( parentId:any) {
     if (parentId!=null){
-      this.messageService.addAndAssign(this.messageFormPost.value,parentId,this.currentUser,"1").pipe(first()).subscribe();
+      this.messageService.addAndAssign(this.messageFormReply.value,parentId,this.currentUser,"1").pipe(first()).subscribe();
+      this.messageFormReply.get('contenu').patchValue("");
       this.loadPost();
     }
       else {
-    this.messageService.addAndAssign(this.messageFormReply.value,this.data,this.currentUser,"2").pipe(first()).subscribe();
+    this.messageService.addAndAssign(this.messageFormPost.value,this.data,this.currentUser,"2").pipe(first()).subscribe();
+    this.messageFormPost.get('contenu').patchValue("");
     this.loadPost();
       }
 
   }
 
   public updateMessage(message:Message) {
-    message.contenu=this.messageFormEdit.value.contenuEdit;
+    message.contenu=this.messageFormEdit.value.contenu;
     this.messageService.update(message).pipe(first()).subscribe();
+    this.messageFormEdit.get('contenu').patchValue("");
     this.loadPost();
   }
   public addMessageSignal(message:Message){
@@ -212,20 +212,22 @@ export class PostDetailsComponent {
 
   }
 
-  selectEditMessage(messageId: string) {
-    if (this.selectedEditMessageId === messageId) {
+  selectEditMessage(m: Message) {
+    if (this.selectedEditMessageId === m.messageId) {
       // If the clicked message is the same as the currently selected message,
       // close the input box by setting the selectedMessageId to null
       this.selectedEditMessageId = null;
     } else {
+      this.messageFormEdit.get('contenu').patchValue(m.contenu);
       // If a different message is clicked, update the selectedMessageId
-      this.selectedEditMessageId = messageId;
+      this.selectedEditMessageId = m.messageId;
     }
 
   }
 
   checkEdit(m: Message):boolean {
     if (m.user.userId==this.currentUser)
+
       return true;
     else return false
 

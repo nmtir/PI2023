@@ -9,13 +9,17 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/badword")
+@RequestMapping("/api/badword")
 public class BadwordController {
     private final IBadwordService badwordService;
     @PostMapping("/add")
     Badword addBadword(@RequestBody Badword badword)
     {
         return badwordService.addOrUpdateBadword(badword);
+    } @PostMapping("/add/badwords")
+    List<Badword> addBadwords(@RequestBody String badword)
+    {
+        return badwordService.addOrUpdateBadwords(badword);
     }
     @PutMapping("/update")
     Badword updateBadword(@RequestBody Badword badword){

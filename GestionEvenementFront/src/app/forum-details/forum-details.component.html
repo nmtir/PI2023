@@ -14,7 +14,7 @@
 
       <div @enterExitDown [routerLink]="['/post',{ data: row[0].postId}]" routerLinkActive="active" class="col-md-4 d-flex">
         <div class="blog-entry justify-content-end">
-          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg')">
+          <a  href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');border-radius: 25px;">
           </a>
           <div class="text p-4 float-right d-block">
             <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[0].views.length}}</span>
@@ -36,7 +36,7 @@
       </div>
       <div @enterExitDown [routerLink]="['/post',{ data: row[1].postId}]" routerLinkActive="active" *ngIf="row[1]" class="col-md-4 d-flex">
         <div class="blog-entry justify-content-end">
-          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');border-radius: 25px;">
           </a>
           <div class="text p-4 float-right d-block">
             <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[1].views.length}}</span>
@@ -58,7 +58,7 @@
       </div>
       <div @enterExitDown [routerLink]="['/post',{ data: row[2].postId}]" routerLinkActive="active" *ngIf="row[2]" class="col-md-4 d-flex">
         <div class="blog-entry justify-content-end">
-          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');border-radius: 25px;">
           </a>
           <div class="text p-4 float-right d-block">
             <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[2].views.length}}</span>

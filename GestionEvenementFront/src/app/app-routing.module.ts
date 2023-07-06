@@ -18,7 +18,7 @@ import { ResourceListComponent } from './Resource-list/resource-list.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostAddComponent } from './post-add/post-add.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
-import {MessageListComponent} from './message-Signaled/message-list.component';
+import {BlockedMessagesComponent} from './blocked-messages/blocked-messages.component';
 import { NewEventComponent } from './dashboard/new-event/new-event.component';
 import { ListEventComponent } from './dashboard/list-event/list-event.component';
 import { EventsComponent } from './events/events.component';
@@ -52,9 +52,9 @@ const routes: Routes = [
   {path: "forum", component: ForumDetailsComponent},
   {path: "post", component: PostDetailsComponent},
   {path: "addpost", component: PostAddComponent},
-  {path: "msg", component: MessageListComponent},
+  {path: "msg", component:BlockedMessagesComponent},
   {path: "home", component: HomeComponent},
-  {path: "signaled-messages", component: MessageListComponent},
+  {path: "signaled-messages", component: BlockedMessagesComponent},
   {path: "", component: HomeComponent},
   {path: "about", component: AboutComponent},
   {path: "blog", component: BlogComponent},
