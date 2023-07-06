@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/forum")
+@RequestMapping("/api/forum")
 public class ForumController {
     private final IForumService forumService;
     @PostMapping("/add")
@@ -28,7 +28,7 @@ public class ForumController {
     @GetMapping("/all")
     List<Forum> getAllForums(){return forumService.retrieveAllForums();}
     @GetMapping("/get/event/{id}/{sortingType}")
-    Forum getForumByEventId(@PathVariable("id") Integer id,@PathVariable("sortingType") String sortingType){
+    Forum getForumByEventId(@PathVariable("id") Long id,@PathVariable("sortingType") String sortingType){
         return forumService.retrieveForumByEventId(id,sortingType);
     }
     @DeleteMapping("/delete/{id}")

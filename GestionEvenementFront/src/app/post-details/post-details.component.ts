@@ -58,7 +58,9 @@ export class PostDetailsComponent {
   userId:string;
   data: any;
   post:Post;
-  messageForm:FormGroup;
+  messageFormPost:FormGroup;
+  messageFormReply:FormGroup;
+  messageFormEdit:FormGroup;
   public selectedMessageId: string = null;
 
 
@@ -74,9 +76,17 @@ export class PostDetailsComponent {
     this.currentUser="2";
     this.data = this.route.snapshot.paramMap.get('data');
     this.loadPost();
-    this.messageForm=this.formBuilder.group({
+    this.messageFormEdit=this.formBuilder.group({
 
-      contenu:['']
+      contenuEdit:['']
+    });
+    this.messageFormPost=this.formBuilder.group({
+
+      contenuPost:['']
+    });
+    this.messageFormReply=this.formBuilder.group({
+
+      contenuReply:['']
     });
   }
 
@@ -86,6 +96,7 @@ export class PostDetailsComponent {
       this.postService.checkViewThenUpdate(newObj,this.currentUser).pipe(first()).subscribe(res=>{
         const newObj: any = res;
         this.post = newObj;
+        console.log(this.post.user);
         this.post.messages.sort((a, b) => {
           const dateA = new Date(a.datePub);
           const dateB = new Date(b.datePub);
@@ -96,17 +107,18 @@ export class PostDetailsComponent {
   }
   public SubmitForm( parentId:any) {
     if (parentId!=null){
-      this.messageService.addAndAssign(this.messageForm.value,parentId,this.currentUser,"1").pipe(first()).subscribe();
+      this.messageService.addAndAssign(this.messageFormPost.value,parentId,this.currentUser,"1").pipe(first()).subscribe();
       this.loadPost();
     }
       else {
-    this.messageService.addAndAssign(this.messageForm.value,this.data,this.currentUser,"2").pipe(first()).subscribe();
+    this.messageService.addAndAssign(this.messageFormReply.value,this.data,this.currentUser,"2").pipe(first()).subscribe();
     this.loadPost();
       }
 
   }
+
   public updateMessage(message:Message) {
-    message.contenu=this.messageForm.value.contenu;
+    message.contenu=this.messageFormEdit.value.contenuEdit;
     this.messageService.update(message).pipe(first()).subscribe();
     this.loadPost();
   }

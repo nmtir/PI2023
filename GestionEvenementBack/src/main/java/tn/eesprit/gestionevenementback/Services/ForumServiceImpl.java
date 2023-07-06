@@ -21,7 +21,7 @@ public class ForumServiceImpl implements IForumService{
     @Override
     public Forum retrieveForum(Integer id){return ForumRepo.findById(id).orElse(null);}
     @Override
-    public Forum retrieveForumByEventId(Integer id, String sortingType) {
+    public Forum retrieveForumByEventId(Long id, String sortingType) {
         if (sortingType.equals("maxVues")) {
             Forum f = ForumRepo.findByEvent_Id(id);
             Set<Post> posts = f.getPosts();

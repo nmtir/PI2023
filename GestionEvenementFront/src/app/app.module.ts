@@ -22,7 +22,7 @@ import { ResourceListComponent } from './Resource-list/resource-list.component';
 import { LogistiqueDetailsComponent } from './logistique-details/logistique-details.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostListComponent } from './post-list/post-list.component';
-import { MessageListComponent } from './message-list/message-list.component';
+import { MessageListComponent } from './message-Signaled/message-list.component';
 import { PostAddComponent } from './post-add/post-add.component';
 import { MessageAddComponent } from './message-add/message-add.component';
 import {CommonModule} from "@angular/common";

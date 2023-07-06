@@ -23,6 +23,8 @@ public class MessageServiceImpl implements IMessageService{
     @Override
     public List<Message> retrieveAllMessages(){return MessageRepo.findAll();}
     @Override
+    public List<Message> retrieveAllBlockedMessages(){return MessageRepo.findAllByIsBlocked(1);}
+    @Override
     public Message addOrUpdateMessage(Message message){
         Message m=MessageRepo.findById(message.getMessageId()).orElse(null);
         m.setContenu(message.getContenu());
@@ -83,8 +85,19 @@ public class MessageServiceImpl implements IMessageService{
             }
         }
         m.getSignalUsers().add(user);
-        if (m.getSignalUsers().size()>10)
+        if (m.getSignalUsers().size()>10) {
             m.setIsBlocked(1);
+            Integer i = 0;
+            for (Message msg : m.getUser().getMessages()) {
+                i = i + msg.getSignalUsers().size();
+            }
+            if (i>30){
+
+                User u= userRepo.findById(m.getUser().getUserId()).orElse(null);
+                u.setStatus(false);
+                userRepo.save(u);
+            }
+        }
         else m.setIsBlocked(0);
         return MessageRepo.save(m);
 

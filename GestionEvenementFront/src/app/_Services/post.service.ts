@@ -12,38 +12,38 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
   getById(id: string) {
-    return this.http.get<Post>(`${environment.apiUrl}/post/get/${id}`);
+    return this.http.get<Post>(`${environment.apiUrl}/api/post/get/${id}`);
   }
   addAndAssign(post: Post,id:string,user:string) {
-    return this.http.post(`${environment.apiUrl}/post/add/${id}/${user}`, post);
+    return this.http.post(`${environment.apiUrl}/api/post/add/${id}/${user}`, post);
   }
 
   add(post: Post) {
     console.log(post);
-    return this.http.post(`${environment.apiUrl}/post/add`, post);
+    return this.http.post(`${environment.apiUrl}/api/post/add`, post);
   }
 
   getAll() {
-    return this.http.get<Post[]>(`${environment.apiUrl}/post/all`);
+    return this.http.get<Post[]>(`${environment.apiUrl}/api/post/all`);
   }
   update(post: Post) {
     console.log(post);
-    return this.http.put(`${environment.apiUrl}/post/update`, post);
+    return this.http.put(`${environment.apiUrl}/api/post/update`, post);
   }
   checkViewThenUpdate(post: Post,id:string) {
     console.log(post);
-    return this.http.put<Post>(`${environment.apiUrl}/post/views/update/${id}`, post);
+    return this.http.put<Post>(`${environment.apiUrl}/api/post/views/update/${id}`, post);
   }
   checkLikesThenUpdate(post: Post,id:string) {
     console.log(post);
-    return this.http.put<Post>(`${environment.apiUrl}/post/likes/update/${id}`, post);
+    return this.http.put<Post>(`${environment.apiUrl}/api/post/likes/update/${id}`, post);
   }
   removeLike(post: Post,id:string) {
     console.log(post);
-    return this.http.put<Post>(`${environment.apiUrl}/post/likes/remove/${id}`, post);
+    return this.http.put<Post>(`${environment.apiUrl}/api/post/likes/remove/${id}`, post);
   }
   delete(id: string) {
-    return this.http.delete(`${environment.apiUrl}/post/delete/${id}`);
+    return this.http.delete(`${environment.apiUrl}/api/post/delete/${id}`);
   }
 
 }

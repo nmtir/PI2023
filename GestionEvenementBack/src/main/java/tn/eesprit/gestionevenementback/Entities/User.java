@@ -24,13 +24,14 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
     @NotBlank
     @Size(max = 20)
     private String username;
     private String firstName;
     private String lastName;
     private Long phone;
+    private Boolean status;
 
     @NotBlank
     @Size(max = 50)

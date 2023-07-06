@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/ordre")
+@RequestMapping("/api/ordre")
 public class OrderController {
     private final IOrderService orderService;
     @PostMapping("/add")

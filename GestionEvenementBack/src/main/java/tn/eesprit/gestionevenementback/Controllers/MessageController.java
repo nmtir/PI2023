@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/message")
+@RequestMapping("/api/message")
 public class MessageController {
     private final IMessageService messageService;
     @PostMapping("/add")
@@ -53,6 +53,8 @@ public class MessageController {
     }
     @GetMapping("/all")
     List<Message> getAllMessages(){return messageService.retrieveAllMessages();}
+    @GetMapping("/all-blocked")
+    List<Message> getAllBlockedMessages(){return messageService.retrieveAllBlockedMessages();}
     @DeleteMapping("/delete/{id}")
     void deleteMessage(@PathVariable("id") Integer id){
         messageService.removeMessage(id);
