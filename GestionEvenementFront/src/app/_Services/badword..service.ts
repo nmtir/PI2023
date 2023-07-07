@@ -15,7 +15,7 @@ export class BadwordService {
 
   add(badword: Badword) {
     console.log(badword);
-    return this.http.post(`${environment.apiUrl}/api/badwords/add`, badword);
+    return this.http.post(`${environment.apiUrl}/api/badword/add`, badword);
   }
   addbadWords(badwords: string) {
     console.log(badwords);
@@ -27,9 +27,9 @@ export class BadwordService {
   }
   update(badword: Badword) {
     console.log(badword);
-    return this.http.put(`${environment.apiUrl}/api/badwords/update`, badword);
+    return this.http.put(`${environment.apiUrl}/api/badword/update`, badword);
   }
   delete(id: string) {
-    return this.http.delete(`${environment.apiUrl}/api/badwords/delete/${id}`);
+    return this.http.delete(`${environment.apiUrl}/api/badword/delete/${id}`);
   }
 }

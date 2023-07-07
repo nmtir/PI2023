@@ -1,9 +1,9 @@
-<app-current-user></app-current-user>
+<app-current-user (click)="changeContainsBadWordsEdit();changeContainsBadWordsReply();changeContainsBadWordsSave();"></app-current-user>
 
-<section *ngIf="post" class="ftco-section ftco-degree-bg">
+<section (click)="changeContainsBadWordsEdit();changeContainsBadWordsReply();changeContainsBadWordsSave();" *ngIf="post" class="ftco-section ftco-degree-bg">
   <div class="container">
     <div class="row">
-      <div class="col-md-8 order-md-last ftco-animate">
+      <div class="col-md-8 order-md-last ">
         <h2 class="mb-3">{{post.title}}</h2>
         <p>   {{post.content}}      </p>
         <p>
@@ -34,7 +34,7 @@
         </div>
 
 
-        <div  class="pt-5 mt-5">
+        <div *ngIf="post.messages" class="pt-5 mt-5">
           <h3 *ngIf="post.messages.length>0"  class="mb-5">Messsages</h3>
 
           <ul class="comment-list" *ngFor="let m of post.messages ">
@@ -45,13 +45,16 @@
               <div class="comment-body" >
                 <h6 style="display: inline">{{m.user.username}}</h6>
                 <div style="margin-left:0.5rem;  display:inline" class="meta">{{m.datePub | dateAgo}}</div>
-                <form  [formGroup]="messageFormEdit" (ngSubmit)="updateMessage(m);selectEditMessage(m)">
+                <form  [formGroup]="messageFormEdit" (ngSubmit)="updateMessage(m)">
                   <div class="fixed-height">
                     <input *ngIf="!(selectedEditMessageId === m.messageId)" type="text" class="form-control" value="{{m.contenu}}" style="border-radius: 25px;" rows="1" readonly >
                   <div  *ngIf="selectedEditMessageId === m.messageId" class="input-group mb-3">
-                    <input type="text" formControlName="contenu" class="form-control"  style="border-radius: 25px;" rows="1" aria-describedby="button-addon2"  >
+                    <input (click)="changeContainsBadWordsEdit()" type="text" formControlName="contenu" class="form-control"  style="border-radius: 25px;" rows="1" aria-describedby="button-addon2"  >
                     <button style="background-color: transparent;border: none" type="submit" ><a class="link-warning" href="#"><img src="assets/images/check.png" height="32rem"width="auto"></a></button>
                   </div>
+                    <div style="margin-top: 30px" *ngIf="(selectedEditMessageId===m.messageId)&&(containsBadWordsEdit)" class="notification">
+                      Notification: This Message Contains Bad Words!
+                    </div>
                   </div>
                 </form>
                 <div style="display: flex;justify-content: space-between;">
@@ -76,13 +79,16 @@
                 <div *ngIf="(m.isBlocked==0||m.isBlocked==null)&&(selectedMessageId===m.messageId)" class="comment-body">
                     <h6 style="display:inline">{{r.user.username}}</h6>
                     <div style="margin-left:0.5rem;  display:inline;" class="meta">{{r.datePub| dateAgo}}</div>
-                  <form [formGroup]="messageFormEdit" (ngSubmit)="updateMessage(r);selectEditMessage(r)">
+                  <form [formGroup]="messageFormEdit" (ngSubmit)="updateMessage(r)">
                     <div class="fixed-height">
-                    <input *ngIf="!(selectedEditMessageId === r.messageId)" type="text" class="form-control" value="{{r.contenu}}" style="border-radius: 25px;" rows="1" readonly >
+                    <input (click)="changeContainsBadWordsEdit()" *ngIf="!(selectedEditMessageId === r.messageId)" type="text" class="form-control" value="{{r.contenu}}" style="border-radius: 25px;" rows="1" readonly >
                     <div *ngIf="selectedEditMessageId === r.messageId" class="input-group mb-3">
-                      <input type="text" formControlName="contenu" class="form-control"  style="border-radius: 25px;" rows="1" aria-describedby="button-addon2">
+                      <input (click)="changeContainsBadWordsEdit()" type="text" formControlName="contenu" class="form-control"  style="border-radius: 25px;" rows="1" aria-describedby="button-addon2">
                       <button style="background-color: transparent;border: none" type="submit" ><a class="link-warning" href="#"><img src="assets/images/check.png" height="32rem"width="auto"></a></button>
                     </div>
+                      <div style="margin-top: 30px" *ngIf="(selectedEditMessageId===r.messageId)&&(containsBadWordsEdit)" class="notification">
+                        Notification: This Message Contains Bad Words!
+                      </div>
                     </div>
                   </form>
 
@@ -104,8 +110,12 @@
               </div>
                 <form [formGroup]="messageFormReply" (ngSubmit)="SubmitForm(m.messageId)"  @enterExitUp *ngIf="selectedMessageId === m.messageId" class="comment-body parent">
                 <div>
-                <input type="text" name="" formControlName="contenu"  id="replyContent" cols="30" rows="5" class="form-control child" style="border-radius: 25px; width: 36rem;">
+                  <h6 class="mb-5">Add Reply</h6>
+                <input (click)="changeContainsBadWordsReply()" type="text" name="" formControlName="contenu"  id="replyContent" cols="30" rows="5" class="form-control child" style="border-radius: 25px; width: 36rem;">
                   <button class="child" style="background-color: transparent;border: none" type="submit" > <a class="link-warning" href="#"><img src="assets/images/sent.png" height="32rem"width="auto"></a></button>
+                  <div style="margin-top: 30px" *ngIf="(selectedMessageId===m.messageId)&&(containsBadWordsReply)" class="notification">
+                    Notification: This Message Contains Bad Words!
+                  </div>
                 </div>
                 </form>
 
@@ -116,19 +126,48 @@
             <h3 class="mb-5">Leave a comment</h3>
             <form [formGroup]="messageFormPost" (ngSubmit)="SubmitForm(null)"  style="border-radius: 25px;" class="p-5 bg-light">
               <div class="form-group" >
+                <div style="display: flex;justify-content: space-between;">
                 <label for="message">Message</label>
-                <textarea  formControlName="contenu" name="" id="message" cols="30" rows="3" class="form-control"></textarea>
+                  <div style="display: flex;">
+                    <h6 style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;" >from:</h6>
+                    <select style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;height:1.5rem !important;" class="form-control" [(ngModel)]="selectedItemFrom">
+                      <option value="english">English</option>
+                      <option value="french">French</option>
+                      <option value="arabic">Arabic</option>
+                      <option value="italian">Italian</option>
+                      <option value="german">German</option>
+                      <option value="spanish">Spanish</option>
+                    </select>
+                    <h6 style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;">to:</h6>
+                      <mat-select  style="margin: 0.5rem 0.5rem 0.5rem 0.5rem; height:1.5rem !important;" [(ngModel)]="selectedItemTo">
+                        <mat-option>None</mat-option>
+                        <mat-option value="english">English</mat-option>
+                        <mat-option value="french">French</mat-option>
+                        <mat-option>value="arabic">Arabic</mat-option>
+                        <mat-option>value="italian">Italian</mat-option>
+                        <mat-option>value="german">German</mat-option>
+                        <mat-option>value="spanish">Spanish</mat-option>
+                      </mat-select>
+                    <a style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;">translate</a>
+                  </div>
+                </div>
+                  <textarea (click)="changeContainsBadWordsSave()"  formControlName="contenu" name="" id="message" cols="30" rows="3" class="form-control"></textarea>
+                <div *ngIf="containsBadWordsSave" class="notification">
+                  Notification: This Message Contains Bad Words!
+                </div>
               </div>
               <div class="form-group">
                 <input type="submit" value="Post Messsage" class="btn py-3 px-4 btn-primary">
               </div>
 
+
             </form>
+
           </div>
         </div>
 
       </div> <!-- .col-md-8 -->
-      <div class="col-md-4 sidebar ftco-animate">
+      <div class="col-md-4 sidebar">
         <div class="sidebar-box">
           <form action="#" class="search-form">
             <div class="form-group">
@@ -137,7 +176,7 @@
             </div>
           </form>
         </div>
-        <div class="sidebar-box ftco-animate">
+        <div class="sidebar-box ">
           <div class="categories">
             <h3>Categories</h3>
             <li><a href="#">Jobs <span>(12)</span></a></li>
@@ -149,7 +188,7 @@
           </div>
         </div>
 
-        <div class="sidebar-box ftco-animate">
+        <div class="sidebar-box ">
           <h3>Recent Forums</h3>
           <div class="block-21 mb-4 d-flex">
             <a class="blog-img mr-4" style="background-image: url(assets/images/image_1.jpg);"></a>
@@ -186,7 +225,7 @@
           </div>
         </div>
 
-        <div class="sidebar-box ftco-animate">
+        <div class="sidebar-box ">
           <h3>Tag Cloud</h3>
           <div class="tagcloud">
             <a href="#" class="tag-cloud-link">dish</a>
@@ -200,7 +239,7 @@
           </div>
         </div>
 
-        <div class="sidebar-box ftco-animate">
+        <div class="sidebar-box ">
           <h3>Paragraph</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
         </div>
@@ -210,11 +249,11 @@
   </div>
 </section> <!-- .section -->
 
-<section class="ftco-section-parallax">
+<section (click)="changeContainsBadWordsEdit();changeContainsBadWordsReply();changeContainsBadWordsSave();" class="ftco-section-parallax">
   <div class="parallax-img d-flex align-items-center">
     <div class="container">
       <div class="row d-flex justify-content-center">
-        <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+        <div class="col-md-7 text-center heading-section heading-section-white ">
           <h2>Subcribe to our Newsletter</h2>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
           <div class="row d-flex justify-content-center mt-4 mb-4">

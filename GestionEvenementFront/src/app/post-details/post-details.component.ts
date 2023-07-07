@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Forum} from "../_Models/Forum";
 import {ActivatedRoute} from "@angular/router";
 import {PostService} from "../_Services/post.service";
@@ -45,18 +45,23 @@ import {User} from "../_Models/User";
   ]
 
 })
-export class PostDetailsComponent {
-  panelOpenState = false;
-  visible = false;
-  currentUser:string;
-  userId:string;
-  data: any;
-  post:Post;
-  messageFormPost:FormGroup;
-  messageFormReply:FormGroup;
-  messageFormEdit:FormGroup;
-  public selectedMessageId: string = null;
-
+  export class PostDetailsComponent implements OnInit{
+    panelOpenState = false;
+    visible = false;
+    currentUser:string;
+    userId:string;
+    data: any;
+    post:Post;
+    messageFormPost:FormGroup;
+    messageFormReply:FormGroup;
+    messageFormEdit:FormGroup;
+    public selectedMessageId: string = null;
+    containsBadWordsSave:boolean=false;
+    containsBadWordsEdit:boolean=false;
+    containsBadWordsReply:boolean=false;
+    msg:Message;
+    selectedItemFrom="french";
+    selectedItemTo="english";
 
 
   public selectedEditMessageId: string = null;
@@ -86,9 +91,27 @@ export class PostDetailsComponent {
       contenu:['']
     });
   }
+  ngOnInit() {
+    this.userId="1";
+    this.currentUser="2";
+    this.data = this.route.snapshot.paramMap.get('data');
+    this.loadPost();
+    this.messageFormEdit=this.formBuilder1.group({
 
-  private loadPost(){
-    this.postService.getById(this.data).pipe(first()).subscribe(res=>{
+      contenu:['']
+    });
+    this.messageFormPost=this.formBuilder2.group({
+
+      contenu:['']
+    });
+    this.messageFormReply=this.formBuilder3.group({
+
+      contenu:['']
+    });
+  }
+
+  loadPost(){
+      this.postService.getById(this.data).pipe(first()).subscribe(res=>{
       const newObj: any = res;
       this.postService.checkViewThenUpdate(newObj,this.currentUser).pipe(first()).subscribe(res=>{
         const newObj: any = res;
@@ -103,24 +126,59 @@ export class PostDetailsComponent {
     })
   }
   public SubmitForm( parentId:any) {
+    const formReply:string =this.messageFormReply.value.contenu;
+    const formPost:string =this.messageFormPost.value.contenu;
     if (parentId!=null){
-      this.messageService.addAndAssign(this.messageFormReply.value,parentId,this.currentUser,"1").pipe(first()).subscribe();
-      this.messageFormReply.get('contenu').patchValue("");
-      this.loadPost();
+      this.messageService.addAndAssign(this.messageFormReply.value,parentId,this.currentUser,"1").pipe(first()).subscribe(res=>{
+        const newObj: any = res;
+        this.msg = newObj;
+        if (this.msg==null){
+          this.containsBadWordsReply=true;
+        }else this.containsBadWordsReply=false;
+        if (!this.containsBadWordsReply){
+          this.messageFormReply.get('contenu').patchValue("");
+          this.loadPost();
+        }else {this.messageFormReply.get('contenu').patchValue(formReply);}
+      });
+
     }
       else {
-    this.messageService.addAndAssign(this.messageFormPost.value,this.data,this.currentUser,"2").pipe(first()).subscribe();
-    this.messageFormPost.get('contenu').patchValue("");
-    this.loadPost();
+    this.messageService.addAndAssign(this.messageFormPost.value,this.data,this.currentUser,"2").pipe(first()).subscribe(res=>{
+      const newObj: any = res;
+      this.msg = newObj;
+      if (this.msg==null){
+        this.containsBadWordsSave=true;
+      }else this.containsBadWordsSave=false;
+      if (!this.containsBadWordsSave) {
+        this.messageFormPost.get('contenu').patchValue("");
+        this.loadPost();
+      }else{
+        this.messageFormPost.get('contenu').patchValue(formPost);
+      }
+    });
+
+
       }
 
   }
 
   public updateMessage(message:Message) {
+    const formEdit:string=this.messageFormEdit.value.contenu;
     message.contenu=this.messageFormEdit.value.contenu;
-    this.messageService.update(message).pipe(first()).subscribe();
-    this.messageFormEdit.get('contenu').patchValue("");
-    this.loadPost();
+    this.messageService.update(message).pipe(first()).subscribe(res=>{
+      const newObj: any = res;
+      this.msg = newObj;
+      console.log(this.msg);
+      if (this.msg==null){
+        this.containsBadWordsEdit=true;
+      }else this.containsBadWordsEdit=false;
+      if (!this.containsBadWordsEdit) {
+        this.messageFormEdit.get('contenu').patchValue("");
+        this.selectEditMessage(message);
+        this.loadPost();
+      }else{this.messageFormEdit.get('contenu').patchValue(formEdit);}
+    });
+
   }
   public addMessageSignal(message:Message){
     this.messageService.checkSginalsThenUpdate(message,this.currentUser).pipe(first()).subscribe();
@@ -137,8 +195,11 @@ export class PostDetailsComponent {
     if (this.selectedMessageId === messageId) {
       // If the clicked message is the same as the currently selected message,
       // close the input box by setting the selectedMessageId to null
+      this.containsBadWordsReply=false
       this.selectedMessageId = null;
+      this.messageFormReply.get('contenu').patchValue("");
     } else {
+      this.containsBadWordsReply=false;
       // If a different message is clicked, update the selectedMessageId
       this.selectedMessageId = messageId;
     }
@@ -214,10 +275,11 @@ export class PostDetailsComponent {
 
   selectEditMessage(m: Message) {
     if (this.selectedEditMessageId === m.messageId) {
-      // If the clicked message is the same as the currently selected message,
-      // close the input box by setting the selectedMessageId to null
+      this.containsBadWordsEdit=false
       this.selectedEditMessageId = null;
+      this.messageFormEdit.get('contenu').patchValue("");
     } else {
+      this.containsBadWordsEdit=false;
       this.messageFormEdit.get('contenu').patchValue(m.contenu);
       // If a different message is clicked, update the selectedMessageId
       this.selectedEditMessageId = m.messageId;
@@ -236,6 +298,15 @@ export class PostDetailsComponent {
   deleteMessage(m: Message) {
     this.messageService.delete(m.messageId).pipe(first()).subscribe();
     this.loadPost();
+  }
+  changeContainsBadWordsSave(){
+    this.containsBadWordsSave=false;
+  }
+  changeContainsBadWordsReply(){
+    this.containsBadWordsReply=false;
+  }
+  changeContainsBadWordsEdit(){
+    this.containsBadWordsEdit=false;
   }
 }
 
