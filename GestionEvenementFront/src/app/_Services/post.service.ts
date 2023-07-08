@@ -46,4 +46,8 @@ export class PostService {
     return this.http.delete(`${environment.apiUrl}/api/post/delete/${id}`);
   }
 
+  translate(id: number,from:string,to:string) {
+    return this.http.get(`${environment.apiUrl}/api/post/translate/${id}/${from}/${to}`);
+
+  }
 }

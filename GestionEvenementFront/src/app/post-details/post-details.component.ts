@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Forum} from "../_Models/Forum";
 import {ActivatedRoute} from "@angular/router";
 import {PostService} from "../_Services/post.service";
@@ -60,8 +60,9 @@ import {User} from "../_Models/User";
     containsBadWordsEdit:boolean=false;
     containsBadWordsReply:boolean=false;
     msg:Message;
-    selectedItemFrom="french";
-    selectedItemTo="english";
+    From="Auto Detect";
+    To="French";
+    translationReset=false;
 
 
   public selectedEditMessageId: string = null;
@@ -124,6 +125,18 @@ import {User} from "../_Models/User";
         });
       });
     })
+  }
+  translate(){
+    this.postService.translate(this.post.postId,this.From,this.To).pipe(first()).subscribe(res=>{
+      const newObj: any = res;
+      console.log(newObj);
+      this.post=newObj;
+      this.translationReset=true;
+    });
+  }
+  resetTranslation(){
+    this.translationReset=false;
+    this.loadPost()
   }
   public SubmitForm( parentId:any) {
     const formReply:string =this.messageFormReply.value.contenu;

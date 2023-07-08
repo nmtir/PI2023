@@ -22,6 +22,7 @@ public class MessageServiceImpl implements IMessageService{
     private final PostRepository postRepo;
     private final UserRepository userRepo;
     private final BadwordRepository BadwordRepo;
+    private final EmailService emailService;
     @Override
     public List<Message> retrieveAllMessages(){return MessageRepo.findAll();}
     @Override
@@ -99,16 +100,18 @@ public class MessageServiceImpl implements IMessageService{
             }
         }
         m.getSignalUsers().add(user);
-        if (m.getSignalUsers().size()>10) {
+        if (m.getSignalUsers().size()>3) {
+            emailService.sendBlockedMessageMail(m.getUser().getEmail());
             m.setIsBlocked(1);
             Integer i = 0;
             for (Message msg : m.getUser().getMessages()) {
                 i = i + msg.getSignalUsers().size();
             }
-            if (i>30){
+            if (i>5){
 
                 User u= userRepo.findById(m.getUser().getUserId()).orElse(null);
                 u.setStatus(false);
+                emailService.sendBlockedAccountMail(u.getEmail());
                 userRepo.save(u);
             }
         }
@@ -125,9 +128,10 @@ public class MessageServiceImpl implements IMessageService{
             if (u==user)
             {
                 m.getSignalUsers().remove(u);
-                if (m.getSignalUsers().size()>10)
+                if (m.getSignalUsers().size()>10) {
                     m.setIsBlocked(1);
-                else m.setIsBlocked(0);
+                    emailService.sendBlockedMessageMail(m.getUser().getEmail());
+                }else m.setIsBlocked(0);
                 return MessageRepo.save(m);
             }
         }

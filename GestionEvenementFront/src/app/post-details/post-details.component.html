@@ -35,7 +35,38 @@
 
 
         <div *ngIf="post.messages" class="pt-5 mt-5">
-          <h3 *ngIf="post.messages.length>0"  class="mb-5">Messsages</h3>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 *ngIf="post.messages.length>0" >Messsages:</h3>
+          <div style="display: flex;">
+            <h6 style="margin: 1rem 0.5rem 0.5rem 0.5rem;">from:</h6>
+            <mat-form-field appearance="outline" style="font-size: 16px;">
+              <mat-label>Choose Language</mat-label>
+              <mat-select [(ngModel)]="From">
+                <mat-option value="Auto Detect">Auto Detect</mat-option>
+                <mat-option value="English">English</mat-option>
+                <mat-option value="French">French</mat-option>
+                <mat-option value="Arabic">Arabic</mat-option>
+                <mat-option value="Italian">Italian</mat-option>
+                <mat-option value="German">German</mat-option>
+                <mat-option value="Spanish">Spanish</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <h6 style="margin: 1rem 0.5rem 0.5rem 0.5rem;">to:</h6>
+            <mat-form-field appearance="outline" >
+              <mat-label>Choose Language</mat-label>
+              <mat-select [(ngModel)]="To">
+                <mat-option value="English">English</mat-option>
+                <mat-option value="French">French</mat-option>
+                <mat-option value="Arabic">Arabic</mat-option>
+                <mat-option value="Italian">Italian</mat-option>
+                <mat-option value="German">German</mat-option>
+                <mat-option value="Spanish">Spanish</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <a *ngIf="!translationReset" (click)="translate()" style="margin: 0.9rem 0.5rem 0.5rem 0.5rem;">translate</a>
+            <a *ngIf="translationReset" (click)="resetTranslation()" style="margin: 0.9rem 1rem 0.5rem 0.5rem;">Reset</a>
+          </div>
+        </div>
 
           <ul class="comment-list" *ngFor="let m of post.messages ">
             <li  *ngIf="m.isBlocked==0||m.isBlocked==null" class="comment">
@@ -125,33 +156,9 @@
           <div class="comment-form-wrap pt-5">
             <h3 class="mb-5">Leave a comment</h3>
             <form [formGroup]="messageFormPost" (ngSubmit)="SubmitForm(null)"  style="border-radius: 25px;" class="p-5 bg-light">
-              <div class="form-group" >
-                <div style="display: flex;justify-content: space-between;">
+              <div class="form-group">
                 <label for="message">Message</label>
-                  <div style="display: flex;">
-                    <h6 style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;" >from:</h6>
-                    <select style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;height:1.5rem !important;" class="form-control" [(ngModel)]="selectedItemFrom">
-                      <option value="english">English</option>
-                      <option value="french">French</option>
-                      <option value="arabic">Arabic</option>
-                      <option value="italian">Italian</option>
-                      <option value="german">German</option>
-                      <option value="spanish">Spanish</option>
-                    </select>
-                    <h6 style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;">to:</h6>
-                      <mat-select  style="margin: 0.5rem 0.5rem 0.5rem 0.5rem; height:1.5rem !important;" [(ngModel)]="selectedItemTo">
-                        <mat-option>None</mat-option>
-                        <mat-option value="english">English</mat-option>
-                        <mat-option value="french">French</mat-option>
-                        <mat-option>value="arabic">Arabic</mat-option>
-                        <mat-option>value="italian">Italian</mat-option>
-                        <mat-option>value="german">German</mat-option>
-                        <mat-option>value="spanish">Spanish</mat-option>
-                      </mat-select>
-                    <a style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;">translate</a>
-                  </div>
-                </div>
-                  <textarea (click)="changeContainsBadWordsSave()"  formControlName="contenu" name="" id="message" cols="30" rows="3" class="form-control"></textarea>
+                <textarea (click)="changeContainsBadWordsSave()" formControlName="contenu" name="" id="message" cols="30" rows="3" class="form-control"></textarea>
                 <div *ngIf="containsBadWordsSave" class="notification">
                   Notification: This Message Contains Bad Words!
                 </div>

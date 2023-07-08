@@ -51,5 +51,9 @@ public class PostController {
     void deletePost(@PathVariable("id") Integer id){
         postService.removePost(id);
     }
+    @GetMapping("/translate/{id}/{from}/{to}")
+    Post translatePost(@PathVariable("id") Integer id,@PathVariable("from") String from,@PathVariable("to") String to){
+        return postService.translatePost(id,from,to);
+    }
 
 }
