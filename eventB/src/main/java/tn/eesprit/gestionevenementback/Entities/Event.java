@@ -20,7 +20,7 @@ import java.util.Set;
             uniqueConstraints = {
                     @UniqueConstraint(columnNames = "title")
             })
-    public class Event {
+    public class  Event {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

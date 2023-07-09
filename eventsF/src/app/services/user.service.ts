@@ -11,7 +11,9 @@ export class UserService {
   forgetPassword(email:any){
     return this.http.put<any>(this.url+'/forgetPassword/'+email,{})
   }
-
+  getStat(){
+    return this.http.get<any>(this.url+'/getStat' )
+  }
   resetPassword(token:any,newPassword){
     return this.http.put<any>(this.url+'/resetPassword/'+token,newPassword)
   }
@@ -45,5 +47,8 @@ export class UserService {
 
   updateBlocked(username:any){
     return this.http.put(this.url+'/updateBlocked/'+username,{})
+  }
+  nbIteration  (id:any){
+    return this.http.put(this.url+'/nbIteration/'+id,{})
   }
 }

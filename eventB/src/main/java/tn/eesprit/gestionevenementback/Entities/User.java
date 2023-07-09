@@ -35,7 +35,7 @@ public class User {
     @Size(max = 50)
 
     private String email;
-
+    private Long nbConnexion = 0L;
     @NotBlank
     @Size(max = 120)
     private String password;

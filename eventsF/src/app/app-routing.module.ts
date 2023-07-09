@@ -26,6 +26,8 @@ import { ListeReclamationComponent } from './dashboard/liste-reclamation/liste-r
 import { ActivityComponent } from './dashboard/activity/activity.component';
 import {ForgetPasswordComponent} from "./forget-password/forget-password.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {StatistiqueComponent} from "./dashboard/statistique/statistique.component";
+import {VipListComponent} from "./dashboard/vip-list/vip-list.component";
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -57,6 +59,8 @@ const routes: Routes = [
   ,
   { path: "forget-password", component: ForgetPasswordComponent },
   { path: "reset-password", component: ResetPasswordComponent },
+  { path: "statistique", component: StatistiqueComponent },
+  { path: "vip-user", component:VipListComponent },
 
 
 

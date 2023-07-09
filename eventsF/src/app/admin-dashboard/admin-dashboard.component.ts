@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { EventService } from '../services/event.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -11,9 +12,15 @@ import { EventService } from '../services/event.service';
 export class AdminDashboardComponent implements OnInit,OnDestroy{
 events:any=[];
 groups
-  constructor(private eventService:EventService){
+  constructor(private eventService:EventService,private router: Router){
 
   }
+  logout(){
+    localStorage.removeItem('id')
+    localStorage.removeItem('token')
+    this.router.navigate(['/login'])
+  }
+
   ngOnInit() {
 
     this.eventService.getEventByType().subscribe(res=>{

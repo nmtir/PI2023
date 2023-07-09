@@ -230,6 +230,20 @@ public class UserController {
 
         }
     }
+    @PutMapping("/nbIteration/{id}")
+    public void nbIteration(@PathVariable Long id){
+        Optional<User> user=userRepository.findById(id);
+        if(user.isPresent()){
+            User _user=user.get();
+            _user.setNbConnexion(_user.getNbConnexion()+1);
+            userRepository.save(_user);
+        }
+    }
+    @GetMapping("/getStat")
+    public ResponseEntity< List<Object[]>> statUser(){
+        List<Object[]> list=userRepository.statUser();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }
 
 

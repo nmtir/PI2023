@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UserService } from 'src/app/services/user.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profil',
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfilComponent {
   userForm!:FormGroup;
-  constructor(private fb:FormBuilder,private userService:UserService,private toast: HotToastService){}
+  constructor(private fb:FormBuilder,private userService:UserService,private toast: HotToastService,private router: Router){}
   ngOnInit() {
     this.userForm=this.fb.group({
       username:['',Validators.required],
@@ -20,22 +21,22 @@ export class ProfilComponent {
      firstName:['',Validators.required],
      lastName:['',Validators.required],
     phone:['',Validators.required]
-   
+
 
     })
   this.userService.getUser(localStorage.getItem('id')).subscribe(res=>{
     this.userForm.patchValue({
       username:res.username,
       email:res.email,
-    
+
       firstName:res.firstName,
       lastName:res.lastName,
       phone:res.phone,
     })
 
   })
- 
- 
+
+
     const element1 = document.getElementById("header1");
     element1.setAttribute("hidden","true");
     const element2 = document.getElementById("ftco-footer");
@@ -52,6 +53,11 @@ export class ProfilComponent {
     this.userService.update(localStorage.getItem('id'),this.userForm.value).subscribe(res=>{
       this.toast.success('User updated with success')
     })
-    
+
+  }
+  logout(){
+    localStorage.removeItem('id')
+    localStorage.removeItem('token')
+    this.router.navigate(['/login'])
   }
 }

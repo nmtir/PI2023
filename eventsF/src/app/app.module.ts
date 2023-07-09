@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import {CommonModule, DatePipe, NgOptimizedImage} from "@angular/common";
 import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component'; 
+import { HeaderComponent } from './header/header.component';
 import { AboutComponent } from './about/about.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogSingleComponent } from './blog-single/blog-single.component';
@@ -37,7 +37,16 @@ import { ActivityComponent } from './dashboard/activity/activity.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StatistiqueComponent } from './dashboard/statistique/statistique.component';
+import { VipListComponent } from './dashboard/vip-list/vip-list.component';
+import { NgChartsModule } from 'ng2-charts';
 
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,17 +77,27 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ListeReclamationComponent,
     ActivityComponent,
     ForgetPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    StatistiqueComponent,
+    VipListComponent
   ],
   imports: [CommonModule,
     BrowserModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
     NgOptimizedImage,
-    HttpClientModule, 
+    HttpClientModule,
     HotToastModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    NgChartsModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [DatePipe,FactureService,ReclamationService],
   bootstrap: [AppComponent]
