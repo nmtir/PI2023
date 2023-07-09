@@ -1,0 +1,129 @@
+<app-current-user></app-current-user>
+<div  style=" display: flex; justify-content: flex-end; margin-top: 10px; margin-right: 100px;">
+  <mat-form-field>
+    <mat-label>Sort By</mat-label>
+    <mat-select [(value)]="selected" (selectionChange)="loadForum(selected)">
+      <mat-option value="mostRecent">Most Recent</mat-option>
+      <mat-option value="maxVues">Trending</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<section  *ngIf="forum"  class="ftco-section">
+  <div class="container">
+    <div  *ngFor="let row of page" class="row d-flex">
+
+      <div @enterExitDown [routerLink]="['/post',{ data: row[0].postId}]" routerLinkActive="active" class="col-md-4 d-flex">
+        <div class="blog-entry justify-content-end">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg')">
+          </a>
+          <div class="text p-4 float-right d-block">
+            <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[0].views.length}}</span>
+            <div class="d-flex align-items-center pt-2 mb-4">
+              <div class="one">
+                <span class="day">{{getPostDay(row[0])}}</span>
+              </div>
+              <div class="two">
+                <span class="yr">{{getPostMonth(row[0])}}</span>
+                <span class="mos">{{getPostFullYear(row[0])}}</span>
+              </div>
+            </div>
+            <h3 class="heading mt-2"><a href="#">{{row[0].title}}</a></h3>
+            <div class="content-wrapper">
+              <p>{{row[0].content}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div @enterExitDown [routerLink]="['/post',{ data: row[1].postId}]" routerLinkActive="active" *ngIf="row[1]" class="col-md-4 d-flex">
+        <div class="blog-entry justify-content-end">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');">
+          </a>
+          <div class="text p-4 float-right d-block">
+            <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[1].views.length}}</span>
+            <div class="d-flex align-items-center pt-2 mb-4">
+              <div class="one">
+                <span class="day">{{getPostDay(row[1])}}</span>
+              </div>
+              <div class="two">
+                <span class="yr">{{getPostMonth(row[1])}}</span>
+                <span class="mos">{{getPostFullYear(row[1])}}</span>
+              </div>
+            </div>
+            <h3 class="heading mt-2"><a href="#">{{row[1].title}}</a></h3>
+            <div class="content-wrapper">
+              <p>{{row[1].content}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div @enterExitDown [routerLink]="['/post',{ data: row[2].postId}]" routerLinkActive="active" *ngIf="row[2]" class="col-md-4 d-flex">
+        <div class="blog-entry justify-content-end">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');">
+          </a>
+          <div class="text p-4 float-right d-block">
+            <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[2].views.length}}</span>
+            <div class="d-flex align-items-center pt-2 mb-4">
+              <div class="one">
+                <span class="day">{{getPostDay(row[2])}}</span>
+              </div>
+              <div class="two">
+                <span class="yr">{{getPostMonth(row[2])}}</span>
+                <span class="mos">{{getPostFullYear(row[2])}}</span>
+              </div>
+            </div>
+            <h3 class="heading mt-2"><a href="#">{{row[2].title}}</a></h3>
+            <div class="content-wrapper">
+            <p>{{row[2].content}}</p>
+            </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="d-flex align-items-center">
+        <p class="mb-0"></p>
+        <button [routerLink]="['/addpost',{ data: forum.forumId}]"  class="btn btn-primary btn-sm ms-auto">Add Your Post</button>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col text-center">
+        <div class="block-27">
+          <ul>
+            <li><a href="#">&lt;</a></li>
+            <li class="active"><span>1</span></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&gt;</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section-parallax">
+  <div class="parallax-img d-flex align-items-center">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+          <h2>Subcribe to our Newsletter</h2>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+          <div class="row d-flex justify-content-center mt-4 mb-4">
+            <div class="col-md-8">
+              <form action="#" class="subscribe-form">
+                <div class="form-group d-flex">
+                  <input type="text" class="form-control" placeholder="Enter email address">
+                  <input type="submit" value="Subscribe" class="submit px-3">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

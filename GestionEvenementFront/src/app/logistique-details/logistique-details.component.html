@@ -1,0 +1,80 @@
+<app-current-user></app-current-user>
+<div *ngIf="logistique" class="container-fluid py-4">
+  <div class="row">
+    <div class="col-md-111">
+      <div class="card">
+
+        <div class="card-body">
+          <div class="container-fluid py-4">
+<section class="ftco-counter img" id="section-counter">
+  <div class="container">
+    <div class="row d-flex">
+      <div class="col-md-6 d-flex">
+        <div class="img d-flex align-self-stretch" style="background-image:url(assets/images/logistique.png);"></div>
+      </div>
+      <div class="col-md-6 pl-md-5 py-5">
+        <div class="row justify-content-start pb-3">
+          <div class="col-md-12 heading-section ftco-animate">
+            <span class="subheading">Logistique</span>
+            <h2 class="mb-4"><span>Event</span> DateEvent</h2>
+            <p>Description</p>
+          </div>
+        </div>
+        <div class="row">
+          <a  href="#" class="col-md-6 justify-content-center counter-wrap ftco-animate">
+            <div style="border-radius: 60px" class="block-18 text-center py-4 bg-light mb-4">
+              <div class="text">
+                <div class="icon d-flex justify-content-center align-items-center">
+                  <img style="height: 50px;width: Auto;" src="assets/images/teamwork.png">
+                </div>
+                <strong class="number" >512</strong>
+                <span>Particiants</span>
+              </div>
+            </div>
+          </a>
+          <a [routerLink]="  ['/housing',{data:logistique.logistiqueId}]" class="col-md-6 justify-content-center counter-wrap ftco-animate">
+            <div style="border-radius: 60px"  class="block-18 text-center py-4 bg-light mb-4">
+              <div class="text">
+                <div class="icon d-flex justify-content-center align-items-center">
+                  <img style="height: 50px;width: Auto;" src="assets/images/hotel.png">
+                </div>
+                <strong class="number" >0</strong>
+                <span>Housing</span>
+              </div>
+            </div>
+          </a>
+          <a [routerLink]="['/resource',{data:logistique.logistiqueId}]" class="col-md-6 justify-content-center counter-wrap ftco-animate">
+            <div  style="border-radius: 60px" class="block-18 text-center py-4 bg-light mb-4">
+              <div class="text">
+                <div class="icon d-flex justify-content-center align-items-center">
+                  <img style="height: 50px;width: Auto;" src="assets/images/warehouse.png">
+                </div>
+                <strong class="number" >{{depenses}}</strong>
+                <span>Resource Materiel</span>
+              </div>
+            </div>
+          </a>
+
+          <a [routerLink]="['/transport',{data:logistique.logistiqueId}]" class="col-md-6 justify-content-center counter-wrap ftco-animate">
+            <div style="border-radius: 60px" class="block-18 text-center py-4 bg-light mb-4">
+              <div class="text">
+                <div class="icon d-flex justify-content-center align-items-center">
+                  <img style="height: 50px;width: Auto;" src="assets/images/bus.png">
+                </div>
+                <strong class="number" >0</strong>
+                <span>Transport</span>
+              </div>
+            </div>
+
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

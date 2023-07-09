@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Activity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer ActivityId;
+    Integer activityId;
 
     @ManyToOne
     Event event;

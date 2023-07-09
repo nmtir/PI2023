@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -17,15 +18,23 @@ import java.util.Set;
 public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer PostId;
+    Integer postId;
+    String content;
+    String title;
+    Date datePub;
+    @ManyToMany
+    Set<User> likes;
+    @ManyToMany
+    Set<User> views;
 
 
-
+    @JsonIgnore
     @ManyToOne
     Forum forum;
-    @JsonIgnore
-    @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
+
+    @OneToMany(mappedBy = "post")
     Set<Message> messages;
+
     @ManyToOne
     User user;
 }

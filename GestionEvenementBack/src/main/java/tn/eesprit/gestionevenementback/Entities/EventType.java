@@ -1,4 +1,6 @@
 package tn.eesprit.gestionevenementback.Entities;
 public enum EventType {
-    formation,ceminaire
+    Formation,
+    Semenaire,
+    Team_Building
 }

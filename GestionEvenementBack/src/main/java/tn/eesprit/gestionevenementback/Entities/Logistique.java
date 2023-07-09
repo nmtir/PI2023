@@ -1,10 +1,14 @@
 package tn.eesprit.gestionevenementback.Entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,18 +19,17 @@ import java.io.Serializable;
 public class Logistique implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer LogistiqueId;
+    Integer logistiqueId;
+    Float depenses;
 
 
-
-
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
     Event event;
-    @OneToOne
-    Payement payement;
-    @OneToOne (mappedBy = "logistique",cascade = CascadeType.REMOVE)
-    ResourceMateriel resource;
-    @OneToOne (mappedBy = "logistique",cascade = CascadeType.REMOVE)
-    ServiceClient serviceClient;
 
+    @OneToOne(mappedBy = "logistique",cascade = CascadeType.REMOVE)
+    Payement payement;
+    @JsonIgnore
+    @OneToMany(mappedBy = "logistique")
+    Set<Ordre> ordres;
 }

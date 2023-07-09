@@ -8,5 +8,6 @@ public interface IForumService {
     List<Forum> retrieveAllForums();
     Forum addOrUpdateForum(Forum Forum);
     Forum retrieveForum(Integer id);
+    Forum retrieveForumByEventId(Integer id,String sortingType);
     void removeForum(Integer id);
 }

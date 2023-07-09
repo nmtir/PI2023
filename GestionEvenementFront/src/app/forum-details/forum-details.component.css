@@ -1,0 +1,9 @@
+p.content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%; /* Adjust the width as needed */
+}
+.content-wrapper {
+  min-width: 400px; /* Adjust the minimum height as desired */
+}
