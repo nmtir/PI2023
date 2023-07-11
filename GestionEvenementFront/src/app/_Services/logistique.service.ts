@@ -17,7 +17,6 @@ export class LogistiqueService {
   }
 
   add(logistique: Logistique) {
-    console.log(logistique);
     return this.http.post(`${environment.apiUrl}/api/logistique/add`, logistique);
   }
 
@@ -25,11 +24,9 @@ export class LogistiqueService {
     return this.http.get<Logistique[]>(`${environment.apiUrl}/api/logistique/all`);
   }
   update(logistique: Logistique) {
-    console.log(logistique);
     return this.http.put(`${environment.apiUrl}/api/logistique/update`, logistique);
   }
   updateDepenses(logistique: Logistique) {
-    console.log(logistique);
     return this.http.put(`${environment.apiUrl}/api/logistique/update/depenses`, logistique);
   }
   delete(id: string) {

@@ -39,6 +39,8 @@ public class Event {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "event_id")
     private Set<Activity> activites = new HashSet<>();
+    @ManyToOne
+    User user;
 
 
 

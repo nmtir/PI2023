@@ -1,6 +1,11 @@
 import { EventType } from './EventType';
 
 export class Event {
-  eventId: string;
-  eventType: EventType;
+  id: string;
+  description:string;
+  endDate:Date;
+  lieu:string
+  startDate:Date;
+  title:string
+  type: EventType;
 }

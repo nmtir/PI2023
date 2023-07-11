@@ -1,5 +1,5 @@
 <app-current-user></app-current-user>
-<div  class="card shadow-lg mx-4 card-profile-bottom position-sticky z-index-sticky top-0 ">
+<div  *ngIf="role==Role.admin" class="card shadow-lg mx-4 card-profile-bottom position-sticky z-index-sticky top-0 ">
   <div class="card-body p-3">
     <form [formGroup]="badwordForm">
     <div style="display: flex;justify-content: space-between;">
@@ -54,7 +54,7 @@
 </div>
 
 
-<div *ngIf="data" class="container-fluid py-4" >
+<div *ngIf="data&&role==Role.admin" class="container-fluid py-4" >
   <div class="row">
     <div class="col-md-8">
       <div class="card">

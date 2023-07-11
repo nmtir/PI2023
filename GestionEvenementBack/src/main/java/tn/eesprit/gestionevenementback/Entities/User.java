@@ -43,7 +43,9 @@ public class User {
     private String password;
 
     private Boolean active= false;
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    Set<Event> events;
     @JsonIgnore
     @ManyToMany(mappedBy = "views")
     Set<Post> viewedPosts;

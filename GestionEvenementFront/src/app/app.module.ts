@@ -57,6 +57,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { BlockedMessagesComponent } from './blocked-messages/blocked-messages.component';
+import { AddStockComponent } from './add-stock/add-stock.component';
+import { HousingComponent } from './housing/housing.component';
+import { TransportComponent } from './transport/transport.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -113,7 +116,10 @@ import { BlockedMessagesComponent } from './blocked-messages/blocked-messages.co
     ActivityComponent,
     ForgetPasswordComponent,
     ResetPasswordComponent,
-    BlockedMessagesComponent
+    BlockedMessagesComponent,
+    AddStockComponent,
+    HousingComponent,
+    TransportComponent
   ],
     imports: [
         FormsModule,

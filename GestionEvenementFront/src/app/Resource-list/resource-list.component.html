@@ -1,55 +1,68 @@
 <app-current-user></app-current-user>
-<main class="main-content position-relative border-radius-lg ">
+<main *ngIf="currentUser.roles.includes(Role.organiser)" class="main-content position-relative border-radius-lg ">
   <div class="container-fluid py-4">
     <div class="row mt-4">
       <div class="col-lg-7 mb-lg-0 mb-4">
         <div class="card ">
           <div class="card-header pb-0 p-3">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between" style="display: flex;justify-content: space-between;">
               <h6 class="mb-2">Event Inventory</h6>
+              <h6 class="mb-2">Total is : {{calculateTotal()}}&nbsp;tnd</h6>
             </div>
           </div>
-          <div class="table-responsive">
-            <table class="table align-items-center example-list"cdkDropList
+            <div class="table-responsive" style="min-height:232px" cdkDropList
                    #eventProducts="cdkDropList"
                    [cdkDropListData]=products
                    [cdkDropListConnectedTo]="[stockList]"
                    (cdkDropListDropped)="drop($event)"
                    [cdkDropListEnterPredicate]="alreadyPredicate">
-              <tbody class="example-box" *ngFor="let r of products" cdkDrag [cdkDragData]="r">
-              <tr>
-                <td>
-                  <div class="text-center">
-                    <p class="text-xs font-weight-bold mb-0">Name :</p>
-                    <h6 class="text-sm mb-0">{{r.nameProduct}}</h6>
+              <ul class="no-margin">
+                <li style="display: flex;">
+                  <div style="border-radius: 20px 0 0 0;" class="table-cell centered-div">
+                      <label style="font-size: 20px">Name</label>
                   </div>
-                </td>
-                <td>
-                  <div class="text-center">
-                    <p class="text-xs font-weight-bold mb-0">Unit Price:</p>
-                    <h6 class="text-sm mb-0">{{r.price}}&nbsp;tnd</h6>
+                  <div class="table-cell centered-div">
+                      <label style="font-size: 20px">Unit Price</label>
                   </div>
-                </td>
-                <td class="align-middle text-sm">
-                  <div class="col text-left">
-                          <div class="form-outline" style="width: 5rem;">
-                            <label for="typeNumber" class="form-label">Quantity:</label>
-                            <input [(ngModel)]="r.quantity"  value="{{r.quantity}}" type="number" id="typeNumber" class="form-control" />
-                          </div>
+                  <div class="table-cell centered-div">
+                      <label style="font-size: 20px">Quantity</label>
                   </div>
-                </td>
-              </tr>
-              </tbody>
+                  <div style="border-radius:0 20px 0 0 ;" class="table-cell centered-div">
+                    <label style="font-size: 20px">Total</label>
+                  </div>
+                </li>
+              </ul>
 
-            </table>
+              <ul class="example-box no-margin" *ngFor="let r of products; let i = index" cdkDrag [cdkDragData]="r">
+              <li style="display: flex;">
+                <div class="table-row centered-div"[ngClass]="{'table-row': true, 'centered-div': true, 'first-cell': i === products.length - 1,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                    <h6>{{r.nameProduct}}</h6>
+                </div>
+                <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                  <h6>{{r.price}}&nbsp;tnd</h6>
+                </div>
+                <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                     <input style="background-color: transparent" class="table-quantity-input" [(ngModel)]="r.quantity"  value="{{r.quantity}}" type="number" min="0" (ngModelChange)="removeIfZero(r)" [max]="isOutOfStock(r) ? r.quantity:9999"/>
+                </div>
+                <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                  <h6>{{r.price*r.quantity}}&nbsp;tnd</h6>
+                </div>
+                <div (click)="clear(r)" [ngClass]="{'table-row': true, 'clearLink': true, 'centered-div': true, 'last-cell': i === products.length - 1, 'last-cell-first-line': i === 0,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}" style="cursor:pointer">
+                  <a >Clear</a>
+                </div>
+              </li>
+              </ul>
+
+            </div>
+          <div style="padding-right: 25px">
+            <div class="d-flex align-items-center">
+              <button (click)="SaveOrders(3)" (mouseenter)="SaveOrders(1)"(mouseleave)="SaveOrders(2)"  class="btnn btn-sm ms-auto">
+                <img src={{saveImageSrc}} height="16rem"width="auto">
+              </button>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="d-flex align-items-center">
-            <p class="mb-0"></p>
-            <button class="btn btn-primary btn-sm ms-auto" (click)="SaveOrders();">Save</button>
-          </div>
-        </div>
+
       </div>
 
       <div class="col-lg-5">
@@ -68,11 +81,12 @@
               <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                 <div class="d-flex align-items-center">
                   <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                    <i class="ni ni-mobile-button text-white opacity-10"></i>
+                    <i style="height: 30px;width: 30px"></i>
                   </div>
                   <div class="d-flex flex-column">
                     <h6 class="mb-1 text-dark text-sm">{{r.nameProduct}}</h6>
-                    <span class="text-xs">{{r.stock}} in stock, <span class="font-weight-bold">{{r.stock}} sold</span></span>
+                    <span *ngIf="checkStock(r) > 0" class="text-xs"><span class="font-weight-bold">{{checkStock(r)}} in stock</span></span>
+                    <p *ngIf="checkStock(r) <= 0" class="error-message">Out of stock</p>
                   </div>
                 </div>
                 <div class="d-flex">

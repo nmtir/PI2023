@@ -7,6 +7,7 @@ import {first} from "rxjs";
 import {BadwordService} from "../_Services/badword..service";
 import {Badword} from "../_Models/Badword";
 import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
+import {Role} from "../_Models/Role";
 
 @Component({
   selector: 'app-blocked-messages',
@@ -30,7 +31,7 @@ import {animate, keyframes, state, style, transition, trigger} from "@angular/an
     ])]
 })
 export class BlockedMessagesComponent{
-  userId:string;
+  role:Role;
   currentUser:string;
   data:Message[];
   badwordForm:FormGroup;
@@ -54,8 +55,12 @@ export class BlockedMessagesComponent{
     private cdr: ChangeDetectorRef
   )
   {
-    this.userId="1";
-    this.currentUser="2";
+    const role0 = localStorage.getItem('roles');
+    const id = localStorage.getItem('id');
+    // @ts-ignore
+    this.role=role0;
+    // @ts-ignore
+    this.currentUser=id.toString();
     this.loadBadwords();
     this.badwordForm=this.formBuilder.group({
       BadWords:['']
@@ -185,4 +190,5 @@ export class BlockedMessagesComponent{
 
   }
 
+  protected readonly Role = Role;
 }

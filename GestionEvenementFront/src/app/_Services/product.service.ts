@@ -14,7 +14,6 @@ export class ProductService {
   }
 
   add(product: Product) {
-    console.log(product);
     return this.http.post(`${environment.apiUrl}/api/products/add`, product);
   }
 
@@ -25,7 +24,6 @@ export class ProductService {
     return this.http.get<Product[]>(`${environment.apiUrl}/api/products/stock`);
   }
   update(product: Product) {
-    console.log(product);
     return this.http.put(`${environment.apiUrl}/api/products/update`, product);
   }
   delete(id: string) {

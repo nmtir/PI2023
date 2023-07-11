@@ -17,8 +17,8 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer reservationId;
-
-
+    Boolean TransportIncluded;
+    Boolean HousingIncluded;
     @OneToOne(mappedBy = "reservation",cascade = CascadeType.REMOVE)
     Payement payement;
     @ManyToOne

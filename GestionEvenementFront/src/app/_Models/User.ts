@@ -4,7 +4,7 @@ import {Message} from "./Message";
 export class User {
   userId: string;
   username:string;
-  role: Role;
+  roles: Role[];
   messages:Message[];
   signaledMessages:Message[];
 }

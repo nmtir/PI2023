@@ -27,6 +27,10 @@ public class OrderController {
     Ordre updateOrder(@RequestBody Ordre order){
         return orderService.addOrUpdateOrder(order);
     }
+    @PutMapping("/update/qty")
+    Ordre updateOrderQty(@RequestBody Ordre order){
+        return orderService.UpdateOrder(order);
+    }
     @GetMapping("/get/{id}")
     Ordre getOrder(@PathVariable("id") Integer id){
         return orderService.retrieveOrder(id);

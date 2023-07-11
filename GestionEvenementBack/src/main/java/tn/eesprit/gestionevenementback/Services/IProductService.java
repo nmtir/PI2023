@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface IProductService {
     List<Product> retrieveAllProducts();
-    Product addOrUpdateProduct(Product Product);
+    Product addProduct(Product product);
+    Product UpdateProduct(Product product);
     Product retrieveProduct(Integer id);
     void removeProduct(Integer id);
     public List<Product> retrieveProductsInStock();

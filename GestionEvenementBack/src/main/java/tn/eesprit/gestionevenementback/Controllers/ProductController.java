@@ -15,11 +15,11 @@ public class ProductController {
     @PostMapping("/add")
     Product addProduct(@RequestBody Product product)
     {
-        return productService.addOrUpdateProduct(product);
+        return productService.addProduct(product);
     }
     @PutMapping("/update")
     Product updateProduct(@RequestBody Product product){
-        return productService.addOrUpdateProduct(product);
+        return productService.UpdateProduct(product);
     }
     @GetMapping("/get/{id}")
     Product getProduct(@PathVariable("id") Integer id){

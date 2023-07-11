@@ -15,11 +15,9 @@ export class OrderService {
   }
 
   add(r: Ordre) {
-    console.log(r);
     return this.http.post(`${environment.apiUrl}/api/ordre/add`, r);
   }
   addAndAssignProduct(p:Product,qty:number,id:string) {
-    console.log(p);
     return this.http.post(`${environment.apiUrl}/api/ordre/add/${qty}/${id}`, p);
   }
 
@@ -30,13 +28,12 @@ export class OrderService {
     return this.http.get<Ordre[]>(`${environment.apiUrl}/api/ordre/all/logistique/${id}`);
   }
   update(o: Ordre) {
-    console.log(o);
-    return this.http.put<Ordre>(`${environment.apiUrl}/api/ordre/update`, o);
+    return this.http.put<Ordre>(`${environment.apiUrl}/api/ordre/update/qty`, o);
   }
   updateQuantity(qty: string,id:string,o:Ordre) {
     return this.http.put(`${environment.apiUrl}/api/ordre/update/${id}/${qty}`,o);
   }
-  delete(id: string) {
+    delete(id: string) {
     return this.http.delete(`${environment.apiUrl}/api/ordre/delete/${id}`);
   }
 }
