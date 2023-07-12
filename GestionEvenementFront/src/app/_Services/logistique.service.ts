@@ -10,27 +10,30 @@ export class LogistiqueService {
 
   constructor(private http: HttpClient) { }
   getById(id: string) {
-    return this.http.get<Logistique>(`${environment.apiUrl}/api/logistique/get/${id}`);
+    return this.http.get<Logistique>(`${environment.apiUrl}/logistique/get/${id}`);
   }
   getByEventId(id: number) {
-    return this.http.get<Logistique>(`${environment.apiUrl}/api/logistique/get/event/${id}`);
+    return this.http.get<Logistique>(`${environment.apiUrl}/logistique/get/event/${id}`);
   }
 
   add(logistique: Logistique) {
-    return this.http.post(`${environment.apiUrl}/api/logistique/add`, logistique);
+    console.log(logistique);
+    return this.http.post(`${environment.apiUrl}/logistique/add`, logistique);
   }
 
   getAll() {
-    return this.http.get<Logistique[]>(`${environment.apiUrl}/api/logistique/all`);
+    return this.http.get<Logistique[]>(`${environment.apiUrl}/logistique/all`);
   }
   update(logistique: Logistique) {
-    return this.http.put(`${environment.apiUrl}/api/logistique/update`, logistique);
+    console.log(logistique);
+    return this.http.put(`${environment.apiUrl}/logistique/update`, logistique);
   }
   updateDepenses(logistique: Logistique) {
-    return this.http.put(`${environment.apiUrl}/api/logistique/update/depenses`, logistique);
+    console.log(logistique);
+    return this.http.put(`${environment.apiUrl}/logistique/update/depenses`, logistique);
   }
   delete(id: string) {
-    return this.http.delete(`${environment.apiUrl}/api/logistique/delete/${id}`);
+    return this.http.delete(`${environment.apiUrl}/logistique/delete/${id}`);
   }
 
 }

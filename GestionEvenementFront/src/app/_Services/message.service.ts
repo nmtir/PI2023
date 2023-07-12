@@ -12,50 +12,47 @@ export class MessageService {
 
   constructor(private http: HttpClient) { }
   getById(id: string) {
-    return this.http.get<Message>(`${environment.apiUrl}/api/message/get/${id}`);
+    return this.http.get<Message>(`${environment.apiUrl}/message/get/${id}`);
   }
   addAndAssign(message: Message,id:string,idUser:string,Target:string) {
     console.log(message);
-    return this.http.post(`${environment.apiUrl}/api/message/add/${id}/${idUser}/${Target}`, message);
+    return this.http.post(`${environment.apiUrl}/message/add/${id}/${idUser}/${Target}`, message);
   }
 
   add(message: Message) {
     console.log(message);
-    return this.http.post(`${environment.apiUrl}/api/message/add`, message);
+    return this.http.post(`${environment.apiUrl}/message/add`, message);
   }
 
   getAll() {
-    return this.http.get<Message[]>(`${environment.apiUrl}/api/message/all`);
-  }
-  getAllBlocked() {
-    return this.http.get<Message[]>(`${environment.apiUrl}/api/message/all-blocked`);
+    return this.http.get<Message[]>(`${environment.apiUrl}/message/all`);
   }
   checkLikesThenUpdate(message: Message,id:string) {
     console.log(message);
-    return this.http.put<Message>(`${environment.apiUrl}/api/message/likes/update/${id}`, message);
+    return this.http.put<Message>(`${environment.apiUrl}/message/likes/update/${id}`, message);
   }
   checkSginalsThenUpdate(message:Message,id:string){
     console.log(message);
-    return this.http.put<Message>(`${environment.apiUrl}/api/message/signal/update/${id}`, message);
+    return this.http.put<Message>(`${environment.apiUrl}/message/signal/update/${id}`, message);
   }
   removeSignal(message:Message,id:string){
     console.log(message);
-    return this.http.put<Message>(`${environment.apiUrl}/api/message/signal/remove/${id}`, message);
+    return this.http.put<Message>(`${environment.apiUrl}/message/signal/remove/${id}`, message);
 
   }
   removeLike(message: Message,id:string) {
     console.log(message);
-    return this.http.put<Message>(`${environment.apiUrl}/api/message/likes/remove/${id}`, message);
+    return this.http.put<Message>(`${environment.apiUrl}/message/likes/remove/${id}`, message);
   }
   update(message: Message) {
     console.log(message);
-    return this.http.put(`${environment.apiUrl}/api/message/update`, message);
+    return this.http.put(`${environment.apiUrl}/message/update`, message);
   }
   updateSignal(message: Message,id:number) {
-    return this.http.put(`${environment.apiUrl}/api/message/update/signal/${id}`, message);
+    return this.http.put(`${environment.apiUrl}/message/update/signal/${id}`, message);
   }
   delete(id: string) {
-    return this.http.delete(`${environment.apiUrl}/api/message/delete/${id}`);
+    return this.http.delete(`${environment.apiUrl}/message/delete/${id}`);
   }
 
 

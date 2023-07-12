@@ -7,7 +7,7 @@ export class Ordre {
   orderId:string ;
   dateLimitCommande:Date;
   quantity:number;
-  initialQuantity:number;
+
   logistique:Logistique;
   product:Product ;
   transport:Transport ;

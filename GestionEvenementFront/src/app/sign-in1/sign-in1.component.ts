@@ -39,15 +39,8 @@ export class SignIn1Component implements OnInit {
 
 
       localStorage.setItem('id', res.id);
-      localStorage.setItem('roles', res.roles);
-      localStorage.setItem('username', res.username);
-      localStorage.setItem('token', res.accessToken);
-
-      this.router.navigate(['/home']);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-
+      localStorage.setItem('token', res.accessToken)
+      this.router.navigate(['/profil'])
 
     }, (error: any) => {
 

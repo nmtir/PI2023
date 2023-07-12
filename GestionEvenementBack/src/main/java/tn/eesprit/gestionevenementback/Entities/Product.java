@@ -23,7 +23,7 @@ public class Product implements Serializable {
     Float price;
     Integer stock;
     @JsonIgnore
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product")
     Set<Ordre> ordres;
 
 }

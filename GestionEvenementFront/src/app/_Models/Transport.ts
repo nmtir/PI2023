@@ -1,13 +1,11 @@
 import {TransportType} from "./TransportType";
 import {Ordre} from "./Ordre";
-import {Reservation} from "./Reservation";
 
 export class Transport {
   transportId:string;
-  fromAdress:string ;
-  price:number ;
-  capacity:number;
+  startAdress:string ;
+  price:string ;
+  capacity:string ;
   transportType:TransportType ;
-  event:Event;
-  passangers:Reservation[];
+  Ordres:Ordre[];
 }

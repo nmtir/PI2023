@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/ordre")
+@RequestMapping("/ordre")
 public class OrderController {
     private final IOrderService orderService;
     @PostMapping("/add")
@@ -26,10 +26,6 @@ public class OrderController {
     @PutMapping("/update/{qty}")
     Ordre updateOrder(@PathVariable  Integer qty,@RequestBody Ordre order){
         return orderService.UpdateOrder(qty,order);
-    }
-    @PutMapping("/update/qty")
-    Ordre updateOrderQty(@RequestBody Ordre order){
-        return orderService.UpdateOrder(order);
     }
     @GetMapping("/get/{id}")
     Ordre getOrder(@PathVariable("id") Integer id){

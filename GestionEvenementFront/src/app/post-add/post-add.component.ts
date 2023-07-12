@@ -16,7 +16,7 @@ export class PostAddComponent implements OnInit{
   id:string;
   postForm:FormGroup;
   currentUser:string;
-eventId:string;
+
   forum:string;
   constructor(
     private formBuilder:FormBuilder,
@@ -36,12 +36,11 @@ eventId:string;
 
   public getId() {
   this.id  = this.route.snapshot.paramMap.get('data');
-  this.eventId = this.route.snapshot.paramMap.get('Id');
-
 
   }
   public SubmitForm() {
   this.postService.addAndAssign(this.postForm.value,this.id,this.currentUser).pipe(first()).subscribe(data=>{
+    this.router.navigate(['/forum']);
   });
     console.log(this.postForm.value);
   }

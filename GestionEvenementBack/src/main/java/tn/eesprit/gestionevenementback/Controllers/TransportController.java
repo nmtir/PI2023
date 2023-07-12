@@ -9,13 +9,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/transport")
+@RequestMapping("/transport")
 public class TransportController {
     private final ITransportService transportService;
-    @PostMapping("/add/{id}")
-    Transport addTransport(@PathVariable("id") Long eventId,@RequestBody Transport transport)
+    @PostMapping("/add")
+    Transport addTransport(@RequestBody Transport transport)
     {
-        return transportService.addTransportAndAssignToEvent(eventId,transport);
+        return transportService.addOrUpdateTransport(transport);
     }
     @PutMapping("/update")
     Transport updateTransport(@RequestBody Transport transport){

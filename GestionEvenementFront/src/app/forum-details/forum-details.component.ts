@@ -7,7 +7,6 @@ import {ForumService} from "../_Services/forum.service";
 import {first} from "rxjs";
 import {DataService} from "../data.service";
 import {animate, style, transition, trigger} from "@angular/animations";
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-forum-details',
@@ -41,11 +40,10 @@ export class ForumDetailsComponent implements OnInit{
     "Apr", "May", "Jun", "Jul", "Aug", "Sep",
     "Oct", "Nov", "Dec"];
   constructor(
-    private route: ActivatedRoute,
     private forumService: ForumService,private dataService: DataService
   ){}
   ngOnInit() {
-    this.eventId=Number(this.route.snapshot.paramMap.get('id'));
+    this.eventId=1;
     this.loadForum(this.selected);
   }
     public loadForum(sortingType:string) {

@@ -4,9 +4,8 @@ import {Ordre} from "./Ordre";
 export class Product {
   productId: string;
   nameProduct:string;
-  price:number ;
+  price:string ;
   stock:number;
-  currentStock:number;
   ordres:Ordre[];
   quantity:number;
 }

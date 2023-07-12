@@ -8,8 +8,6 @@
           <div class="card-body">
   <div class="container-fluid py-4">
     <h3 class="mb-5">Add new Post</h3>
-    <h6 class="return-link" style="cursor: pointer" [routerLink]="['/forum',{ id:eventId}]">return</h6>
-
     <form  [formGroup]="postForm" (ngSubmit)="SubmitForm()" class="p-5">
       <div class="form-group">
         <label for="title">Title</label>
@@ -33,5 +31,4 @@
 
 
 </div>
-
 

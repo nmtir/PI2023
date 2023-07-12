@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/logistique")
+@RequestMapping("/logistique")
 public class LogistiqueController {
     private final ILogistiqueService logistiqueService;
     @PostMapping("/add")
@@ -30,7 +30,7 @@ public class LogistiqueController {
         return logistiqueService.retrieveLogistique(id);
     }
     @GetMapping("/get/event/{id}")
-    Logistique getLogistiqueByEventId(@PathVariable("id") Long id){
+    Logistique getLogistiqueByEventId(@PathVariable("id") Integer id){
         return logistiqueService.retrieveLogistiqueByEventId(id);
     }
     @GetMapping("/all")

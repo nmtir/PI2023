@@ -18,7 +18,6 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer categoryId;
-    String categoryName;
 
 
 

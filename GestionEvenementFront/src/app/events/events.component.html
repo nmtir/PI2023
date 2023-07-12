@@ -9,10 +9,10 @@
       </div>
     </div>
   </section>
-
+  
   <section class="ftco-section bg-light">
     <div class="container">
-
+  
         <h4 class="h4">Dernières événement</h4>
 
         <div class="jobs">
@@ -30,56 +30,55 @@
                     </div>
                     <div class="search-zone">
                         <form style="    display: block;"  [formGroup]="searchBydateForm" (ngSubmit)="serachbyDate()">
-                            <input type="date"  formControlName="start" class="form-control"><br>
+                            <input type="date"  formControlName="start" class="form-control"><br> 
                             <input type="date"   formControlName="end" class="form-control"><br>
                             <button type="submit" class="button-filter">Filter</button>
                         </form>
                     </div>
             </div>
             <div class="col-8">
-
+                
                 <div class="menu-content">
                     <div class="menu-items">
                             <ng-container *ngFor="let item of events ">
-
+                            
                             <div class="menu-item flex">
-
-
+                                    
+                
                                     <div class="menuItem-details" style="    width: 79%;">
                                             <h4 class="menuItem-topic" style="    font-size: 19px;">{{item.title}}<span class="date">{{item.startDate|date:'dd/MM/yyyy'}}  - {{item.startDate|date:'dd/MM/yyyy'}} </span></h4>
                                             <p class="menuItem-des">
-
+                                                    
                                                     {{item.description?.length>50 ? (item.description | slice:0:150)+'..' : item.description}}
                                                      </p>
                                                      <span class="discount-price"><i class='bx bx-building-house'></i> {{item.type}}</span>
                                             <span class="adresse"> <i class='bx bxs-map'></i>{{item.lieu}}</span>
-
+                                           
                                     </div>
-
+                
                                      <div class="choose" style="display: block;">
                                         <button style="    height: 4%;" class="btn btn-sm mb-0 me-1 btn-primary" routerLink="/job/{{item._id}}">Voir plus</button>
-                                        <button *ngIf="role==Role.membre" style="    height: 4%;    background: #686677 !important;
+                                        <button style="    height: 4%;    background: #686677 !important;
                                         border: 1px solid #686677 !important;
                                         color: #fff !important;" class="btn btn-sm mb-0 me-1 btn-primary" (click)="reserver(item.id)" >Réserver</button>
-                                        <button *ngIf="role==Role.membre||role==Role.organiser||role==Role.admin" style="height: 4%;" class="btn btn-sm mb-0 me-1 btn-primary" [routerLink]="['/forum',{id:item.id}]" >Forum</button>
-                                       <button *ngIf="currentUser.userId==item.user.userId" style="height: 4%;" class="btn btn-sm mb-0 me-1 btn-primary" [routerLink]="['/logistique',{id:item.id}]">Logistique</button>
+                               
                                      </div>
-
+                                    
                                     </div>
-
+                             
                     </ng-container>
-
+                            
                     </div>
-
-
+                
+                    
                 </div>
             </div>
         </div>
-
-
+  
+    
     </div>
   </section>
-
+  
   <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
       <div class="container">
@@ -102,3 +101,4 @@
       </div>
     </div>
   </section>
+  

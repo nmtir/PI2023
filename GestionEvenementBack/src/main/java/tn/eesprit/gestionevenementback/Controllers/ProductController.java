@@ -9,17 +9,17 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/products")
+@RequestMapping("/products")
 public class ProductController {
     private final IProductService productService;
     @PostMapping("/add")
     Product addProduct(@RequestBody Product product)
     {
-        return productService.addProduct(product);
+        return productService.addOrUpdateProduct(product);
     }
     @PutMapping("/update")
     Product updateProduct(@RequestBody Product product){
-        return productService.UpdateProduct(product);
+        return productService.addOrUpdateProduct(product);
     }
     @GetMapping("/get/{id}")
     Product getProduct(@PathVariable("id") Integer id){

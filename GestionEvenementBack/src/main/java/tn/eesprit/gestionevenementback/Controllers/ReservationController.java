@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/reservation")
+@RequestMapping("/reservation")
 public class ReservationController {
     private final IReservationService reservationService;
     @PostMapping("/add")
@@ -20,10 +20,6 @@ public class ReservationController {
     @PutMapping("/update")
     Reservation updateReservation(@RequestBody Reservation reservation){
         return reservationService.addOrUpdateReservation(reservation);
-    }
-    @PutMapping("/update/seated")
-    Reservation updateSeated(@RequestBody Reservation reservation){
-        return reservationService.UpdateSeated(reservation);
     }
     @GetMapping("/get/{id}")
     Reservation getReservation(@PathVariable("id") Integer id){

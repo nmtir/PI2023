@@ -24,10 +24,8 @@ public class Transport implements Serializable {
     Integer capacity;
     @Enumerated(EnumType.STRING)
     TransportType transportType;
-    @ManyToOne
-    Event event;
+    @JsonIgnore
     @OneToMany(mappedBy = "transport")
-    Set<Reservation> passangers;
-
+    Set<Ordre> ordre;
 
 }

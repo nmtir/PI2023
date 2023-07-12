@@ -23,6 +23,8 @@ public class Ordre implements Serializable {
     @ManyToOne
     Product product;
     @ManyToOne
+    Transport transport;
+    @ManyToOne
     Housing housing;
 
 

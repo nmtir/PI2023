@@ -10,26 +10,26 @@ export class ForumService {
 
   constructor(private http: HttpClient) { }
   getById(id: string) {
-    return this.http.get<Forum>(`${environment.apiUrl}/api/forum/get/${id}`);
+    return this.http.get<Forum>(`${environment.apiUrl}/forum/get/${id}`);
   }
   getByEventId(id: number,sortingType:string) {
-    return this.http.get<Forum>(`${environment.apiUrl}/api/forum/get/event/${id}/${sortingType}`);
+    return this.http.get<Forum>(`${environment.apiUrl}/forum/get/event/${id}/${sortingType}`);
   }
 
   add(forum: Forum) {
     console.log(forum);
-    return this.http.post(`${environment.apiUrl}/api/forum/add`, forum);
+    return this.http.post(`${environment.apiUrl}/forum/add`, forum);
   }
 
   getAll() {
-    return this.http.get<Forum[]>(`${environment.apiUrl}/api/forum/all`);
+    return this.http.get<Forum[]>(`${environment.apiUrl}/forum/all`);
   }
   update(forum: Forum) {
     console.log(forum);
-    return this.http.put(`${environment.apiUrl}/api/forum/update`, forum);
+    return this.http.put(`${environment.apiUrl}/forum/update`, forum);
   }
   delete(id: string) {
-    return this.http.delete(`${environment.apiUrl}/api/forum/delete/${id}`);
+    return this.http.delete(`${environment.apiUrl}/forum/delete/${id}`);
   }
 
 }

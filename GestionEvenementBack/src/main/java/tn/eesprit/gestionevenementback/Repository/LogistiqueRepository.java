@@ -7,6 +7,6 @@ import tn.eesprit.gestionevenementback.Entities.Logistique;
 import java.util.List;
 
 public interface LogistiqueRepository extends JpaRepository<Logistique, Integer> {
- Logistique findByEventId(Long id);
+ Logistique findByEventId(Integer id);
 
 }
