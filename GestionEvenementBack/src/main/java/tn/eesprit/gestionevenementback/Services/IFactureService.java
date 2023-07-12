@@ -2,11 +2,12 @@ package tn.eesprit.gestionevenementback.Services;
 
 import tn.eesprit.gestionevenementback.Entities.Facture;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 public interface IFactureService {
-    List<Facture> retrieveAllFactures();
-    Facture addOrUpdateFacture(Facture Facture);
-    Facture retrieveFacture(Integer id);
-    void removeFacture(Integer id);
+    Facture affecteFactureToUser(Facture facture, Long id);
+    List<Facture> listFactureByUser(Long id);
+
+    void sednFacture(String toEmail, String attachment)throws MessagingException;
 }

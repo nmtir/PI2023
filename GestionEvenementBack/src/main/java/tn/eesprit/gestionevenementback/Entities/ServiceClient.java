@@ -23,9 +23,6 @@ public class ServiceClient implements Serializable {
 
     @OneToOne
     Logistique logistique;
-    @JsonIgnore
-    @OneToMany(mappedBy = "serviceClient")
-    Set<Reservation> reservations;
 
 
 }

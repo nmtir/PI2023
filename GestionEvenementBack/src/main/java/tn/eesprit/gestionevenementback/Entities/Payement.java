@@ -15,13 +15,16 @@ import java.io.Serializable;
 public class Payement implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer PayementId;
-
-    @OneToOne(mappedBy = "payement")
-    Facture facture;
+    Long id;
     @OneToOne
-    Logistique logistique;
-    @OneToOne(cascade = CascadeType.PERSIST)
     Reservation reservation;
+    Double sum;
+
+    Boolean status=false;
+    public Payement(Reservation reservation,Double sum){
+        this.reservation=reservation;
+        this.sum=sum;
+
+    }
 
 }

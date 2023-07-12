@@ -7,6 +7,8 @@ import java.util.List;
 public interface IUserService {
     List<User> retrieveAllUsers();
     User addOrUpdateUser(User User);
-    User retrieveUser(Integer id);
-    void removeUser(Integer id);
+    User retrieveUser(Long id);
+    void removeUser(Long id);
+
+    List<User> sarch(String value);
 }

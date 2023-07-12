@@ -1,12 +1,11 @@
 package tn.eesprit.gestionevenementback.Services;
 
 import tn.eesprit.gestionevenementback.Entities.Activity;
+import tn.eesprit.gestionevenementback.Entities.Facture;
 
 import java.util.List;
 
 public interface IActivityService {
-    List<Activity> retrieveAllActivities();
-    Activity addOrUpdateActivity(Activity activity);
-    Activity retrieveActivity(Integer id);
-    void removeActivity(Integer id);
+    Activity affecteActivityToEvent(Activity activity, Long id);
+    List<Activity> listActivityByEvent(Long id);
 }

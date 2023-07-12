@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,10 +16,27 @@ import java.io.Serializable;
 public class Activity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer ActivityId;
+    Long activityId;
 
-    @ManyToOne
-    Event event;
+    String title;
+    String description;
+
+    String type;
+    double montant;
+    String debut;
+     String fin;
+       public Activity(String title,String description,String debut,String fin,String type,double montant){
+
+           this.title=title;
+           this.description=description;
+           this.debut=debut;
+           this.fin=fin;
+           this.type=type;
+           this.montant=montant;
+       }
+
+
+
 
 
 }

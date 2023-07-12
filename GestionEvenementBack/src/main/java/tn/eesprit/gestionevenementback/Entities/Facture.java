@@ -5,6 +5,10 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,9 +19,15 @@ import java.io.Serializable;
 public class Facture implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer FactureId;
-
+    Long FactureId;
     @OneToOne
-    Payement payement;
+     Reservation reservation;
+    Double sum;
+    public Facture(Reservation reservation,Double sum){
+        this.reservation=reservation;
+        this.sum=sum;
+
+    }
+
 
 }

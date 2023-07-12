@@ -8,5 +8,7 @@ public interface IReservationService {
     List<Reservation> retrieveAllReservations();
     Reservation addOrUpdateReservation(Reservation Reservation);
     Reservation retrieveReservation(Integer id);
-    void removeReservation(Integer id);
+
+    Reservation affecteReservatioToUser(Long eventId,Long userId,List<Long> activites);
+    void delete(Long id);
 }
