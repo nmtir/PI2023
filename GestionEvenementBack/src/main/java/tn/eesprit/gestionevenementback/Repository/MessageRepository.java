@@ -7,5 +7,6 @@ import tn.eesprit.gestionevenementback.Entities.Message;
 import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
+    List<Message> findAllByIsBlocked(Integer n);
 
 }

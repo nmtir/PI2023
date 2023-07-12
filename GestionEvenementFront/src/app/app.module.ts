@@ -22,7 +22,6 @@ import { ResourceListComponent } from './Resource-list/resource-list.component';
 import { LogistiqueDetailsComponent } from './logistique-details/logistique-details.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostListComponent } from './post-list/post-list.component';
-import { MessageListComponent } from './message-list/message-list.component';
 import { PostAddComponent } from './post-add/post-add.component';
 import { MessageAddComponent } from './message-add/message-add.component';
 import {CommonModule} from "@angular/common";
@@ -57,8 +56,11 @@ import { ActivityComponent } from './dashboard/activity/activity.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { TransportComponent } from './transport/transport.component';
+import { BlockedMessagesComponent } from './blocked-messages/blocked-messages.component';
+import { AddStockComponent } from './add-stock/add-stock.component';
 import { HousingComponent } from './housing/housing.component';
+import { TransportComponent } from './transport/transport.component';
+import { GestionReservationComponent } from './gestion-reservation/gestion-reservation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +82,6 @@ import { HousingComponent } from './housing/housing.component';
     LogistiqueDetailsComponent,
     ForumDetailsComponent,
     PostListComponent,
-    MessageListComponent,
     PostAddComponent,
     MessageAddComponent,
     LogistiqueDetailsComponent,
@@ -116,8 +117,11 @@ import { HousingComponent } from './housing/housing.component';
     ActivityComponent,
     ForgetPasswordComponent,
     ResetPasswordComponent,
+    BlockedMessagesComponent,
+    AddStockComponent,
+    HousingComponent,
     TransportComponent,
-    HousingComponent
+    GestionReservationComponent
   ],
     imports: [
         FormsModule,

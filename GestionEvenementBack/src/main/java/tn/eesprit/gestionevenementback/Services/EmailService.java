@@ -42,5 +42,59 @@ public class EmailService {
             return "Error while Sending Mail";
         }
     }
+        public String sendBlockedAccountMail(String to)
+    {
+
+        // Try block to check for exceptions
+        try {
+
+            // Creating a simple mail message
+            SimpleMailMessage mailMessage
+                    = new SimpleMailMessage();
+
+            // Setting up necessary details
+            mailMessage.setFrom("nidhal.mtir@esprit.tn");
+            mailMessage.setTo(to);
+            mailMessage.setSubject("Blocked Account");
+            mailMessage.setText("Your accoount Has Been Blocked");
+
+
+            // Sending the mail
+            javaMailSender.send(mailMessage);
+            return "Mail Sent Successfully...";
+        }
+
+        // Catch block to handle the exceptions
+        catch (Exception e) {
+            return "Error while Sending Mail";
+        }
+    }
+    public String sendBlockedMessageMail(String to)
+    {
+
+        // Try block to check for exceptions
+        try {
+
+            // Creating a simple mail message
+            SimpleMailMessage mailMessage
+                    = new SimpleMailMessage();
+
+            // Setting up necessary details
+            mailMessage.setFrom("nidhal.mtir@esprit.tn");
+            mailMessage.setTo(to);
+            mailMessage.setSubject("Blocked Message");
+            mailMessage.setText("Your Message Has Been Blocked");
+
+
+            // Sending the mail
+            javaMailSender.send(mailMessage);
+            return "Mail Sent Successfully...";
+        }
+
+        // Catch block to handle the exceptions
+        catch (Exception e) {
+            return "Error while Sending Mail";
+        }
+    }
 
 }

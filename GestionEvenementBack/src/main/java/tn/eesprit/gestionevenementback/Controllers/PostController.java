@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/post")
+@RequestMapping("/api/post")
 public class PostController {
     private final IPostService postService;
     @PostMapping("/add")
@@ -50,6 +50,10 @@ public class PostController {
     @DeleteMapping("/delete/{id}")
     void deletePost(@PathVariable("id") Integer id){
         postService.removePost(id);
+    }
+    @GetMapping("/translate/{id}/{from}/{to}")
+    Post translatePost(@PathVariable("id") Integer id,@PathVariable("from") String from,@PathVariable("to") String to){
+        return postService.translatePost(id,from,to);
     }
 
 }

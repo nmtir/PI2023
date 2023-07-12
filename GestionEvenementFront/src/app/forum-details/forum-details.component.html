@@ -14,7 +14,7 @@
 
       <div @enterExitDown [routerLink]="['/post',{ data: row[0].postId}]" routerLinkActive="active" class="col-md-4 d-flex">
         <div class="blog-entry justify-content-end">
-          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg')">
+          <a  href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');border-radius: 25px;">
           </a>
           <div class="text p-4 float-right d-block">
             <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[0].views.length}}</span>
@@ -36,7 +36,7 @@
       </div>
       <div @enterExitDown [routerLink]="['/post',{ data: row[1].postId}]" routerLinkActive="active" *ngIf="row[1]" class="col-md-4 d-flex">
         <div class="blog-entry justify-content-end">
-          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');border-radius: 25px;">
           </a>
           <div class="text p-4 float-right d-block">
             <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[1].views.length}}</span>
@@ -58,7 +58,7 @@
       </div>
       <div @enterExitDown [routerLink]="['/post',{ data: row[2].postId}]" routerLinkActive="active" *ngIf="row[2]" class="col-md-4 d-flex">
         <div class="blog-entry justify-content-end">
-          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');">
+          <a href="#" class="block-20" style="background-image: url('assets/images/image_1.jpg');border-radius: 25px;">
           </a>
           <div class="text p-4 float-right d-block">
             <span style="position: absolute; left: 350px; font-size:35px;text-align:center;color: rgba(0,0,0,0.91)"><img src="assets/images/eye.png" style="height: 1rem;width: auto">{{row[2].views.length}}</span>
@@ -83,7 +83,7 @@
     <div class="row">
       <div class="d-flex align-items-center">
         <p class="mb-0"></p>
-        <button [routerLink]="['/addpost',{ data: forum.forumId}]"  class="btn btn-primary btn-sm ms-auto">Add Your Post</button>
+        <button [routerLink]="['/addpost',{ data: forum.forumId,Id:eventId}]"  class="btn btn-primary btn-sm ms-auto">Add Your Post</button>
       </div>
     </div>
     <div class="row mt-5">
@@ -108,7 +108,7 @@
   <div class="parallax-img d-flex align-items-center">
     <div class="container">
       <div class="row d-flex justify-content-center">
-        <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+        <div class="col-md-7 text-center heading-section heading-section-white">
           <h2>Subcribe to our Newsletter</h2>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
           <div class="row d-flex justify-content-center mt-4 mb-4">

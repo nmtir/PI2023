@@ -13,4 +13,6 @@ public interface IPostService {
     Post checkViewAndUpdatePost(Post post,Long id);
     Post checkLikeAndUpdatePost(Post post, Long id);
     Post removeLike(Post post,Long id);
+
+    Post translatePost(Integer id,String from,String To);
 }

@@ -60,6 +60,20 @@ public ResponseEntity<Event> getEvent(@PathVariable(value = "id") Long id) throw
         return new ResponseEntity<>(_event, HttpStatus.OK);
 
     }
+    @PutMapping ("/update-event/pricing/{id}/{TorH}")
+    public ResponseEntity<Event> updateEventPricing(@PathVariable(value = "id") Long id,@PathVariable(value = "TorH") String TorH,@RequestBody Event event) throws ResourceNotFoundException {
+        Event _event = eventRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found event with id = " + id));
+        if (TorH.contains("t")){
+            _event.setTicketPrice(event.getTicketPrice());
+        }
+        if (TorH.contains("h")){
+            _event.setHousingPrice(event.getHousingPrice());
+        }
+        eventRepository.save(_event);
+
+        return new ResponseEntity<>(_event, HttpStatus.OK);
+    }
 
     @GetMapping("/event-by-type")
     public ResponseEntity< List<Object[]>> getEventByType(){

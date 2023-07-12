@@ -42,7 +42,7 @@ public class ReclamationController {
         Optional<User> _user=userRepository.findByUsername(username);
         if(_user.isPresent()){
             User user=_user.get();
-            iReclamationService.affecteReclamatioToUser(reclamation,user.getId());
+            iReclamationService.affecteReclamatioToUser(reclamation,user.getUserId());
             return new ResponseEntity<>(HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

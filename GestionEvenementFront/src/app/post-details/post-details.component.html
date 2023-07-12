@@ -1,9 +1,9 @@
-<app-current-user></app-current-user>
+<app-current-user (click)="changeContainsBadWordsEdit();changeContainsBadWordsReply();changeContainsBadWordsSave();"></app-current-user>
 
-<section *ngIf="post" class="ftco-section ftco-degree-bg">
+<section (click)="changeContainsBadWordsEdit();changeContainsBadWordsReply();changeContainsBadWordsSave();" *ngIf="post" class="ftco-section ftco-degree-bg">
   <div class="container">
     <div class="row">
-      <div class="col-md-8 order-md-last ftco-animate">
+      <div class="col-md-8 order-md-last ">
         <h2 class="mb-3">{{post.title}}</h2>
         <p>   {{post.content}}      </p>
         <p>
@@ -28,14 +28,45 @@
                  height="auto" class="img-fluid mb-4">
           </div>
           <div class="desc">
-            <h3>{{post.user.name}}</h3>
+            <h3>{{post.user.username}}</h3>
             <p>{{post.user.role}}</p>
           </div>
         </div>
 
 
-        <div  class="pt-5 mt-5">
-          <h3 *ngIf="post.messages.length>0"  class="mb-5">Messsages</h3>
+        <div *ngIf="post.messages" class="pt-5 mt-5">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 *ngIf="post.messages.length>0" >Messsages:</h3>
+          <div style="display: flex;">
+            <h6 style="margin: 1rem 0.5rem 0.5rem 0.5rem;">from:</h6>
+            <mat-form-field appearance="outline" style="font-size: 16px;">
+              <mat-label>Choose Language</mat-label>
+              <mat-select [(ngModel)]="From">
+                <mat-option value="Auto Detect">Auto Detect</mat-option>
+                <mat-option value="English">English</mat-option>
+                <mat-option value="French">French</mat-option>
+                <mat-option value="Arabic">Arabic</mat-option>
+                <mat-option value="Italian">Italian</mat-option>
+                <mat-option value="German">German</mat-option>
+                <mat-option value="Spanish">Spanish</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <h6 style="margin: 1rem 0.5rem 0.5rem 0.5rem;">to:</h6>
+            <mat-form-field appearance="outline" >
+              <mat-label>Choose Language</mat-label>
+              <mat-select [(ngModel)]="To">
+                <mat-option value="English">English</mat-option>
+                <mat-option value="French">French</mat-option>
+                <mat-option value="Arabic">Arabic</mat-option>
+                <mat-option value="Italian">Italian</mat-option>
+                <mat-option value="German">German</mat-option>
+                <mat-option value="Spanish">Spanish</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <a *ngIf="!translationReset" (click)="translate()" style="margin: 0.9rem 0.5rem 0.5rem 0.5rem;">translate</a>
+            <a *ngIf="translationReset" (click)="resetTranslation()" style="margin: 0.9rem 1rem 0.5rem 0.5rem;">Reset</a>
+          </div>
+        </div>
 
           <ul class="comment-list" *ngFor="let m of post.messages ">
             <li  *ngIf="m.isBlocked==0||m.isBlocked==null" class="comment">
@@ -43,55 +74,79 @@
                 <img src="assets/images/user.png" alt="Image placeholder">
               </div>
               <div class="comment-body" >
-                <h6 style="display: inline">{{m.user.name}}</h6>
+                <h6 style="display: inline">{{m.user.username}}</h6>
                 <div style="margin-left:0.5rem;  display:inline" class="meta">{{m.datePub | dateAgo}}</div>
-                <a *ngIf="checkMessageSignal(m)" (click)="addMessageSignal(m)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/alert%20(1).png" height="15rem"width="auto"></a>
-                <a *ngIf="!checkMessageSignal(m)" (click)="removeMessageSignal(m)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/alert%20(2).png" height="15rem"width="auto"></a>
-                <p>{{m.contenu}}</p>
-                <p>
+                <form  [formGroup]="messageFormEdit" (ngSubmit)="updateMessage(m)">
+                  <div class="fixed-height">
+                    <input *ngIf="!(selectedEditMessageId === m.messageId)" type="text" class="form-control" value="{{m.contenu}}" style="border-radius: 25px;" rows="1" readonly >
+                  <div  *ngIf="selectedEditMessageId === m.messageId" class="input-group mb-3">
+                    <input (click)="changeContainsBadWordsEdit()" type="text" formControlName="contenu" class="form-control"  style="border-radius: 25px;" rows="1" aria-describedby="button-addon2"  >
+                    <button style="background-color: transparent;border: none" type="submit" ><a class="link-warning" href="#"><img src="assets/images/check.png" height="32rem"width="auto"></a></button>
+                  </div>
+                    <div style="margin-top: 30px" *ngIf="(selectedEditMessageId===m.messageId)&&(containsBadWordsEdit)" class="notification">
+                      Notification: This Message Contains Bad Words!
+                    </div>
+                  </div>
+                </form>
+                <div style="display: flex;justify-content: space-between;">
+                  <div>
                   <a *ngIf="m.messages.length==0"  (click)="selectMessage(m.messageId)" style="margin-right:10px;cursor:pointer;">Reply</a>
                   <a *ngIf="m.messages.length>0" (click)="selectMessage(m.messageId)" style="margin-right:10px;cursor:pointer;">Show Replies</a>
-                  <a *ngIf="checkEdit(m)" (click)="selectEditMessage(m.messageId)" style="margin-right:10px;cursor:pointer;">Edit</a>
+                  <a *ngIf="checkEdit(m)&&!(selectedEditMessageId === m.messageId)" (click)="selectEditMessage(m)" style="margin-right:10px;cursor:pointer;">Edit</a>
+                  <a *ngIf="selectedEditMessageId === m.messageId" (click)="selectEditMessage(m)" style="margin-right:10px;cursor:pointer;">Cancel</a>
                   <a *ngIf="checkEdit(m)" (click)="deleteMessage(m)" style="margin-right:10px;cursor:pointer;">Delete</a>
-                  <a *ngIf="checkMessageLike(m)" (click)="addMessageLike(m)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/heart.png" height="15rem"width="auto"></a>
-                  <a *ngIf="!checkMessageLike(m)" (click)="removeMessageLike(m)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/heart%20(1).png" height="15rem"width="auto"></a>
-                </p>
+                  </div>
+                  <div class="custom-input">
+                    <a *ngIf="checkMessageSignal(m)" (click)="addMessageSignal(m)" style="margin-left:2rem;cursor:pointer;" class="link-warning"><img src="assets/images/alert%20(1).png" height="15rem"width="auto"></a>
+                    <a *ngIf="!checkMessageSignal(m)" (click)="removeMessageSignal(m)" style="margin-left:2rem;cursor:pointer;" class="link-warning"><img src="assets/images/alert%20(2).png" height="15rem"width="auto"></a>
+                    <a *ngIf="checkMessageLike(m)" (click)="addMessageLike(m)"  class="link-warning heart"><img src="assets/images/heart.png" height="15rem"width="auto"></a>
+                  <a *ngIf="!checkMessageLike(m)" (click)="removeMessageLike(m)"  class="link-warning heart"><img src="assets/images/heart%20(1).png" height="15rem"width="auto"></a>
+                  </div>
+                </div>
               </div>
               <div @enterExitUp *ngIf="(selectedMessageId===m.messageId)">
               <div *ngFor="let r of m.messages" class="children">
 
                 <div *ngIf="(m.isBlocked==0||m.isBlocked==null)&&(selectedMessageId===m.messageId)" class="comment-body">
-                    <h6 style="display:inline">{{r.user.name}}</h6>
+                    <h6 style="display:inline">{{r.user.username}}</h6>
                     <div style="margin-left:0.5rem;  display:inline;" class="meta">{{r.datePub| dateAgo}}</div>
-                    <a *ngIf="checkMessageSignal(r)" (click)="addMessageSignal(r)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/alert%20(1).png" height="15rem"width="auto"></a>
-                    <a *ngIf="!checkMessageSignal(r)" (click)="removeMessageSignal(r)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/alert%20(2).png" height="15rem"width="auto"></a>
-                    <p>{{r.contenu}}</p>
-                  <p>
-                    <a *ngIf="checkEdit(r)" (click)="selectEditMessage(r.messageId)" style="margin-right:10px;cursor:pointer;">Edit</a>
-                    <a *ngIf="checkEdit(r)" (click)="deleteMessage(r)" style="margin-right:10px;cursor:pointer;">Delete</a>
-
-                    <a *ngIf="checkMessageLike(r)" (click)="addMessageLike(r)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/heart.png" height="15rem"width="auto"></a>
-                    <a *ngIf="!checkMessageLike(r)" (click)="removeMessageLike(r)" style="margin-left:10rem;cursor:pointer;" class="link-warning"><img src="assets/images/heart%20(1).png" height="15rem"width="auto"></a>
-                  </p>
-                  <form [formGroup]="messageForm" (ngSubmit)="updateMessage(r);selectEditMessage(r.messageId)">
-                    <div @enterExitUp  *ngIf="selectedEditMessageId === r.messageId" class="input-group mb-3">
-                      <input type="text" formControlName="contenu"  value="{{r.contenu}}" class="form-control"  style="border-radius: 25px;" rows="1" aria-describedby="button-addon2">
+                  <form [formGroup]="messageFormEdit" (ngSubmit)="updateMessage(r)">
+                    <div class="fixed-height">
+                    <input (click)="changeContainsBadWordsEdit()" *ngIf="!(selectedEditMessageId === r.messageId)" type="text" class="form-control" value="{{r.contenu}}" style="border-radius: 25px;" rows="1" readonly >
+                    <div *ngIf="selectedEditMessageId === r.messageId" class="input-group mb-3">
+                      <input (click)="changeContainsBadWordsEdit()" type="text" formControlName="contenu" class="form-control"  style="border-radius: 25px;" rows="1" aria-describedby="button-addon2">
                       <button style="background-color: transparent;border: none" type="submit" ><a class="link-warning" href="#"><img src="assets/images/check.png" height="32rem"width="auto"></a></button>
                     </div>
+                      <div style="margin-top: 30px" *ngIf="(selectedEditMessageId===r.messageId)&&(containsBadWordsEdit)" class="notification">
+                        Notification: This Message Contains Bad Words!
+                      </div>
+                    </div>
                   </form>
+
+                  <div style="display: flex;justify-content: space-between;">
+                    <div>
+                    <a *ngIf="checkEdit(m)&&!(selectedEditMessageId === r.messageId)" (click)="selectEditMessage(r)" style="margin-right:10px;cursor:pointer;">Edit</a>
+                    <a *ngIf="selectedEditMessageId === r.messageId"  (click)="selectEditMessage(r)" style="margin-right:10px;cursor:pointer;">Cancel</a>
+                    <a *ngIf="checkEdit(r)" (click)="deleteMessage(r)" style="margin-right:10px;cursor:pointer;">Delete</a>
+                    </div>
+                    <div class="custom-input">
+                      <a *ngIf="checkMessageSignal(r)" (click)="addMessageSignal(r)" style="margin-left:2rem;cursor:pointer;" class="link-warning"><img src="assets/images/alert%20(1).png" height="15rem"width="auto"></a>
+                      <a *ngIf="!checkMessageSignal(r)" (click)="removeMessageSignal(r)" style="margin-left:2rem;cursor:pointer;" class="link-warning"><img src="assets/images/alert%20(2).png" height="15rem"width="auto"></a>
+                      <a *ngIf="checkMessageLike(r)" (click)="addMessageLike(r)"  class="link-warning heart"><img src="assets/images/heart.png" height="15rem"width="auto"></a>
+                    <a *ngIf="!checkMessageLike(r)" (click)="removeMessageLike(r)"  class="link-warning heart"><img src="assets/images/heart%20(1).png" height="15rem"width="auto"></a>
+                    </div>
+                    </div>
                   </div>
               </div>
               </div>
-              <form [formGroup]="messageForm" (ngSubmit)="updateMessage(m);selectEditMessage(m.messageId)">
-                <div @enterExitUp  *ngIf="selectedEditMessageId === m.messageId" class="input-group mb-3">
-                  <input type="text" formControlName="contenu"  value="{{m.contenu}}" class="form-control"  style="border-radius: 25px;" rows="1" aria-describedby="button-addon2">
-                  <button style="background-color: transparent;border: none" type="submit" ><a class="link-warning" href="#"><img src="assets/images/check.png" height="32rem"width="auto"></a></button>
-                </div>
-              </form>
-                <form [formGroup]="messageForm" (ngSubmit)="SubmitForm(m.messageId)"  @enterExitUp *ngIf="selectedMessageId === m.messageId" class="comment-body parent">
-                <div >
-                <input type="text" name="" formControlName="contenu" id="replyContent" cols="30" rows="5" class="form-control child" style="border-radius: 25px; width: 36rem;">
+                <form [formGroup]="messageFormReply" (ngSubmit)="SubmitForm(m.messageId)"  @enterExitUp *ngIf="selectedMessageId === m.messageId" class="comment-body parent">
+                <div>
+                  <h6 class="mb-5">Add Reply</h6>
+                <input (click)="changeContainsBadWordsReply()" type="text" name="" formControlName="contenu"  id="replyContent" cols="30" rows="5" class="form-control child" style="border-radius: 25px; width: 36rem;">
                   <button class="child" style="background-color: transparent;border: none" type="submit" > <a class="link-warning" href="#"><img src="assets/images/sent.png" height="32rem"width="auto"></a></button>
+                  <div style="margin-top: 30px" *ngIf="(selectedMessageId===m.messageId)&&(containsBadWordsReply)" class="notification">
+                    Notification: This Message Contains Bad Words!
+                  </div>
                 </div>
                 </form>
 
@@ -100,21 +155,26 @@
           </ul>
           <div class="comment-form-wrap pt-5">
             <h3 class="mb-5">Leave a comment</h3>
-            <form [formGroup]="messageForm" (ngSubmit)="SubmitForm(null)"  style="border-radius: 25px;" class="p-5 bg-light">
-              <div class="form-group" >
+            <form [formGroup]="messageFormPost" (ngSubmit)="SubmitForm(null)"  style="border-radius: 25px;" class="p-5 bg-light">
+              <div class="form-group">
                 <label for="message">Message</label>
-                <textarea  formControlName="contenu" name="" id="message" cols="30" rows="3" class="form-control"></textarea>
+                <textarea (click)="changeContainsBadWordsSave()" formControlName="contenu" name="" id="message" cols="30" rows="3" class="form-control"></textarea>
+                <div *ngIf="containsBadWordsSave" class="notification">
+                  Notification: This Message Contains Bad Words!
+                </div>
               </div>
               <div class="form-group">
                 <input type="submit" value="Post Messsage" class="btn py-3 px-4 btn-primary">
               </div>
 
+
             </form>
+
           </div>
         </div>
 
       </div> <!-- .col-md-8 -->
-      <div class="col-md-4 sidebar ftco-animate">
+      <div class="col-md-4 sidebar">
         <div class="sidebar-box">
           <form action="#" class="search-form">
             <div class="form-group">
@@ -123,7 +183,7 @@
             </div>
           </form>
         </div>
-        <div class="sidebar-box ftco-animate">
+        <div class="sidebar-box ">
           <div class="categories">
             <h3>Categories</h3>
             <li><a href="#">Jobs <span>(12)</span></a></li>
@@ -135,7 +195,7 @@
           </div>
         </div>
 
-        <div class="sidebar-box ftco-animate">
+        <div class="sidebar-box ">
           <h3>Recent Forums</h3>
           <div class="block-21 mb-4 d-flex">
             <a class="blog-img mr-4" style="background-image: url(assets/images/image_1.jpg);"></a>
@@ -172,7 +232,7 @@
           </div>
         </div>
 
-        <div class="sidebar-box ftco-animate">
+        <div class="sidebar-box ">
           <h3>Tag Cloud</h3>
           <div class="tagcloud">
             <a href="#" class="tag-cloud-link">dish</a>
@@ -186,7 +246,7 @@
           </div>
         </div>
 
-        <div class="sidebar-box ftco-animate">
+        <div class="sidebar-box ">
           <h3>Paragraph</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
         </div>
@@ -196,11 +256,11 @@
   </div>
 </section> <!-- .section -->
 
-<section class="ftco-section-parallax">
+<section (click)="changeContainsBadWordsEdit();changeContainsBadWordsReply();changeContainsBadWordsSave();" class="ftco-section-parallax">
   <div class="parallax-img d-flex align-items-center">
     <div class="container">
       <div class="row d-flex justify-content-center">
-        <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+        <div class="col-md-7 text-center heading-section heading-section-white ">
           <h2>Subcribe to our Newsletter</h2>
           <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
           <div class="row d-flex justify-content-center mt-4 mb-4">

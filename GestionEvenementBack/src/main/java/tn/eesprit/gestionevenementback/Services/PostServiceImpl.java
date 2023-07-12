@@ -3,12 +3,15 @@ package tn.eesprit.gestionevenementback.Services;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import net.suuft.libretranslate.Language;
+import net.suuft.libretranslate.Translator;
 import org.springframework.stereotype.Service;
 import tn.eesprit.gestionevenementback.Entities.Message;
 import tn.eesprit.gestionevenementback.Entities.Post;
 import tn.eesprit.gestionevenementback.Entities.Forum;
 import tn.eesprit.gestionevenementback.Entities.User;
 import tn.eesprit.gestionevenementback.Repository.ForumRepository;
+import tn.eesprit.gestionevenementback.Repository.MessageRepository;
 import tn.eesprit.gestionevenementback.Repository.PostRepository;
 import tn.eesprit.gestionevenementback.Repository.UserRepository;
 
@@ -19,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostServiceImpl implements IPostService{
     private final PostRepository PostRepo;
+    private final MessageRepository MessageRepo;
     private final ForumRepository forumRepo;
     private final UserRepository userRepository;
 
@@ -88,6 +92,26 @@ public class PostServiceImpl implements IPostService{
 
     @Override
     public Post retrievePost(Integer id){return PostRepo.findById(id).orElse(null);}
+    @Override
+    public Post translatePost(Integer id,String from,String to){
+        Post p= PostRepo.findById(id).orElse(null);
+        for (Message m0:p.getMessages()) {
+            if (from.contains("Auto")){
+                m0.setContenu(Translator.translate(Language.valueOf(to.toUpperCase()),m0.getContenu()));
+            }else{
+                m0.setContenu(Translator.translate(Language.valueOf(from.toUpperCase()),Language.valueOf(to.toUpperCase()),m0.getContenu()));
+            }
+            Message msg=MessageRepo.findById(m0.getMessageId()).orElse(null);
+            for (Message m1:msg.getMessages()) {
+                if (from.contains("Auto")){
+                    m1.setContenu(Translator.translate(Language.valueOf(to.toUpperCase()),m1.getContenu()));
+                }else{
+                    m1.setContenu(Translator.translate(Language.valueOf(from.toUpperCase()),Language.valueOf(to.toUpperCase()),m1.getContenu()));
+                }
+            }
+        }
+        return p;
+    }
     @Override
     public void removePost(Integer id){PostRepo.deleteById(id);}
 

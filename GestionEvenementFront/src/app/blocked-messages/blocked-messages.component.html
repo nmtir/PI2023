@@ -1,0 +1,81 @@
+<app-current-user></app-current-user>
+<div  *ngIf="role==Role.admin" class="card shadow-lg mx-4 card-profile-bottom position-sticky z-index-sticky top-0 ">
+  <div class="card-body p-3">
+    <form [formGroup]="badwordForm">
+    <div style="display: flex;justify-content: space-between;">
+      <label>Already added BadWords:<h6>to edit start with selecting the Word you want to edit </h6></label>
+    </div>
+      <div style="display: flex; flex-wrap: wrap;">
+        <ng-container *ngFor="let word of allBws">
+          <a (click)="selectEditWord(word)" style="display: inline-block; cursor: pointer;">{{ word.word }}</a>
+          <h6 style="display: inline-block;"> , </h6>
+        </ng-container>
+      </div>
+      <form @enterExitUp *ngIf="selectedEditBadword!=null" style="width: 25rem !important;" [formGroup]="badwordEditForm">
+        <div>
+          <div   class="input-group mb-3">
+            <input type="text" formControlName="word" class="form-control"  style="border-radius: 25px;" rows="1" aria-describedby="button-addon2"  >
+            <div style="display: flex; align-items: center;">
+              <h6 style="margin: 0;">&nbsp;&nbsp;&nbsp;&nbsp;</h6>
+            </div>
+            <button (click)="changeUpdateImageSrc(3)" (mouseenter)="changeUpdateImageSrc(1)"(mouseleave)="changeUpdateImageSrc(2)" style="background-color: transparent;border: none">
+              <a class="link-warning" >
+                <img src={{updateImageSrc}} height="16rem"width="auto">
+              </a>
+            </button>
+            <div style="display: flex; align-items: center;">
+              <h6 style="margin: 0;">&nbsp;|&nbsp;</h6>
+            </div>
+            <button (click)="changeDeleteImageSrc(3)" (mouseenter)="changeDeleteImageSrc(1)"(mouseleave)="changeDeleteImageSrc(2)" style="background-color: transparent;border: none">
+              <a class="link-warning" >
+                <img src={{deleteImageSrc}} height="16rem"width="auto">
+              </a>
+            </button>
+            <div style="display: flex; align-items: center;">
+              <h6 style="margin: 0;">&nbsp;|&nbsp;</h6>
+            </div>
+            <div style="display: flex; align-items: center;">
+            <a  id="cancelLink" (click)="selectEditWord(selectedEditBadword)" style="margin: 0;display: inline-block;cursor:pointer">Cancel</a>
+            </div>
+        </div>
+        </div>
+      </form>
+      <div style="display: flex;justify-content: space-between;">
+        <label for="badWords">BadWords :<h6>to be filled like this: "badword1,badword2,....,badwordn"</h6></label>
+        <button (click)="changeSaveImageSrc(3)" (mouseenter)="changeSaveImageSrc(1)"(mouseleave)="changeSaveImageSrc(2)"style="background-color: transparent;border: none;margin-right:2rem;margin-down:2rem;cursor:pointer;">
+          <a class="link-warning" >
+            <img src={{saveImageSrc}} height="16rem"width="auto">
+          </a>
+        </button>
+      </div>
+      <textarea  formControlName="BadWords" name="" id="badWords" cols="30" rows="6" class="form-control"></textarea>
+    </form>
+  </div>
+</div>
+
+
+<div *ngIf="data&&role==Role.admin" class="container-fluid py-4" >
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div *ngIf="data" class="tab-content" id="v-pills-tabContent">
+
+          <div *ngFor="let d of data" class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab">
+            <div class="speaker-wrap  d-flex">
+              <div class="img speaker-img" style="background-image: url(assets/images/person_1.jpg);"></div>
+              <div class="text pl-md-5">
+                <span class="time">{{d.datePub}}</span>
+                <h2><a href="#">{{d.messageId}}</a></h2>
+                <p>{{d.contenu}}</p>
+                <h3 class="speaker-name">&mdash; <a href="#">{{d.user.username}}</a> <span class="position"></span></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

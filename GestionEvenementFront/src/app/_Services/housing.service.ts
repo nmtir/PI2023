@@ -10,22 +10,22 @@ export class HousingService {
 
   constructor(private http: HttpClient) { }
   getById(id: string) {
-    return this.http.get<Housing>(`${environment.apiUrl}/housing/get/${id}`);
+    return this.http.get<Housing>(`${environment.apiUrl}/api/housing/get/${id}`);
   }
 
   add(housing: Housing) {
     console.log(housing);
-    return this.http.post(`${environment.apiUrl}/housing/add`, housing);
+    return this.http.post(`${environment.apiUrl}/api/housing/add`, housing);
   }
 
   getAll() {
-    return this.http.get<Housing[]>(`${environment.apiUrl}/housing/all`);
+    return this.http.get<Housing[]>(`${environment.apiUrl}/api/housing/all`);
   }
   update(housing: Housing) {
     console.log(housing);
-    return this.http.put(`${environment.apiUrl}/housing/update`, housing);
+    return this.http.put(`${environment.apiUrl}/api/housing/update`, housing);
   }
   delete(id: string) {
-    return this.http.delete(`${environment.apiUrl}/housing/delete/${id}`);
+    return this.http.delete(`${environment.apiUrl}/api/housing/delete/${id}`);
   }
 }

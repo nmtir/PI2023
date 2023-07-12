@@ -2,10 +2,12 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {LogistiqueService} from "../_Services/logistique.service";
 import {first} from "rxjs";
 import {Logistique} from "../_Models/Logistique";
-import * as events from "events";
-import * as $ from 'jquery';
-import {get} from "scriptjs";
-
+import {Role} from "../_Models/Role";
+import {User} from "../_Models/User";
+import {ActivatedRoute} from "@angular/router";
+import {EventService} from "../services/event.service";
+import {Event} from "../_Models/Event";
+import {formatDate} from '@angular/common';
 @Component({
   selector: 'app-logistique-details',
   templateUrl: './logistique-details.component.html',
@@ -15,18 +17,37 @@ export class LogistiqueDetailsComponent implements OnInit {
   eventId:number;
   logistique:Logistique;
   depenses:number;
+  reservations:number;
+  role:Role;
+  currentUser:User;
+  event:Event;
   constructor(
-    private logistiqueService: LogistiqueService
+    private route: ActivatedRoute,
+    private logistiqueService: LogistiqueService,
+    private eventService: EventService
   ){
 
   }
   ngOnInit() {
-    this.eventId=1;
-    this.depenses=0;
-    this.loadLogistique();
+    const role0 = localStorage.getItem('roles');
+    const id = localStorage.getItem('id');
+    // @ts-ignore
+    this.role=role0;
+    // @ts-ignore
+    this.currentUser=id.toString();
 
+    this.eventId=Number(this.route.snapshot.paramMap.get('id'));
+    this.depenses=0;
+    this.reservations=0;
+    this.loadLogistique();
   }
   private loadLogistique() {
+      this.eventService.getEvent(this.eventId).pipe(first()).subscribe(res=>{
+        const newObj: any = res;
+        this.event = newObj;
+        this.reservations=this.event.reservations.length;
+        console.log(this.reservations);
+      })
 
       this.logistiqueService.getByEventId(this.eventId).pipe(first()).subscribe(res=>{
         const newObj: any = res;
@@ -39,8 +60,6 @@ export class LogistiqueDetailsComponent implements OnInit {
   }
 
 
-
-
-
+  protected readonly Role = Role;
 }
 

@@ -8,7 +8,7 @@ import java.util.List;
 public interface IOrderService {
     List<Ordre> retrieveAllOrders();
     Ordre addOrUpdateOrder(Ordre order);
-    Ordre UpdateOrder(Integer qty,Ordre ordre);
+    Ordre UpdateOrder(Ordre ordre);
     Ordre retrieveOrder(Integer id);
     void removeOrder(Integer id);
     List<Ordre> retrieveProductOrdersReservedForEvent(Integer id);

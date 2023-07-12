@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EventServiceImpl implements IEventService{
+public class    EventServiceImpl implements IEventService{
     private final EventRepository EventRepo;
     @Override
     public List<Event> retrieveAllEvents(){return EventRepo.findAll();}

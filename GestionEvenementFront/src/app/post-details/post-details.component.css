@@ -11,5 +11,24 @@
   padding: 1rem 1rem;
   vertical-align: middle;
 }
+.fixed-height{
+  height:55px;
+}
+.heart{
+  margin-right:2rem;
+  margin-left:2rem;
+  cursor:pointer;}
+.custom-input {
+  background-color: #b8daff;
+  border-radius: 0 0.5rem 0.5rem 0.5rem; /* Adjust the radius value as per your preference */
+}
+
+
+.centered-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 

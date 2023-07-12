@@ -11,32 +11,30 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
   getById(id: string) {
-    return this.http.get<Ordre>(`${environment.apiUrl}/ordre/get/${id}`);
+    return this.http.get<Ordre>(`${environment.apiUrl}/api/ordre/get/${id}`);
   }
 
   add(r: Ordre) {
-    console.log(r);
-    return this.http.post(`${environment.apiUrl}/ordre/add`, r);
+    return this.http.post(`${environment.apiUrl}/api/ordre/add`, r);
   }
   addAndAssignProduct(p:Product,qty:number,id:string) {
-    console.log(p);
-    return this.http.post(`${environment.apiUrl}/ordre/add/${qty}/${id}`, p);
+    return this.http.post(`${environment.apiUrl}/api/ordre/add/${qty}/${id}`, p);
   }
 
   getAll() {
-    return this.http.get<Ordre[]>(`${environment.apiUrl}/ordre/all`);
+    return this.http.get<Ordre[]>(`${environment.apiUrl}/api/ordre/all`);
   }
   getAllProductOrdersByEvent(id:string) {
-    return this.http.get<Ordre[]>(`${environment.apiUrl}/ordre/all/logistique/${id}`);
+    return this.http.get<Ordre[]>(`${environment.apiUrl}/api/ordre/all/logistique/${id}`);
   }
-  update(o: Ordre,qty:number) {
-    console.log(o);
-    return this.http.put<Ordre>(`${environment.apiUrl}/ordre/update/${qty}`, o);
+  update(o: Ordre) {
+    return this.http.put<Ordre>(`${environment.apiUrl}/api/ordre/update/qty`, o);
+
   }
   updateQuantity(qty: string,id:string,o:Ordre) {
-    return this.http.put(`${environment.apiUrl}/ordre/update/${id}/${qty}`,o);
+    return this.http.put(`${environment.apiUrl}/api/ordre/update/${id}/${qty}`,o);
   }
-  delete(id: string) {
-    return this.http.delete(`${environment.apiUrl}/ordre/delete/${id}`);
+    delete(id: string) {
+    return this.http.delete(`${environment.apiUrl}/api/ordre/delete/${id}`);
   }
 }

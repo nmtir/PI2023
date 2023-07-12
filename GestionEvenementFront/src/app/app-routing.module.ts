@@ -18,7 +18,7 @@ import { ResourceListComponent } from './Resource-list/resource-list.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { PostAddComponent } from './post-add/post-add.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
-import {MessageListComponent} from './message-list/message-list.component';
+import {BlockedMessagesComponent} from './blocked-messages/blocked-messages.component';
 import { NewEventComponent } from './dashboard/new-event/new-event.component';
 import { ListEventComponent } from './dashboard/list-event/list-event.component';
 import { EventsComponent } from './events/events.component';
@@ -32,9 +32,8 @@ import { ListeReclamationComponent } from './dashboard/liste-reclamation/liste-r
 import { ActivityComponent } from './dashboard/activity/activity.component';
 import {ForgetPasswordComponent} from "./forget-password/forget-password.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
-import {MessageListComponent} from './message-list/message-list.component'
-import {TransportComponent} from './transport/transport.component'
-import {HousingComponent} from './housing/housing.component'
+import {AddStockComponent} from "./add-stock/add-stock.component";
+import {GestionReservationComponent} from "./gestion-reservation/gestion-reservation.component";
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -55,8 +54,9 @@ const routes: Routes = [
   {path: "forum", component: ForumDetailsComponent},
   {path: "post", component: PostDetailsComponent},
   {path: "addpost", component: PostAddComponent},
-  {path: "msg", component: MessageListComponent},
+  {path: "msg", component:BlockedMessagesComponent},
   {path: "home", component: HomeComponent},
+  {path: "signaled-messages", component: BlockedMessagesComponent},
   {path: "", component: HomeComponent},
   {path: "about", component: AboutComponent},
   {path: "blog", component: BlogComponent},
@@ -82,10 +82,11 @@ const routes: Routes = [
   {path: "reclamation", component: ReclamationComponent},
   {path: "reclamations/:id", component: ListeReclamationComponent},
   {path: "activity/:id", component: ActivityComponent},
-  {path: "forget-password", component: ForgetPasswordComponent},
-  {path: "reset-password", component: ResetPasswordComponent},
-  {path: "transport", component: TransportComponent},
-  {path: "housing", component: HousingComponent},
+  { path: "forget-password", component: ForgetPasswordComponent },
+  { path: "reset-password", component: ResetPasswordComponent },
+  { path: "addstock", component: AddStockComponent },
+  { path: "gestionreservations", component: GestionReservationComponent }
+
 
 
 

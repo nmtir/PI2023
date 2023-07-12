@@ -10,7 +10,9 @@ import {Ordre} from "../_Models/Ordre";
 import {ActivatedRoute, Router,NavigationEnd } from "@angular/router";
 import {ProductService} from "../_Services/product.service";
 import {Product} from "../_Models/Product";
-import { forkJoin } from 'rxjs';
+
+import {User} from "../_Models/User";
+import {Role} from "../_Models/Role";
 
 @Component({
   selector: 'app-logistique-list',
@@ -19,13 +21,15 @@ import { forkJoin } from 'rxjs';
 })
 export class ResourceListComponent implements OnInit{
   id : string;
-  product:Product;
+  currentUser:User=new User();
   stock:Product[];
   reserved:Ordre[];
   added:Product[];
   products:Product[];
   logistique:Logistique;
-  currentRoute: string;
+  Total:number;
+  saveImageSrc:string="assets/images/save (3).png";
+
   constructor(
     private route: ActivatedRoute,
     private router:Router,
@@ -35,6 +39,14 @@ export class ResourceListComponent implements OnInit{
   ){
   }
   ngOnInit() {
+    const username = localStorage.getItem('username');
+
+    const roles = localStorage.getItem('roles');
+    // @ts-ignore
+    this.currentUser.roles=roles;
+    // @ts-ignore
+    this.currentUser.username=username;
+
     this.products=[];
     this.id="";
     this.reserved=[];
@@ -57,14 +69,12 @@ export class ResourceListComponent implements OnInit{
       this.logistique = newObj;
       console.log(this.logistique);
     });
-  }
-  private loadOrders() {
-    this.orderService.getAllProductOrdersByEvent(this.id).pipe(first()).subscribe(res => {
-      const newObj: any = res;
-      this.products=[];
-      this.reserved = newObj;
-      for (let i of this.reserved) {
-        i.product.quantity =i.quantity;
+    this.orderService.getAllProductOrdersByEvent(this.id).pipe(first()).subscribe(res=>{
+      const newObj:any=res;
+      this.reserved=newObj;
+      for(let i of this.reserved){
+        i.initialQuantity=i.quantity;
+        i.product.quantity=i.quantity;
         this.products.push(i.product);
       }
 
@@ -77,6 +87,9 @@ export class ResourceListComponent implements OnInit{
       this.stock=null;
       const newObj:any=res;
       this.stock=newObj;
+      for (let i of this.stock){
+        i.currentStock=i.stock;
+      }
     });
     return;
 
@@ -103,52 +116,77 @@ export class ResourceListComponent implements OnInit{
 
   }
 
+ calculateTotal():number{
+    let total:number=0;
+    for(let r of this.products){
+      total=total+(r.price*r.quantity);
+    }
+    return total;
+}
 
 
+  public SaveOrders(img:number) {
 
-
-  public async SaveOrders() {
-    for (let o of this.reserved) {
-      for (let p of this.products) {
-        if(p.productId==o.product.productId)
-        {
-          if (p.quantity==0){
-            console.log("o.orderId===");
-            console.log(o.orderId);
-            await this.orderService.delete(o.orderId).pipe(first()).subscribe();
-
+      if(img==1&&(!this.saveImageSrc.endsWith(".gif"))){
+        this.saveImageSrc="assets/images/save (4).png"
+      }
+      if(img==2&&(!this.saveImageSrc.endsWith(".gif"))){
+        this.saveImageSrc="assets/images/save (3).png"
+      }
+      if(img==3){
+        this.saveImageSrc="assets/images/icons8-sand-timer.gif";
+        for(let o of this.added){
+          for (let r of this.reserved)
+          {
+            if (o.nameProduct==r.product.nameProduct){
+              r.quantity=o.quantity;
+              const index = this.added.indexOf(o);
+              if (index !== -1) {
+                this.added.splice(index, 1);
+              }
+            }
+          }}
+        for(let o of this.added){
+          for(let p of this.products){
+            if(p.nameProduct==o.nameProduct)
+            {
+              this.orderService.addAndAssignProduct(p,p.quantity,this.id).pipe(first()).subscribe();
+            }
           }
-          else
-            await this.orderService.update(o,p.quantity).pipe(first()).subscribe();
+        }
+        for(let o of this.reserved){
+          for(let p of this.products){
+            if(p.nameProduct==o.product.nameProduct)
+            {
+              o.quantity=p.quantity;
+              this.orderService.update(o).pipe(first()).subscribe();
+            }
+          }
+        }
+        for(let o of this.reserved){
+          let exists=false;
+          for(let p of this.products){
+            if(p.nameProduct==o.product.nameProduct)
+            {
+              exists=true;
+            }
+          }
+          if (!exists){
+            this.orderService.delete(o.orderId).pipe(first()).subscribe();
+          }
+        }
+        setTimeout(() => {
+          this.products=[];
+          this.added=[];
+          this.saveImageSrc="assets/images/icons8-ok (3).gif";
+          setTimeout(() => {
+            this.loadResource();
+            this.logistiqueService.updateDepenses(this.logistique).pipe().subscribe();
+            this.saveImageSrc="assets/images/save (3).png"
+          }, 800);
+        }, 4000);
+      }
 
-        }
-      }
-    }
-    for(let o of this.added){
-      for(let p of this.products){
-        if(p.productId==o.productId)
-        {
-          await this.orderService.addAndAssignProduct(p,p.quantity,this.id).pipe(first()).subscribe();
-        }
-      }
-    }
-    this.added=[];
-    await this.logistiqueService.updateDepenses(this.logistique).pipe(first()).subscribe();
-    await this.logistiqueService.updateDepenses(this.logistique).pipe(first()).subscribe();
-    await this.logistiqueService.updateDepenses(this.logistique).pipe(first()).subscribe();
-    await this.logistiqueService.updateDepenses(this.logistique).pipe(first()).subscribe();
-    await this.loadLogistique();
-    await this.loadLogistique();
-    await this.loadLogistique();
-    await this.loadLogistique();
-    await this.loadOrders();
-    await this.loadOrders();
-    await this.loadOrders();
-    await this.loadOrders();
-    await this.loadStock();
-    await this.loadStock();
-    await this.loadStock();
-    await this.loadStock();
   }
   drop(event: CdkDragDrop<Product[]>) {
     if (event.previousContainer === event.container) {
@@ -169,7 +207,6 @@ export class ResourceListComponent implements OnInit{
 
   }
 
-  /** Predicate function that only allows even numbers to be dropped into a list. */
   alreadyPredicate(a: CdkDrag,b:CdkDropList) {
     for (const x of b.data) {
       if (a.data.nameProduct==x.nameProduct)
@@ -180,6 +217,85 @@ export class ResourceListComponent implements OnInit{
   noReturnPredicate() {
     return false;
   }
+  removeIfZero(product: Product): void {
+    if (product.quantity === 0) {
+      const index0 = this.products.indexOf(product);
+      console.log("products before===="+this.products);
+      if (index0 !== -1) {
+        this.products.splice(index0, 1);
+      }
 
+      console.log("products after===="+this.products);
+      const index1 = this.added.indexOf(product);
+      console.log("added before===="+this.added);
+      if (index1 !== -1) {
+        this.added.splice(index1, 1);
+      }
+      console.log("added after===="+this.added);
+    }
+  }
+  isOutOfStock(p:Product){
+    let inReserved:boolean=false;
+    for(let r of this.reserved){
+      if(p.nameProduct==r.product.nameProduct)
+      {
+        inReserved=true;
+      }
+    }
+    if (inReserved)
+    {for(let r of this.reserved){
+      if(p.nameProduct==r.product.nameProduct)
+      {
+        for (let product of this.stock)
+          if (p.nameProduct==product.nameProduct){
+            if( product.stock+r.initialQuantity-p.quantity<1)
+              return true;
+          }
+      }
+    }}
+    else {
+      for (let product of this.stock)
+        if (p.nameProduct==product.nameProduct){
+          if(product.stock-p.quantity<1)
+            return true;
+        }
 
+    }
+    return false;
+  }
+  checkStock(product: any): number {
+    let exists=false;
+    let p:Product;
+    for(let o of this.reserved){
+      if(product.nameProduct==o.product.nameProduct)
+        {
+          for (let prod of this.products)
+            if (product.nameProduct==prod.nameProduct){
+                return product.stock+o.initialQuantity-prod.quantity;
+            }
+        }
+      }
+    for (let prod of this.products)
+      if (product.nameProduct==prod.nameProduct){
+        return product.stock-prod.quantity;
+      }
+    return  product.stock;
+  }
+  clear(product:Product){
+    const index0 = this.products.indexOf(product);
+    console.log("products before===="+this.products);
+    if (index0 !== -1) {
+      this.products.splice(index0, 1);
+    }
+
+    console.log("products after===="+this.products);
+    const index1 = this.added.indexOf(product);
+    console.log("added before===="+this.added);
+    if (index1 !== -1) {
+      this.added.splice(index1, 1);
+    }
+    console.log("added after===="+this.added);
+  }
+
+  protected readonly Role = Role;
 }

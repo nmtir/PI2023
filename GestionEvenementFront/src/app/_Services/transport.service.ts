@@ -10,23 +10,23 @@ export class TransportService {
 
   constructor(private http: HttpClient) { }
   getById(id: string) {
-    return this.http.get<Transport>(`${environment.apiUrl}/transport/get/${id}`);
+    return this.http.get<Transport>(`${environment.apiUrl}/api/transport/get/${id}`);
   }
 
-  add(transport: Transport) {
+  add(transport: Transport,eventId:number) {
     console.log(transport);
-    return this.http.post(`${environment.apiUrl}/transport/add`, transport);
+    return this.http.post(`${environment.apiUrl}/api/transport/add/${eventId}`, transport);
   }
 
   getAll() {
-    return this.http.get<Transport[]>(`${environment.apiUrl}/transport/all`);
+    return this.http.get<Transport[]>(`${environment.apiUrl}/api/transport/all`);
   }
   update(transport: Transport) {
     console.log(transport);
-    return this.http.put(`${environment.apiUrl}/transport/update`, transport);
+    return this.http.put(`${environment.apiUrl}/api/transport/update`, transport);
   }
   delete(id: string) {
-    return this.http.delete(`${environment.apiUrl}/transport/delete/${id}`);
+    return this.http.delete(`${environment.apiUrl}/api/transport/delete/${id}`);
   }
 
 }

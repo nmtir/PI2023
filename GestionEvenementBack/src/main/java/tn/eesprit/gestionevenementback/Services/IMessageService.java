@@ -16,5 +16,6 @@ public interface IMessageService {
     Message removeLike(Message message,Long id);
     Message removeSignal(Message message,Long id);
     Message checkSignalAndUpdateMessage(Message message,Long id);
+    List<Message> retrieveAllBlockedMessages();
 }
 
