@@ -7,9 +7,10 @@ import {first} from "rxjs";
 import {CdkDrag, CdkDragDrop,copyArrayItem, moveItemInArray, CdkDropList} from '@angular/cdk/drag-drop';
 import {OrderService} from "../_Services/order.service";
 import {Ordre} from "../_Models/Ordre";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router,NavigationEnd } from "@angular/router";
 import {ProductService} from "../_Services/product.service";
 import {Product} from "../_Models/Product";
+
 import {User} from "../_Models/User";
 import {Role} from "../_Models/Role";
 
@@ -28,12 +29,15 @@ export class ResourceListComponent implements OnInit{
   logistique:Logistique;
   Total:number;
   saveImageSrc:string="assets/images/save (3).png";
+
   constructor(
     private route: ActivatedRoute,
+    private router:Router,
     private orderService: OrderService,
     private productService:ProductService,
     private logistiqueService:LogistiqueService,
-  ){}
+  ){
+  }
   ngOnInit() {
     const username = localStorage.getItem('username');
 
@@ -49,17 +53,21 @@ export class ResourceListComponent implements OnInit{
     this.added=[];
     this.stock =[];
     this.logistique=null;
-    this.loadResource();
+    this.loadLogistique();
+    this.loadOrders();
+    this.loadStock();
   }
 
 
 
-  private loadResource() {
+  private async loadLogistique() {
 
     this.id = this.route.snapshot.paramMap.get('data');
-    this.logistiqueService.getById(this.id).pipe(first()).subscribe(res=>{
-      const newObj:any=res;
-      this.logistique=newObj;
+    await this.logistiqueService.getById(this.id).pipe(first()).subscribe(res => {
+      this.logistique=null;
+      const newObj: any = res;
+      this.logistique = newObj;
+      console.log(this.logistique);
     });
     this.orderService.getAllProductOrdersByEvent(this.id).pipe(first()).subscribe(res=>{
       const newObj:any=res;
@@ -70,8 +78,13 @@ export class ResourceListComponent implements OnInit{
         this.products.push(i.product);
       }
 
+
+
     });
+  }
+  private loadStock() {
     this.productService.getAll().pipe(first()).subscribe(res=>{
+      this.stock=null;
       const newObj:any=res;
       this.stock=newObj;
       for (let i of this.stock){
@@ -79,6 +92,27 @@ export class ResourceListComponent implements OnInit{
       }
     });
     return;
+
+  }
+  public async remove(p:Product){
+    for (let o of this.reserved) {
+        if(p.productId==o.product.productId)
+        {
+            console.log("o.orderId===");
+            console.log(o.orderId);
+            await this.orderService.delete(o.orderId).pipe(first()).subscribe();
+            this.products = this.products.filter(item => item !== p);
+            console.log(this.products);
+
+        }
+        else {
+          this.products = this.products.filter(item => item !== p);
+          console.log(this.products);
+
+        }
+
+        }
+    this.SaveOrders();
 
   }
 
@@ -152,7 +186,6 @@ export class ResourceListComponent implements OnInit{
           }, 800);
         }, 4000);
       }
-
 
   }
   drop(event: CdkDragDrop<Product[]>) {

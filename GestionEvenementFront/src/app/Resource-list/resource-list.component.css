@@ -1,6 +1,31 @@
 .example-list {
   background: white;
 }
+.content-wrapper {
+   /* Adjust the minimum height as desired */
+  min-height: 20px;
+  width: 100%;
+  /* Adjust the minimum height as desired */
+}
+.span-wrapper {
+   /* Adjust the minimum height as desired */
+  height: 55px;
+  width: 25%;
+  text-align: center;
+  /* Adjust the minimum height as desired */
+}
+.span-wrapper-head {
+   /* Adjust the minimum height as desired */
+  background-color:rgba(204,222,255,0.91);
+  height: 28px;
+  width: 20%;
+  text-align: center;;
+  /* Adjust the minimum height as desired */
+}
+.center {
+  margin: auto;
+  padding: 10px;
+}
 
 .example-box {
   cursor: move;
@@ -9,6 +34,7 @@
 
 .cdk-drag-preview {
   box-sizing: border-box;
+  width: 20px;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
   0 8px 10px 1px rgba(0, 0, 0, 0.14),

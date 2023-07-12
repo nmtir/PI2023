@@ -1,9 +1,10 @@
 <app-current-user></app-current-user>
 <main *ngIf="currentUser.roles.includes(Role.organiser)" class="main-content position-relative border-radius-lg ">
+
   <div class="container-fluid py-4">
     <div class="row mt-4">
-      <div class="col-lg-7 mb-lg-0 mb-4">
-        <div class="card ">
+      <div  class="col-lg-7 mb-lg-0 mb-4">
+
           <div class="card-header pb-0 p-3">
             <div class="d-flex justify-content-between" style="display: flex;justify-content: space-between;">
               <h6 class="mb-2">Event Inventory</h6>
@@ -62,7 +63,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <div class="col-lg-5">
@@ -78,6 +78,7 @@
                [cdkDropListEnterPredicate]="noReturnPredicate"
                class="card-body p-3">
             <ul class="example-box" *ngFor="let r of stock" cdkDrag [cdkDragData]="r" class="list-group">
+
               <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                 <div class="d-flex align-items-center">
                   <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
@@ -88,9 +89,6 @@
                     <span *ngIf="checkStock(r) > 0" class="text-xs"><span class="font-weight-bold">{{checkStock(r)}} in stock</span></span>
                     <p *ngIf="checkStock(r) <= 0" class="error-message">Out of stock</p>
                   </div>
-                </div>
-                <div class="d-flex">
-                  <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" ></i></button>
                 </div>
               </li>
             </ul>

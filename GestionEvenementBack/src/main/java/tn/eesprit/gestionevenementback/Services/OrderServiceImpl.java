@@ -34,10 +34,19 @@ public class OrderServiceImpl implements IOrderService{
         o.setQuantity(ordre.getQuantity());
         System.out.println(p);
         return orderRepo.save(o);
+
     }
     @Override
     public Ordre addOrderAndAssignProduct(Product product,Integer quantity,Integer id)
     {
+        Product p=productRepo.findById(product.getProductId()).orElse(null);
+        List<Ordre> ordres = orderRepo.findByLogistiqueLogistiqueId(id);
+        Boolean checkexistance=false;
+        for (Ordre ordre:ordres){
+        if (ordre.getProduct().getProductId()==p.getProductId()){
+            checkexistance=true;
+        }
+        }
         Ordre ordre=new Ordre();
         Logistique logistique=logistiqueRepo.findById(id).orElse(null);
         ordre.setLogistique(logistique);
@@ -48,6 +57,7 @@ public class OrderServiceImpl implements IOrderService{
         ordre.setProduct(p);
         ordre.setQuantity(quantity);
         return orderRepo.save(ordre);
+
     }
     @Override
     public Ordre retrieveOrder(Integer id){return orderRepo.findById(id).orElse(null);}
@@ -71,6 +81,7 @@ public class OrderServiceImpl implements IOrderService{
         p.setStock(n);
         productRepo.save(p);
         orderRepo.deleteById(id);
+
     }
 
 }

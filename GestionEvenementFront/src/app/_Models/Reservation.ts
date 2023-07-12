@@ -3,6 +3,7 @@ import {User} from "./User";
 import {Transport} from "./Transport";
 
 export class Reservation {
+
   reservationId:number;
   transportIncluded:boolean;
   transportStartingAdress:string;

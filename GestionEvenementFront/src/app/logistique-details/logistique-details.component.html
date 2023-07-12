@@ -23,10 +23,12 @@
         <div class="row">
           <a  [routerLink]="['/gestionreservations',{eventid:eventId}]"  class="col-md-6 justify-content-center counter-wrap ">
             <div class="block-18 text-center py-4 bg-light mb-4">
+
               <div class="text">
                 <div class="icon d-flex justify-content-center align-items-center">
                   <img style="height: 50px;width: Auto;" src="assets/images/teamwork.png">
                 </div>
+
                 <strong class="number" >{{reservations}}</strong>
                 <span>Reservations</span>
               </div>
@@ -34,6 +36,7 @@
           </a>
           <div class="col-md-6 justify-content-center counter-wrap ">
             <div class="block-18 text-center py-4 bg-light mb-4">
+
               <div class="text">
                 <div class="icon d-flex justify-content-center align-items-center">
                   <img style="height: 50px;width: Auto;" src="assets/images/analytics.png">
@@ -42,6 +45,7 @@
                 <span>Stats</span>
               </div>
             </div>
+
           </div>
           <a [routerLink]="['/resource',{data:logistique.logistiqueId}]" class="col-md-6 justify-content-center counter-wrap">
             <div  class="block-18 text-center py-4 bg-light mb-4">
@@ -59,6 +63,7 @@
 
               <!--[routerLink]="['/auction-detail', auction._id]"-->
             <div class="block-18 text-center py-4 bg-light mb-4">
+
               <div class="text">
                 <div class="icon d-flex justify-content-center align-items-center">
                   <img style="height: 50px;width: Auto;" src="assets/images/bus.png">
@@ -68,7 +73,7 @@
               </div>
             </div>
 
-          </div>
+          </a>
         </div>
       </div>
     </div>

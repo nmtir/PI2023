@@ -1,4 +1,6 @@
+
 import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-transport',
@@ -6,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./transport.component.css']
 })
 export class TransportComponent {
-
 }

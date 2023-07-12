@@ -29,6 +29,7 @@ export class OrderService {
   }
   update(o: Ordre) {
     return this.http.put<Ordre>(`${environment.apiUrl}/api/ordre/update/qty`, o);
+
   }
   updateQuantity(qty: string,id:string,o:Ordre) {
     return this.http.put(`${environment.apiUrl}/api/ordre/update/${id}/${qty}`,o);
