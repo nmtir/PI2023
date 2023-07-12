@@ -13,9 +13,9 @@ export class TransportService {
     return this.http.get<Transport>(`${environment.apiUrl}/api/transport/get/${id}`);
   }
 
-  add(transport: Transport) {
+  add(transport: Transport,eventId:number) {
     console.log(transport);
-    return this.http.post(`${environment.apiUrl}/api/transport/add`, transport);
+    return this.http.post(`${environment.apiUrl}/api/transport/add/${eventId}`, transport);
   }
 
   getAll() {

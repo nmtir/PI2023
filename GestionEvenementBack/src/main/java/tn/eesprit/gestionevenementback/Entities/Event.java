@@ -34,6 +34,10 @@ public class Event {
     private String lieu;
     @Enumerated(EnumType.STRING)
     private EventType type;
+    private Float ticketPrice;
+    private Float housingPrice;
+    private Boolean housingAvailable;
+    private Boolean transportAvailable;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -67,11 +71,14 @@ public class Event {
     @OneToOne (mappedBy = "event",cascade = CascadeType.REMOVE)
     Logistique logistique;
     @JsonIgnore
+    @OneToMany (mappedBy = "event")
+    Set<Transport> transports;
+    @JsonIgnore
     @OneToOne (mappedBy = "event",cascade = CascadeType.REMOVE)
     Forum forum;
-    @JsonIgnore
     @OneToMany(mappedBy = "event",cascade = CascadeType.REMOVE)
     Set<Reservation> reservations;
+
 
 
 }

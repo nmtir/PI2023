@@ -9,4 +9,5 @@ public interface ITransportService {
     Transport addOrUpdateTransport(Transport transport);
     Transport retrieveTransport(Integer id);
     void removeTransport(Integer id);
+    Transport addTransportAndAssignToEvent(Long eventId,Transport transport);
 }

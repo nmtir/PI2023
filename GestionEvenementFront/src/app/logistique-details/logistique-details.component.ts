@@ -17,6 +17,7 @@ export class LogistiqueDetailsComponent implements OnInit {
   eventId:number;
   logistique:Logistique;
   depenses:number;
+  reservations:number;
   role:Role;
   currentUser:User;
   event:Event;
@@ -37,13 +38,15 @@ export class LogistiqueDetailsComponent implements OnInit {
 
     this.eventId=Number(this.route.snapshot.paramMap.get('id'));
     this.depenses=0;
+    this.reservations=0;
     this.loadLogistique();
   }
   private loadLogistique() {
       this.eventService.getEvent(this.eventId).pipe(first()).subscribe(res=>{
         const newObj: any = res;
         this.event = newObj;
-        console.log(this.event.id);
+        this.reservations=this.event.reservations.length;
+        console.log(this.reservations);
       })
 
       this.logistiqueService.getByEventId(this.eventId).pipe(first()).subscribe(res=>{

@@ -60,6 +60,7 @@ import { BlockedMessagesComponent } from './blocked-messages/blocked-messages.co
 import { AddStockComponent } from './add-stock/add-stock.component';
 import { HousingComponent } from './housing/housing.component';
 import { TransportComponent } from './transport/transport.component';
+import { GestionReservationComponent } from './gestion-reservation/gestion-reservation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -119,7 +120,8 @@ import { TransportComponent } from './transport/transport.component';
     BlockedMessagesComponent,
     AddStockComponent,
     HousingComponent,
-    TransportComponent
+    TransportComponent,
+    GestionReservationComponent
   ],
     imports: [
         FormsModule,

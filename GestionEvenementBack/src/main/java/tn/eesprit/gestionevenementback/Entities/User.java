@@ -49,6 +49,7 @@ public class User {
     @JsonIgnore
     @ManyToMany(mappedBy = "views")
     Set<Post> viewedPosts;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "likes")
     Set<Post> likedPosts;

@@ -58,7 +58,7 @@
           <span class="nav-link-text ms-1">RTL</span>
         </a>
       </li>
-    
+
       <li class="nav-item">
         <a class="nav-link " href="../pages/profile.html">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -67,10 +67,10 @@
           <span class="nav-link-text ms-1">Profile</span>
         </a>
       </li>
-   
+
     </ul>
   </div>
-  
+
 </aside>
 <main class="main-content position-relative border-radius-lg ">
   <!-- Navbar -->
@@ -367,11 +367,11 @@
             <table class="table align-items-center ">
               <tbody>
                 <ng-container *ngFor="let item of events">
-    
+
                   <tr>
                     <td class="w-30">
                       <div class="d-flex px-2 py-1 align-items-center">
-                      
+
                         <div class="ms-4">
                           <p class="text-xs font-weight-bold mb-0">Title:</p>
                           <h6 class="text-sm mb-0">{{item.title}}</h6>
@@ -394,7 +394,7 @@
                       <div class="col text-center">
                         <p class="text-xs font-weight-bold mb-0">Status:</p>
                         <ng-container *ngIf="!getDate(item.endDate)">
-                                
+
                           <span class="badge badge-sm bg-gradient-success">Encours</span>
                         </ng-container>
                         <ng-container *ngIf="getDate(item.endDate)">
@@ -404,8 +404,8 @@
                     </td>
                   </tr>
                 </ng-container>
-            
-              
+
+
               </tbody>
             </table>
           </div>
@@ -420,7 +420,7 @@
             <ul class="list-group">
 
               <ng-container *ngFor="let item of groups">
-              
+
               <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                 <div class="d-flex align-items-center">
                   <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
@@ -434,7 +434,7 @@
                   <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
                 </div>
               </li>
-               
+
             </ng-container>
             </ul>
           </div>

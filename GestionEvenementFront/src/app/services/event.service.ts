@@ -44,6 +44,10 @@ private url="http://localhost:8089/api/event";
   updateEvent(id:any,resource){
     return this.http.put<any>(this.url+'/update-event/'+id,resource)
   }
+  updateEventPricing(id:any,TorH:string,resource){
+    console.log(resource);
+    return this.http.put<any>(this.url+`/update-event/pricing/${id}/${TorH}`,resource)
+  }
   getEventByType(){
     return this.http.get<any>(this.url+'/event-by-type')
   }

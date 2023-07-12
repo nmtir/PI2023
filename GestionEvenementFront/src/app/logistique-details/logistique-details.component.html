@@ -14,36 +14,36 @@
       </div>
       <div class="col-md-6 pl-md-5 py-5">
         <div class="row justify-content-start pb-3">
-          <div class="col-md-12 heading-section ftco-animate">
+          <div class="col-md-12 heading-section ">
             <span class="subheading">Logistique</span>
             <h2 class="mb-4"><span>{{event.title}}</span></h2>
             <p>{{event.description}}</p>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+          <a  [routerLink]="['/gestionreservations',{eventid:eventId}]"  class="col-md-6 justify-content-center counter-wrap ">
             <div class="block-18 text-center py-4 bg-light mb-4">
               <div class="text">
                 <div class="icon d-flex justify-content-center align-items-center">
                   <img style="height: 50px;width: Auto;" src="assets/images/teamwork.png">
                 </div>
-                <strong class="number" >0</strong>
-                <span>Particiants</span>
+                <strong class="number" >{{reservations}}</strong>
+                <span>Reservations</span>
               </div>
             </div>
-          </div>
-          <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+          </a>
+          <div class="col-md-6 justify-content-center counter-wrap ">
             <div class="block-18 text-center py-4 bg-light mb-4">
               <div class="text">
                 <div class="icon d-flex justify-content-center align-items-center">
-                  <img style="height: 50px;width: Auto;" src="assets/images/hotel.png">
+                  <img style="height: 50px;width: Auto;" src="assets/images/analytics.png">
                 </div>
                 <strong class="number" >0</strong>
-                <span>Housing</span>
+                <span>Stats</span>
               </div>
             </div>
           </div>
-          <a [routerLink]="['/resource',{data:logistique.logistiqueId}]" class="col-md-6 justify-content-center counter-wrap ftco-animate">
+          <a [routerLink]="['/resource',{data:logistique.logistiqueId}]" class="col-md-6 justify-content-center counter-wrap">
             <div  class="block-18 text-center py-4 bg-light mb-4">
               <div class="text">
                 <div class="icon d-flex justify-content-center align-items-center">
@@ -55,7 +55,7 @@
             </div>
           </a>
 
-          <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+          <div class="col-md-6 justify-content-center counter-wrap ">
 
               <!--[routerLink]="['/auction-detail', auction._id]"-->
             <div class="block-18 text-center py-4 bg-light mb-4">
@@ -64,7 +64,7 @@
                   <img style="height: 50px;width: Auto;" src="assets/images/bus.png">
                 </div>
                 <strong class="number" >0</strong>
-                <span>Transport</span>
+                <span>Transport & Housing</span>
               </div>
             </div>
 
