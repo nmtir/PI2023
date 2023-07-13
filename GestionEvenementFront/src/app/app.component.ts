@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { get } from 'scriptjs';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError} from '@angular/router';
 import {timer} from "rxjs";
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -62,6 +62,8 @@ import { HousingComponent } from './housing/housing.component';
 import { TransportComponent } from './transport/transport.component';
 import { GestionReservationComponent } from './gestion-reservation/gestion-reservation.component';
 import { StatsComponent } from './stats/stats.component';
+import { ChartsComponent } from './charts/charts.component';
+import {NgApexchartsModule} from "ng-apexcharts";
 @NgModule({
   declarations: [
     AppComponent,
@@ -123,9 +125,11 @@ import { StatsComponent } from './stats/stats.component';
     HousingComponent,
     TransportComponent,
     GestionReservationComponent,
-    StatsComponent
+    StatsComponent,
+    ChartsComponent
   ],
     imports: [
+        NgApexchartsModule,
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
