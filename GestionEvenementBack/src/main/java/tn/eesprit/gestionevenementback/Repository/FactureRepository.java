@@ -6,6 +6,6 @@ import tn.eesprit.gestionevenementback.Entities.Facture;
 
 import java.util.List;
 
-public interface FactureRepository extends JpaRepository<Facture, Integer> {
+public interface FactureRepository extends JpaRepository<Facture, Long> {
 
 }

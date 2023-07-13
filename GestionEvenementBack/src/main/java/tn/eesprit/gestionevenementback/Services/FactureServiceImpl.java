@@ -2,6 +2,9 @@ package tn.eesprit.gestionevenementback.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import tn.eesprit.gestionevenementback.Entities.Facture;
 import tn.eesprit.gestionevenementback.Entities.Reclamation;
@@ -11,12 +14,19 @@ import tn.eesprit.gestionevenementback.Repository.FactureRepository;
 import tn.eesprit.gestionevenementback.Repository.ReclamationRepository;
 import tn.eesprit.gestionevenementback.Repository.UserRepository;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 
 public class FactureServiceImpl implements IFactureService{
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+
     @Autowired
     FactureRepository factureRepository;
     @Autowired
@@ -30,6 +40,25 @@ public class FactureServiceImpl implements IFactureService{
 
         return factures;
     }
+
+    @Override
+    public void sednFacture(String toEmail, String attachment) throws MessagingException {
+            MimeMessage mimeMessage=javaMailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true);
+            mimeMessageHelper.setFrom("imenzpidev@gmail.com");
+            mimeMessageHelper.setTo(toEmail);
+            mimeMessageHelper.setText("Votre facture");
+            mimeMessageHelper.setSubject("Facture pour votre reservation");
+
+            FileSystemResource fileSystemResource=
+                    new FileSystemResource(new File("C:/Users/Imen/Downloads/"+attachment));
+            mimeMessageHelper.addAttachment(fileSystemResource.getFilename(),
+                    fileSystemResource);
+            javaMailSender.send(mimeMessage);
+            System.out.printf("Mail with attachment sent successfully..");
+
+    }
+
     @Override
     public Facture affecteFactureToUser(Facture facture, Long id) {
         Facture _facture = userRepository.findById(id).map((User user) -> {

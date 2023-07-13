@@ -1,38 +1,43 @@
 package tn.eesprit.gestionevenementback.Entities;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.java.Log;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
-
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
-public class Reservation implements Serializable {
+
+public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer reservationId;
-    Boolean transportIncluded;
-    String transportStartingAdress;
-    Boolean housingIncluded;
-    Boolean seated;
-    Float price;
-    @OneToOne(mappedBy = "reservation",cascade = CascadeType.REMOVE)
-    Payement payement;
-    @JsonIgnore
-    @ManyToOne
+    @GeneratedValue
+      Long id;
+      String status="Not confirmed";
+    @OneToOne
+     User user;
+    @OneToOne
     Event event;
-    @ManyToOne
-    User user;
-    @JsonIgnore
-    @ManyToOne
-    Transport transport;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "reservation_id")
+    Set<Activity> activites = new HashSet<>();
+    Date dateReservation  ;
+
+public Reservation(User user,Event event,Set<Activity> activites ){
+    this.user=user;
+    this.activites=activites;
+    this.event=event;
+    SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+    Date dateReservation = new Date(System.currentTimeMillis());
+    this.dateReservation= dateReservation;
+}
+
 }
