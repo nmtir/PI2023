@@ -36,6 +36,7 @@ public class Event {
     private EventType type;
     private Float ticketPrice;
     private Float housingPrice;
+    private Float transportPrice;
     private Boolean housingAvailable;
     private Boolean transportAvailable;
 
@@ -70,9 +71,6 @@ public class Event {
     @JsonIgnore
     @OneToOne (mappedBy = "event",cascade = CascadeType.REMOVE)
     Logistique logistique;
-    @JsonIgnore
-    @OneToMany (mappedBy = "event")
-    Set<Transport> transports;
     @JsonIgnore
     @OneToOne (mappedBy = "event",cascade = CascadeType.REMOVE)
     Forum forum;

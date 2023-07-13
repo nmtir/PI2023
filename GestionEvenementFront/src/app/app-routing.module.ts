@@ -34,6 +34,7 @@ import {ForgetPasswordComponent} from "./forget-password/forget-password.compone
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 import {AddStockComponent} from "./add-stock/add-stock.component";
 import {GestionReservationComponent} from "./gestion-reservation/gestion-reservation.component";
+import {StatsComponent} from "./stats/stats.component";
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
@@ -85,7 +86,8 @@ const routes: Routes = [
   { path: "forget-password", component: ForgetPasswordComponent },
   { path: "reset-password", component: ResetPasswordComponent },
   { path: "addstock", component: AddStockComponent },
-  { path: "gestionreservations", component: GestionReservationComponent }
+  { path: "gestionreservations", component: GestionReservationComponent },
+  { path: "stats", component: StatsComponent }
 
 
 

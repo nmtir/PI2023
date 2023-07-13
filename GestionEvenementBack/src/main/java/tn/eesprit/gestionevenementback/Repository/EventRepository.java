@@ -10,5 +10,6 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("SELECT c.type, COUNT(c.type) FROM Event AS c GROUP BY c.type ORDER BY c.type DESC")
     List<Object[]> countTotalEventsByType();
+    List<Event> findAllByUserUserId(Long userId);
 
 }

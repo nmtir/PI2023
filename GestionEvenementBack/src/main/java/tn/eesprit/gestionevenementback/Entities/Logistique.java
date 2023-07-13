@@ -21,6 +21,8 @@ public class Logistique implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer logistiqueId;
     Float depenses;
+    Float totalDepenses;
+    Float totalIncome;
 
 
     @JsonIgnore

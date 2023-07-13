@@ -29,6 +29,9 @@ export class LogistiqueService {
   updateDepenses(logistique: Logistique) {
     return this.http.put(`${environment.apiUrl}/api/logistique/update/depenses`, logistique);
   }
+  updateDepensesFinal(logistique: Logistique) {
+    return this.http.put(`${environment.apiUrl}/api/logistique/update/depenses/total`, logistique);
+  }
   delete(id: string) {
     return this.http.delete(`${environment.apiUrl}/api/logistique/delete/${id}`);
   }

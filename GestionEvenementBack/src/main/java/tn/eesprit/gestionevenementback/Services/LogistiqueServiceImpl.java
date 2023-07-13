@@ -31,6 +31,13 @@ public class LogistiqueServiceImpl implements ILogistiqueService{
         return logistiqueRepo.save(logistique);
     }
     @Override
+    public Logistique calculDepenses(Logistique logistique){
+               Logistique logistique1 =logistiqueRepo.findById(logistique.getLogistiqueId()).orElse(null);
+               logistique1.setTotalDepenses(logistique.getTotalDepenses());
+               logistique1.setTotalIncome(logistique.getTotalIncome());
+        return logistiqueRepo.save(logistique);
+    }
+    @Override
     public Logistique retrieveLogistique(Integer id){return logistiqueRepo.findById(id).orElse(null);}
     @Override
     public Logistique retrieveLogistiqueByEventId(Long id){return logistiqueRepo.findByEventId(id);}

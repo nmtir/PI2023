@@ -51,6 +51,12 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
 
     }
+    @GetMapping("/get-user/username/{username}")
+    public User getEventByUsername(@PathVariable(value = "username") String username) throws ResourceNotFoundException {
+        User user = userRepository.findUserByUsername(username);
+        return user;
+
+    }
     @PutMapping("/active-user/{id}")
     public ResponseEntity<User> activeAccount(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         User user = userRepository.findById(id)

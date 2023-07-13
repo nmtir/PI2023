@@ -11,4 +11,5 @@ public interface ILogistiqueService {
     Logistique retrieveLogistiqueByEventId(Long id);
     Logistique calculDepensesMaterielLogistique(Logistique logistique);
     void removeLogistique(Integer id);
+    Logistique calculDepenses(Logistique logistique);
 }

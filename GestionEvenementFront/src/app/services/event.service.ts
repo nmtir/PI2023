@@ -20,6 +20,11 @@ private url="http://localhost:8089/api/event";
 
       //.catch(this.handleError);
   }
+  getAllByUser(id:any)   {
+    return this.http.get<any>(this.url+'/all-events/user/'+id);
+
+      //.catch(this.handleError);
+  }
 
   getSingle(id:any)   {
     return this.http.get<any>(this.url+'/getSingle/'+id)

@@ -8,4 +8,6 @@ export class Logistique {
   event:Event;
   payement:Payement ;
   ordres:Ordre[] ;
+  totalDepenses:number;
+  totalIncome:number;
 }

@@ -9,6 +9,7 @@ export class Event {
   housingAvailable:boolean;
   housingPrice:number;
   ticketPrice:number;
+  transportPrice:number;
   transportAvailable:boolean;
   lieu:string
   startDate:Date;

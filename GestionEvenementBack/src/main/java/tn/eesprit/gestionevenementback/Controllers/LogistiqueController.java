@@ -25,6 +25,10 @@ public class LogistiqueController {
     Logistique updateDepensesLogistique(@RequestBody Logistique logistique){
         return logistiqueService.calculDepensesMaterielLogistique(logistique);
     }
+    @PutMapping("/update/depenses/total")
+    Logistique updateLogistiqueIncomeAndExpenses(@RequestBody Logistique logistique){
+        return logistiqueService.calculDepenses(logistique);
+    }
     @GetMapping("/get/{id}")
     Logistique getLogistique(@PathVariable("id") Integer id){
         return logistiqueService.retrieveLogistique(id);

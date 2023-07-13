@@ -15,7 +15,7 @@ public class TransportController {
     @PostMapping("/add/{id}")
     Transport addTransport(@PathVariable("id") Long eventId,@RequestBody Transport transport)
     {
-        return transportService.addTransportAndAssignToEvent(eventId,transport);
+        return transportService.addTransportAndAssignToEvent(transport);
     }
     @PutMapping("/update")
     Transport updateTransport(@RequestBody Transport transport){
@@ -24,6 +24,10 @@ public class TransportController {
     @GetMapping("/get/{id}")
     Transport getTransport(@PathVariable("id") Integer id){
         return transportService.retrieveTransport(id);
+    }
+    @GetMapping("/all/{adr}/{eventid}")
+    List<Transport> getAllByStartingAddressAndEvent(@PathVariable("adr") String adr,@PathVariable("eventid") Long eventId){
+        return transportService.retrieveAllByStartingAddressAndEvent(adr,eventId);
     }
     @GetMapping("/all")
     List<Transport> getAllTransports(){return transportService.retrieveAllTransports();}

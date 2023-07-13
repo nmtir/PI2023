@@ -14,11 +14,18 @@
                   <span *ngIf="!SuccessTicket"  (click)="updateTicketPrice()" class="setPriceLink text-sm font-weight-bolder">Set Price</span>
                   <span *ngIf="SuccessTicket"  class="setPriceLink text-sm font-weight-bolder">Saved!</span>
                 </p>
+                <div style="min-width: 300px">
+                  <span style="font-size: 13px">Ticket with Transport Included: <b>{{event.ticketPrice+event.transportPrice}}</b>tnd</span>
+                  <br>
+                  <span style="font-size: 13px">Ticket with Housing Included: <b>{{event.ticketPrice+event.housingPrice}}</b>tnd</span>
+                  <br>
+                  <span style="font-size: 13px">Ticket with Housing & Transport Included: <b>{{event.ticketPrice+event.housingPrice+event.transportPrice}}</b>tnd</span>
+                </div>
               </div>
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                <img src="/assets/images/bill.png" width="40px" height="auto">
               </div>
             </div>
           </div>
@@ -34,7 +41,7 @@
                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Housing Price</p>
                 <h6 *ngIf="!event.housingAvailable" class="font-weight-bolder"> Housing Disabled For This Event</h6>
                 <p *ngIf="event.housingAvailable" class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">Duration: {{event.duration}} Days </span>
+                  <span style="font-size: 12px !important;" class="text-success text-sm font-weight-bolder">expense => {{event.duration}} Days <b>x 98</b> = <b>{{event.duration*98}}</b> tnd</span>
                   <input class="priceInput" type="number" [(ngModel)]="event.housingPrice">
                   <span *ngIf="!SuccessHousing" (click)="updateHousingPrice()" class="setPriceLink text-sm font-weight-bolder">Set Price</span>
                   <span *ngIf="SuccessHousing" class="setPriceLink text-sm font-weight-bolder">Saved!</span>
@@ -60,28 +67,84 @@
                 <h5 *ngIf="!event.transportAvailable" class="font-weight-bolder">
                   Transport Disabled For This Event
                 </h5>
-                <div *ngIf="event.transportAvailable" class="mb-0">
-                  <div style="margin-left: 50px" *ngFor="let startingPoint of reservationsByStartingPoint | keyvalue">
-                    <div style="display: flex">
-                    <h3>
-                      {{ startingPoint.key }}:
-                    </h3>
-                      <div style="align-content: center;align-content: center;text-align: center"><a class="setPriceLink" style="padding-left: 20px" *ngIf="showAddButton(startingPoint.value)" (click)="addTransport(startingPoint.key,startingPoint.value)">Add Transportation</a>
-                      </div>
+              </div>
+              <div *ngIf="event.transportAvailable" class="mb-0">
+                <div style="margin-left: 50px">
+                  <div class="tabs-container">
+                    <!-- Tab labels -->
+                    <div *ngFor="let startingPoint of reservationsByStartingPoint | keyvalue" class="tab">
+                      <input type="radio" name="tabGroup" [id]="startingPoint.key" [checked]="startingPoint === reservationsByStartingPoint[0]"
+                             (change)="selectedTab = startingPoint.key">
+                      <label [for]="startingPoint.key">{{ startingPoint.key }}</label>
                     </div>
-                    <ul>
-                      <li style="margin-left: 50px" *ngFor="let reservation of startingPoint.value"
-                          [ngClass]="{ 'text-danger': !reservation.seated }">
-                        {{ reservation.user.username }}
-                      </li>
-                    </ul>
                   </div>
+                  <div class="tab-content">
+                    <!-- Tab content -->
+                    <div *ngFor="let startingPoint of reservationsByStartingPoint | keyvalue" class="tab-item"
+                         [class.active]="selectedTab === startingPoint.key">
+                      <div style="align-content: center; align-items: center; text-align: center" *ngIf="showAddButton(startingPoint.value)">
+                        <a class="setPriceLink" (click)="addTransport(startingPoint.key, startingPoint.value)">
+                          <img src="assets/images/carpool.png" width="40px" height="auto">
+                        </a>
+                      </div>
+                      <ul style="flex-grow: 1; overflow-y: auto; max-height: 100px">
+                        <li *ngFor="let reservation of startingPoint.value" [ngClass]="{ 'text-danger': !reservation.seated }">
+                          {{ reservation.user.username }}
+                        </li>
+                      </ul>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="details-square">
+                <!-- Total price in top right corner -->
+                <div style="padding-left: 200px" class="total-price" >
+                  <div style="display: flex; gap: 5px; align-items: center;">
+                    <span>Total Transport Expenses:</span>
+                    <span><b>{{(vanCount*50)+(miniBusCount*180)+(busCount*240)}}</b></span>
+                    <span> tnd</span>
+                  </div>
+                </div>
+                <div>
+                  <ul class="element-list">
+                    <li>
+                      <span class="number">{{busCount}}</span>
+                      <span> x </span>
+                      <img src="assets/images/bus1.png" width="30px" height="auto">
+                      <span> : </span>
+                      <span class="total">{{busCount*240}}</span>
+                      <span> tnd </span>
+                    </li>
+                    <li>
+                      <span class="number">{{miniBusCount}}</span>
+                      <span> x </span>
+                      <img src="assets/images/van.png" width="30px" height="auto">
+                      <span> : </span>
+                      <span class="total">{{miniBusCount*180}}</span>
+                      <span> tnd </span>
+                    </li>
+                    <li>
+                      <span class="number">{{vanCount}}</span>
+                      <span> x </span>
+                      <img src="assets/images/minivan.png" width="30px" height="auto">
+                      <span> : </span>
+                      <span class="total">{{vanCount*50}}</span>
+                      <span> tnd </span>
+                    </li>
+                  </ul>
+                  <input class="priceInput" type="number" [(ngModel)]="event.transportPrice">
+                  <br>
+                  <span *ngIf="!SuccessTransport" (click)="updateTransportPrice()" class="setPriceLink text-sm font-weight-bolder">Set Transport Price</span>
+                  <span *ngIf="SuccessTransport" class="setPriceLink text-sm font-weight-bolder">Saved!</span>
                 </div>
               </div>
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                <img src="/assets/images/bus.png" width="40px" height="auto">
               </div>
             </div>
           </div>
@@ -92,16 +155,176 @@
   <div class="row mt-4">
     <div class="col-lg-7 mb-lg-0 mb-4">
       <div class="card z-index-2 h-100">
-        <div class="card-header pb-0 pt-3 bg-transparent">
-          <h6 class="text-capitalize">Sales overview</h6>
-          <p class="text-sm mb-0">
-            <i class="fa fa-arrow-up text-success"></i>
-            <span class="font-weight-bold">4% more</span> in 2021
-          </p>
-        </div>
         <div class="card-body p-3">
-          <div class="chart">
-            <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+          <div>
+            <div class="card-header pb-0 p-3">
+              <div class="d-flex justify-content-between" style="display: flex;justify-content: space-between;padding-bottom: 25px">
+                <h3 class="mb-2">Resevations</h3>
+                <h5  (click)="addNewForm()" style="cursor: pointer" class="mb-2 addLink"><a>Add</a></h5>
+              </div>
+            </div>
+
+            <div  style="min-height:327px">
+              <ul class="example-box no-margin">
+                <li style="display: flex;">
+                  <div style="border-radius: 20px 0 0 0;" class="table-cell1 table-row1 centered-div">
+                    <span (click)="SortingMethod='Username';sortBy(SortingMethod)" style="font-size: 15px">
+                      <b>Username</b>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Username')&&ascending">(dsc)</span>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Username')&&!ascending">(asc)</span>
+                    </span>
+                  </div>
+                  <div class="table-cell table-row centered-div">
+                    <span (click)="SortingMethod='Housing';sortBy(SortingMethod)" style="font-size: 15px">
+                      <b>Housing</b>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Housing')&&ascending">(asc)</span>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Housing')&&!ascending">(dsc)</span>
+                    </span>
+                  </div>
+                  <div class="table-cell table-row centered-div">
+                    <span (click)="SortingMethod='Transport';sortBy(SortingMethod)" style="font-size: 15px">
+                      <b>Transport</b>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Transport')&&ascending">(asc)</span>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Transport')&&!ascending">(dsc)</span>
+                    </span>
+                  </div>
+                  <div class="table-cell table-row centered-div">
+                    <span (click)="SortingMethod='Seated';sortBy(SortingMethod)" style="font-size: 15px">
+                      <b>Seated</b>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Seated')&&ascending">(asc)</span>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Seated')&&!ascending">(dsc)</span>
+                    </span>
+                  </div>
+                  <div class="table-cell table-row centered-div">
+                    <span (click)="SortingMethod='Price';sortBy(SortingMethod)" style="font-size: 15px">
+                      <b>Paid Amount</b>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Price')&&ascending">(asc)</span>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Price')&&!ascending">(dsc)</span>
+                    </span>
+                  </div>
+                  <div class="table-cell table-row centered-div">
+                    <span (click)="SortingMethod='Address';sortBy(SortingMethod)" style="font-size: 15px">
+                      <b>Adress</b>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Adress')&&ascending">(asc)</span>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Adress')&&!ascending">(dsc)</span>
+                    </span>
+                  </div>
+                  <div style="border-radius:0 20px 0 0 ;" class="table-cell table-row centered-div">
+                    <span (click)="SortingMethod='Status';sortBy(SortingMethod)" style="font-size: 15px">
+                      <b>Status</b>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Status')&&ascending">(dsc)</span>
+                      <span style="font-size: 10px;" *ngIf="(SortingMethod=='Status')&&!ascending">(asc)</span>
+                    </span>
+                  </div>
+                  <div style="background-color: transparent !important; border:none !important;border-radius:0 20px 0 0 ;" class="table-cell table-row centered-div">
+                    <span style="font-size: 15px"><b></b></span>
+                  </div>
+                </li>
+              </ul>
+
+              <ul class="example-box no-margin" *ngFor="let r of event.reservations; let i = index">
+                <li style="display: flex;">
+                  <div class="table-row1 centered-div"[ngClass]="{'table-row': true, 'centered-div': true, 'first-cell': i === event.reservations.length - 1,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                    <form [formGroup]="usernameForm">
+                    <span *ngIf="r.user!== undefined" style="background-color: transparent" class="table-quantity-input"><b>{{r.user.username}}</b></span>
+                    <input *ngIf="r.user===undefined" formControlName="username" style="background-color: transparent; border: none" class="table-quantity-input" type="text">
+                    </form>
+                  </div>
+                  <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                    <input *ngIf="!r.edit" type="checkbox" [(ngModel)]="r.housingIncluded" class="table-quantity-input" onclick="return false;">
+                    <input *ngIf="r.edit" type="checkbox" [(ngModel)]="r.housingIncluded" class="table-quantity-input" >
+                  </div>
+                  <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                    <input *ngIf="!r.edit" type="checkbox" [(ngModel)]="r.transportIncluded"  class="table-quantity-input" onclick="return false;">
+                    <input *ngIf="r.edit" type="checkbox" [(ngModel)]="r.transportIncluded"  class="table-quantity-input" >
+                  </div>
+                  <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                    <input *ngIf="r.transportIncluded&&!r.edit" type="checkbox" [(ngModel)]="r.seated" class="table-quantity-input" onclick="return false;">
+                    <span *ngIf="!r.transportIncluded&&!r.edit"  class="table-quantity-input" ><b>-</b></span>
+                    <span *ngIf="r.edit"  class="table-quantity-input" ><b>-</b></span>
+                  </div>
+                  <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                    <input *ngIf="!r.edit" type="number"  style="background-color: transparent" [(ngModel)]="r.paidPrice" class="table-quantity-input" readonly>
+                    <input *ngIf="r.edit" type="number"  style="background-color: transparent" [(ngModel)]="r.paidPrice" class="table-quantity-input">
+                  </div>
+                  <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                    <input *ngIf="r.transportIncluded&&!r.edit" type="text"  style="background-color: transparent" [(ngModel)]="r.transportStartingAdress" class="table-quantity-input" readonly>
+                    <span *ngIf="!r.transportIncluded&&!r.edit"  class="table-quantity-input" ><b>-</b></span>
+                    <input *ngIf="r.transportIncluded&&r.edit" type="text"  style="background-color: transparent" [(ngModel)]="r.transportStartingAdress" class="table-quantity-input">
+                  </div>
+                  <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
+                    <select style="background-color: transparent" *ngIf="!r.edit" [(ngModel)]="r.status" class="table-quantity-input" readonly>
+                      <option *ngFor="let option of statusEnum" [value]="option">{{ option }}</option>
+                    </select>
+                    <select style="background-color: transparent" *ngIf="r.edit" [(ngModel)]="r.status" class="table-quantity-input">
+                      <option *ngFor="let option of statusEnum" [value]="option">{{ option }}</option>
+                    </select>
+                  </div>
+                  <div [ngClass]="{'table-row': true, 'clearLink': true, 'centered-div': true, 'last-cell': i === event.reservations.length - 1, 'last-cell-first-line': i === 0,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}" style="cursor:pointer">
+                    <a *ngIf="r.edit" (click)="AddReservation(r)" >Save</a>
+                    <a *ngIf="r.status!=Status.Suspended&&!r.edit" (click)="updateReservation(r)" >Update</a>
+                    <a *ngIf="r.status==Status.Suspended&&!r.edit" (click)="remove(r)">Remove</a>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+            <div style="padding-right: 25px">
+              <div class="d-flex align-items-center">
+                <button   class="btnn btn-sm ms-auto">
+                  <span>
+                    <b>Expenses </b>&<b> Income</b> :
+                  </span>
+                  <br>
+                  <br>
+                  <span>
+                    Transport Expenses = {{(vanCount*50)+(miniBusCount*180)+(busCount*240)}} tnd
+                  </span>
+                  <br>
+                  <span>
+                    Housing Expenses = {{98*countHousing*event.duration}} tnd
+                  </span>
+                  <br>
+                  <span>
+                    Material Expenses = {{depenses}} tnd
+                  </span>
+                  <br>
+                  <span>
+                    <b>Total Expenses</b> = {{(98*countHousing*event.duration)+((vanCount*50)+(miniBusCount*180)+(busCount*240))+depenses}} tnd
+                  </span>
+                  <br>
+                  <br>
+                  <span>
+                    Transport Income = {{event.transportPrice*countTransport}} tnd
+                  </span>
+                  <br>
+                  <span>
+                    Housing Income = {{event.housingPrice*countHousing}} tnd
+                  </span>
+                  <br>
+                  <span>
+                    Tickets Income = {{event.ticketPrice*countTicket}} tnd
+                  </span>
+                  <br>
+                  <span>
+                    <b>Total Income</b> = {{(event.housingPrice*countHousing)+(event.transportPrice*countTransport)+(event.ticketPrice*countTicket)}} tnd
+                  </span>
+                  <br>
+                  <br>
+                  <span>
+                    <b>Profit</b> = {{((event.housingPrice*countHousing)+(event.transportPrice*countTransport)+(event.ticketPrice*countTicket))-(depenses+(98*countHousing*event.duration)+((vanCount*50)+(miniBusCount*180)+(busCount*240)))}} tnd
+                  </span>
+
+                  <br>
+                </button>
+              </div>
+            </div>
+
+
+
+
+
+
           </div>
         </div>
       </div>

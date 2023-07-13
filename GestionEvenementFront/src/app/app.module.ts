@@ -61,6 +61,7 @@ import { AddStockComponent } from './add-stock/add-stock.component';
 import { HousingComponent } from './housing/housing.component';
 import { TransportComponent } from './transport/transport.component';
 import { GestionReservationComponent } from './gestion-reservation/gestion-reservation.component';
+import { StatsComponent } from './stats/stats.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -121,7 +122,8 @@ import { GestionReservationComponent } from './gestion-reservation/gestion-reser
     AddStockComponent,
     HousingComponent,
     TransportComponent,
-    GestionReservationComponent
+    GestionReservationComponent,
+    StatsComponent
   ],
     imports: [
         FormsModule,

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tn.eesprit.gestionevenementback.Entities.Reservation;
 import tn.eesprit.gestionevenementback.Services.IReservationService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -17,13 +18,18 @@ public class ReservationController {
     {
         return reservationService.addOrUpdateReservation(reservation);
     }
-    @PutMapping("/update")
-    Reservation updateReservation(@RequestBody Reservation reservation){
-        return reservationService.addOrUpdateReservation(reservation);
+    @PostMapping("/user/{userid}/reservation/{eventid}")
+        Reservation AddReservation(@PathVariable("userid")Long userId,@PathVariable("eventid")Long eventId, @RequestBody Reservation reservation)
+    {
+        return reservationService.updateReservation(eventId,reservation);
     }
-    @PutMapping("/update/seated")
-    Reservation updateSeated(@RequestBody Reservation reservation){
-        return reservationService.UpdateSeated(reservation);
+    @PutMapping("/update/status")
+    Reservation updateReservation(@RequestBody Reservation reservation){
+        return reservationService.UpdateStatusReservation(reservation);
+    }
+    @PutMapping("/update/seated/{id}")
+    Reservation updateSeated(@PathVariable("id")Integer id,@RequestBody Reservation reservation) throws IOException {
+        return reservationService.UpdateSeated (id,reservation);
     }
     @GetMapping("/get/{id}")
     Reservation getReservation(@PathVariable("id") Integer id){

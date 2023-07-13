@@ -16,6 +16,9 @@ private url="http://localhost:8089/api/reservation";
  addReservation(userId:any,eventId:any){
     return this.http.post<any>(this.url+'/user/'+userId+'/reservation/'+eventId,{})
  }
+ AddReservation(reservation:any,userId:any,eventId:any){
+    return this.http.post<any>(this.url+'/user/'+userId+'/reservation/'+eventId,reservation)
+ }
 
 
  getAllReservation (){
@@ -25,8 +28,17 @@ private url="http://localhost:8089/api/reservation";
    delete (id:any){
       return this.http.delete<any>(this.url+'/delete/'+id)
      }
-  updateSeated(reservation: Reservation) {
-    return this.http.put(this.url+`/update/seated`, reservation);
+  updateSeated(reservation: Reservation,id:any) {
+    console.log(reservation);
+    return this.http.put(this.url+`/update/seated/${id}`, reservation);
+  }
+  update(reservation: Reservation) {
+    console.log(reservation);
+    return this.http.put(this.url+`/update`, reservation);
+  }
+  updateStatus(reservation: Reservation) {
+    console.log(reservation);
+    return this.http.put(this.url+`/update/status`, reservation);
   }
 
 

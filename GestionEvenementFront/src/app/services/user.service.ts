@@ -18,6 +18,9 @@ export class UserService {
   getUser(id:any){
     return this.http.get<any>(this.url+'/get-user/'+id)
   }
+  getUserByUsername(username:any){
+    return this.http.get<any>(this.url+'/get-user/username/'+username);
+  }
 
   getAll(){
     return this.http.get<any>(this.url+'/get-users')

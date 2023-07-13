@@ -38,6 +38,10 @@ public ResponseEntity<Event> getEvent(@PathVariable(value = "id") Long id) throw
     public ResponseEntity<List<Event>> getAllEvents(){
        return  new ResponseEntity<>( eventService.retrieveAllEvents(), HttpStatus.OK);
     }
+    @GetMapping("/all-events/user/{id}")
+    public List<Event> getAllEventsByUser(@PathVariable("id") Long userId){
+        return eventRepository.findAllByUserUserId(userId);
+    }
     @DeleteMapping("/delete-event/{id}")
     public ResponseEntity<HttpStatus> deleteEvent(@PathVariable("id") long id) {
         eventService.deleteEvent(id);
@@ -69,6 +73,9 @@ public ResponseEntity<Event> getEvent(@PathVariable(value = "id") Long id) throw
         }
         if (TorH.contains("h")){
             _event.setHousingPrice(event.getHousingPrice());
+        }
+        if (TorH.contains("x")){
+            _event.setTransportPrice(event.getTransportPrice());
         }
         eventRepository.save(_event);
 

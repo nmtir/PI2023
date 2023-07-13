@@ -98,9 +98,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" routerLink="/events" routerLinkActive="active">
+                <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" [routerLink]="['/stats',{id:currentUser}]" routerLinkActive="active">
                   <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
-                   My Events
+                   Stats
                 </a>
               </li>
               <li class="nav-item">

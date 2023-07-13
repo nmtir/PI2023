@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Transport} from "../_Models/Transport";
 import {environment} from "../../envirenments/envirenment";
+import {Reservation} from "../_Models/Reservation";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,9 @@ export class TransportService {
 
   getAll() {
     return this.http.get<Transport[]>(`${environment.apiUrl}/api/transport/all`);
+  }
+  getAllByStartingAddressAndEvent(adr:any,eventId:any) {
+    return this.http.get<Transport[]>(`${environment.apiUrl}/api/transport/all/${adr}/${eventId}`);
   }
   update(transport: Transport) {
     console.log(transport);
