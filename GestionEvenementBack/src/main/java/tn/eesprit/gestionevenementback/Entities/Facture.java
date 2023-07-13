@@ -1,12 +1,11 @@
 package tn.eesprit.gestionevenementback.Entities;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,20 +19,15 @@ import java.util.Set;
 public class Facture implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long factureId;
-
-    Epayement payement;
-    @Temporal(TemporalType.TIME)
-    Date  dateFacture;
-    private double sum;
-
-    public Facture(Epayement epayement,double sum){
-        this.payement=epayement;
-        this.sum=sum;
-    }
-    @JsonIgnore
+    Long FactureId;
     @OneToOne
-    Payement payementId;
+     Reservation reservation;
+    Double sum;
+    public Facture(Reservation reservation,Double sum){
+        this.reservation=reservation;
+        this.sum=sum;
+
+    }
 
 
 }

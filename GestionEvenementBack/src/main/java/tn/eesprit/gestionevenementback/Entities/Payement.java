@@ -1,8 +1,6 @@
 package tn.eesprit.gestionevenementback.Entities;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -17,15 +15,16 @@ import java.io.Serializable;
 public class Payement implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer payementId;
-
-    @OneToOne(mappedBy = "payementId")
-    Facture facture;
-    @JsonIgnore
+    Long id;
     @OneToOne
-    Logistique logistique;
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.PERSIST)
     Reservation reservation;
+    Double sum;
+
+    Boolean status=false;
+    public Payement(Reservation reservation,Double sum){
+        this.reservation=reservation;
+        this.sum=sum;
+
+    }
 
 }

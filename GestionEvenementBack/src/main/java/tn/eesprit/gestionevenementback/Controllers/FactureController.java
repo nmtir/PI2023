@@ -1,18 +1,27 @@
 package tn.eesprit.gestionevenementback.Controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.eesprit.gestionevenementback.Entities.Facture;
+import tn.eesprit.gestionevenementback.Entities.Payement;
+import tn.eesprit.gestionevenementback.Entities.Reservation;
 import tn.eesprit.gestionevenementback.Entities.User;
 import tn.eesprit.gestionevenementback.Exception.ResourceNotFoundException;
 import tn.eesprit.gestionevenementback.Repository.FactureRepository;
+import tn.eesprit.gestionevenementback.Repository.PayementRepository;
+import tn.eesprit.gestionevenementback.Repository.ReservationRepository;
 import tn.eesprit.gestionevenementback.Repository.UserRepository;
+import tn.eesprit.gestionevenementback.Services.EmailService;
 import tn.eesprit.gestionevenementback.Services.IFactureService;
+import tn.eesprit.gestionevenementback.Services.PayementServiceImpl;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,28 +29,46 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 
 public class FactureController {
-    private final IFactureService factureService;
+    private final IFactureService iFactureService;
+
+    private final PayementRepository payementRepository;
+
     private final UserRepository userRepository;
-    private final FactureRepository factureRepository;
+
+
+    private final ReservationRepository reservationRepository;
+
+
+    private final EmailService emailService;
     @GetMapping("/users/{id}/factures")
     public ResponseEntity<List<Facture>> getAllFactureByUserid(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found user with id = " + id));
 
-        List<Facture> factures = new ArrayList<Facture>();
-        factures.addAll(user.getFactures());
 
-        return new ResponseEntity<>(factures, HttpStatus.OK);
+        return new ResponseEntity<>(iFactureService.listFactureByUser(id), HttpStatus.OK);
     }
-    @PostMapping("/users/{id}/facture")
-    public ResponseEntity<Facture> creatReclamation(@PathVariable(value = "id") Long id,
-                                                        @RequestBody Facture facture) throws ResourceNotFoundException {
-        Facture _facture = userRepository.findById(id).map((User user) -> {
-            user.getFactures().add(facture);
-            return factureRepository.save(facture);
-        }).orElseThrow(() -> new ResourceNotFoundException("Not found User with id = " + id));
+    @PostMapping("/api/facture/{resId}/{id}")
+    public ResponseEntity<Facture> creatFacture(@PathVariable(value = "resId") Long resId,@PathVariable(value = "id") Long id,
+                                                        @RequestBody Double sum) throws ResourceNotFoundException {
 
-        return new ResponseEntity<>(_facture, HttpStatus.CREATED);
+
+        Optional<Reservation> reservation=reservationRepository.findById(resId);
+
+        Payement payement=new Payement(reservation.get(),sum);
+        payementRepository.save(payement);
+        Optional<User> user=userRepository.findById(id);
+        String txt="Votre reservation a éte confirmer ";
+        reservation.get().setStatus("Confirmed");
+        reservationRepository.save(reservation.get());
+
+        emailService.sendMailConfirmation(user.get().getEmail(),txt);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
+@PostMapping("/sendFacture/{attechment}")
+    public ResponseEntity<?> sendFacture(@RequestBody String to,@PathVariable String attechment) throws MessagingException {
+        iFactureService.sednFacture(to,attechment);
+        return new ResponseEntity<>("",HttpStatus.OK);
+}
+
 
 }
