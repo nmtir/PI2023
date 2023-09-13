@@ -64,6 +64,7 @@ import { GestionReservationComponent } from './gestion-reservation/gestion-reser
 import { StatsComponent } from './stats/stats.component';
 import { ChartsComponent } from './charts/charts.component';
 import {NgApexchartsModule} from "ng-apexcharts";
+import { LoadingPageComponent } from './loading-page/loading-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,7 +127,8 @@ import {NgApexchartsModule} from "ng-apexcharts";
     TransportComponent,
     GestionReservationComponent,
     StatsComponent,
-    ChartsComponent
+    ChartsComponent,
+    LoadingPageComponent
   ],
     imports: [
         NgApexchartsModule,
