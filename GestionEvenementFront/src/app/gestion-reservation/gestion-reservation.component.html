@@ -232,15 +232,15 @@
                     </form>
                   </div>
                   <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
-                    <input *ngIf="!r.edit" type="checkbox" [(ngModel)]="r.housingIncluded" class="table-quantity-input" onclick="return false;">
+                    <input *ngIf="!r.edit" type="checkbox" [(ngModel)]="r.housingIncluded" class="table-quantity-input no-hover" onclick="return false; ">
                     <input *ngIf="r.edit" type="checkbox" [(ngModel)]="r.housingIncluded" class="table-quantity-input" >
                   </div>
                   <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
-                    <input *ngIf="!r.edit" type="checkbox" [(ngModel)]="r.transportIncluded"  class="table-quantity-input" onclick="return false;">
+                    <input *ngIf="!r.edit" type="checkbox" [(ngModel)]="r.transportIncluded"  class="table-quantity-input no-hover" onclick="return false;">
                     <input *ngIf="r.edit" type="checkbox" [(ngModel)]="r.transportIncluded"  class="table-quantity-input" >
                   </div>
                   <div [ngClass]="{'table-row': true, 'centered-div': true,'white-row': i % 2 === 0, 'grey-row': i % 2 !== 0}">
-                    <input *ngIf="r.transportIncluded&&!r.edit" type="checkbox" [(ngModel)]="r.seated" class="table-quantity-input" onclick="return false;">
+                    <input *ngIf="r.transportIncluded&&!r.edit" type="checkbox" [(ngModel)]="r.seated" class="table-quantity-input no-hover" onclick="return false;">
                     <span *ngIf="!r.transportIncluded&&!r.edit"  class="table-quantity-input" ><b>-</b></span>
                     <span *ngIf="r.edit"  class="table-quantity-input" ><b>-</b></span>
                   </div>
@@ -270,61 +270,6 @@
               </ul>
 
             </div>
-            <div style="padding-right: 25px">
-              <div class="d-flex align-items-center">
-                <button   class="btnn btn-sm ms-auto">
-                  <span>
-                    <b>Expenses </b>&<b> Income</b> :
-                  </span>
-                  <br>
-                  <br>
-                  <span>
-                    Transport Expenses = {{(vanCount*50)+(miniBusCount*180)+(busCount*240)}} tnd
-                  </span>
-                  <br>
-                  <span>
-                    Housing Expenses = {{98*countHousing*event.duration}} tnd
-                  </span>
-                  <br>
-                  <span>
-                    Material Expenses = {{depenses}} tnd
-                  </span>
-                  <br>
-                  <span>
-                    <b>Total Expenses</b> = {{(98*countHousing*event.duration)+((vanCount*50)+(miniBusCount*180)+(busCount*240))+depenses}} tnd
-                  </span>
-                  <br>
-                  <br>
-                  <span>
-                    Transport Income = {{event.transportPrice*countTransport}} tnd
-                  </span>
-                  <br>
-                  <span>
-                    Housing Income = {{event.housingPrice*countHousing}} tnd
-                  </span>
-                  <br>
-                  <span>
-                    Tickets Income = {{event.ticketPrice*countTicket}} tnd
-                  </span>
-                  <br>
-                  <span>
-                    <b>Total Income</b> = {{(event.housingPrice*countHousing)+(event.transportPrice*countTransport)+(event.ticketPrice*countTicket)}} tnd
-                  </span>
-                  <br>
-                  <br>
-                  <span>
-                    <b>Profit</b> = {{((event.housingPrice*countHousing)+(event.transportPrice*countTransport)+(event.ticketPrice*countTicket))-(depenses+(98*countHousing*event.duration)+((vanCount*50)+(miniBusCount*180)+(busCount*240)))}} tnd
-                  </span>
-
-                  <br>
-                </button>
-              </div>
-            </div>
-
-
-
-
-
 
           </div>
         </div>
@@ -334,49 +279,71 @@
       <div class="card card-carousel overflow-hidden h-100 p-0">
         <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
           <div class="carousel-inner border-radius-lg h-100">
-            <div class="carousel-item h-100 active" style="background-image: url('assets/img/carousel-1.jpg');
-      background-size: cover;">
-              <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                  <i class="ni ni-camera-compact text-dark opacity-10"></i>
+            <div class="carousel-item h-100 active" style="background-size: cover;">
+              <div style="padding-right: 25px;padding-top: 25px">
+                <div class="container">
+                  <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                      <th colspan="2">Expenses</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>Transport Expenses</td>
+                      <td>{{(vanCount*50)+(miniBusCount*180)+(busCount*240)}} tnd</td>
+                    </tr>
+                    <tr>
+                      <td>Housing Expenses</td>
+                      <td>{{98*countHousing*event.duration}} tnd</td>
+                    </tr>
+                    <tr>
+                      <td>Material Expenses</td>
+                      <td>{{depenses}} tnd</td>
+                    </tr>
+                    <tr>
+                      <td>Total Expenses</td>
+                      <td>{{(98*countHousing*event.duration)+((vanCount*50)+(miniBusCount*180)+(busCount*240))+depenses}} tnd</td>
+                    </tr>
+                    </tbody>
+                  </table>
+
+                  <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                      <th colspan="2">Income</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>Transport Income</td>
+                      <td>{{event.transportPrice*countTransport}} tnd</td>
+                    </tr>
+                    <tr>
+                      <td>Housing Income</td>
+                      <td>{{event.housingPrice*countHousing}} tnd</td>
+                    </tr>
+                    <tr>
+                      <td>Tickets Income</td>
+                      <td>{{event.ticketPrice*countTicket}} tnd</td>
+                    </tr>
+                    <tr>
+                      <td>Total Income</td>
+                      <td>{{(event.housingPrice*countHousing)+(event.transportPrice*countTransport)+(event.ticketPrice*countTicket)}} tnd</td>
+                    </tr>
+                    </tbody>
+                  </table>
+
+                  <h4><b>Profit</b></h4>
+                  <p>{{((event.housingPrice*countHousing)+(event.transportPrice*countTransport)+(event.ticketPrice*countTicket))-(depenses+(98*countHousing*event.duration)+((vanCount*50)+(miniBusCount*180)+(busCount*240)))}} tnd</p>
                 </div>
-                <h5 class="text-white mb-1">Get started with Argon</h5>
-                <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
-              </div>
-            </div>
-            <div class="carousel-item h-100" style="background-image: url('assets/img/carousel-2.jpg');
-      background-size: cover;">
-              <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                  <i class="ni ni-bulb-61 text-dark opacity-10"></i>
-                </div>
-                <h5 class="text-white mb-1">Faster way to create web pages</h5>
-                <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
-              </div>
-            </div>
-            <div class="carousel-item h-100" style="background-image: url('assets/img/carousel-3.jpg');
-      background-size: cover;">
-              <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                  <i class="ni ni-trophy text-dark opacity-10"></i>
-                </div>
-                <h5 class="text-white mb-1">Share with us your design tips!</h5>
-                <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
               </div>
             </div>
           </div>
-          <button class="carousel-control-prev w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   <footer class="footer pt-3  ">
     <div class="container-fluid">
       <div class="row align-items-center justify-content-lg-between">
